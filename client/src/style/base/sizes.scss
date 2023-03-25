@@ -1,0 +1,32 @@
+// every size is based on a 4px grid
+// this means 0.4rem in a normal screen
+// since we changed 1rem = to be 10px
+
+@function size($val) {
+  @return $val * 0.4rem;
+}
+
+@mixin generateClassSizeVariants($class, $property, $start, $end) {
+  @for $index from $start to $end {
+    #{'.' + $class + '-' + $index} {
+      #{$property}: size($index);
+    }
+  }
+}
+
+// TODO: maybe I'm over-thinking it ... this takes a lot of space
+@include generateClassSizeVariants('m', 'margin', 0, 100);
+@include generateClassSizeVariants('mb', 'margin-bottom', 0, 100);
+@include generateClassSizeVariants('mt', 'margin-top', 0, 100);
+@include generateClassSizeVariants('ml', 'margin-left', 0, 100);
+@include generateClassSizeVariants('mr', 'margin-right', 0, 100);
+
+@include generateClassSizeVariants('p', 'padding', 0, 100);
+@include generateClassSizeVariants('pb', 'padding-bottom', 0, 100);
+@include generateClassSizeVariants('pt', 'padding-top', 0, 100);
+@include generateClassSizeVariants('pl', 'padding-left', 0, 100);
+@include generateClassSizeVariants('pr', 'padding-right', 0, 100);
+
+.w-100 {
+  width: 100%;
+}

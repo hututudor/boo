@@ -1,5 +1,32 @@
 @import '../base/index.scss';
+@import '../components/index.scss';
 
-.test {
-  color: $purple-050;
+.page {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+
+  background: url('../assets/books.jpg');
+  background-position: 0;
+  background-size: cover;
+
+  &-container {
+    background-color: $warm-grey-050;
+    border-radius: size(1);
+    padding: size(8) size(8);
+
+    margin-left: size(20);
+    min-width: size(60);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &-logo {
+      width: size(20);
+      margin-bottom: size(2);
+    }
+  }
 }
