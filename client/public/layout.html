@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout</title>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="fork-awesome.css" />
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+
+    <script src="./scripts/navigate.js"></script>
+  </head>
+  <body>
+    <aside class="side">
+      <div class="side-logo">
+        <img src="assets/logo_white.svg" alt="logo" />
+      </div>
+      <div class="side-search">
+        <input type="text" id="search" placeholder="Search" />
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </div>
+      <div class="side-links">
+        <button class="side-link side-link__active">
+          <i class="fa fa-home" aria-hidden="true"></i>
+          Home
+        </button>
+        <button class="side-link">
+          <i class="fa fa-book" aria-hidden="true"></i>
+          Books
+        </button>
+        <button class="side-link">
+          <i class="fa fa-comment" aria-hidden="true"></i>
+          Reviews
+        </button>
+        <div class="mt-3"></div>
+        <button class="side-link" onClick="goTo('./login.html')">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          Login
+        </button>
+        <button class="side-link" onClick="goTo('./register.html')">
+          <i class="fa fa-user-plus" aria-hidden="true"></i>
+          Register
+        </button>
+      </div>
+      <div class="side-footer">
+        <div class="text text__14">boo @ 2023</div>
+      </div>
+    </aside>
+
+    <main>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus
+        officiis eligendi nobis animi quia tempore totam. Sit accusantium
+        debitis, beatae necessitatibus perspiciatis illo qui dolores, fugiat
+        quas mollitia eos id.
+      </p>
+    </main>
+  </body>
+</html>
