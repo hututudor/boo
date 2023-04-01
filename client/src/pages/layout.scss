@@ -1,0 +1,132 @@
+.side {
+  width: size(60);
+  min-height: 100vh;
+
+  position: fixed;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background-color: $purple-500;
+
+  &-logo {
+    height: size(10);
+    background-color: $purple-500;
+    padding-top: size(10);
+    padding-bottom: size(10);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: size(20);
+    }
+  }
+
+  &-links {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  &-link {
+    @include text;
+    @include text__16;
+
+    border: none;
+    outline: none;
+
+    height: size(10);
+    text-align: left;
+
+    margin: size(2) size(4);
+    padding-left: size(5);
+    cursor: pointer;
+
+    background-color: $purple-100;
+    border-radius: size(1);
+
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background-color: $purple-050;
+    }
+
+    &:active {
+      transform: scale(95%);
+    }
+
+    &__active {
+      background-color: $purple-050;
+
+      &:active {
+        background-color: $purple-050;
+      }
+    }
+
+    & > i {
+      @include text__14;
+      margin-right: size(2);
+    }
+  }
+
+  &-search {
+    display: flex;
+    flex-direction: column;
+    margin: size(2) size(4);
+    position: relative;
+    margin-top: size(5);
+    margin-bottom: size(5);
+
+    > i {
+      @include text;
+      @include text__14;
+
+      position: absolute;
+      left: size(4);
+      top: 50%;
+      transform: translateY(-50%);
+
+      cursor: pointer;
+    }
+
+    > input {
+      @include text;
+      @include text__14;
+
+      padding-left: size(9);
+      padding-right: size(1);
+      border: 1px solid $warm-grey-200;
+      outline: none;
+      border-radius: size(1);
+      height: size(8);
+
+      &:focus,
+      &:hover {
+        outline: none;
+      }
+    }
+  }
+
+  &-footer {
+    text-transform: uppercase;
+    justify-self: flex-end;
+
+    background-color: $purple-900;
+    height: size(12);
+    color: $warm-grey-050;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+main {
+  margin-left: size(60);
+  min-height: calc(100vh - size(10));
+  padding-bottom: size(10);
+}
