@@ -1,0 +1,83 @@
+@mixin text {
+  font-weight: 300;
+}
+
+@mixin text__12 {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  letter-spacing: 0.2px;
+}
+
+@mixin text__14 {
+  font-size: 1.4rem;
+  line-height: 2rem;
+  letter-spacing: 0.2px;
+}
+
+@mixin text__16 {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  letter-spacing: 0.2px;
+}
+
+@mixin text__20 {
+  font-size: 2rem;
+  line-height: 3.2rem;
+  letter-spacing: -0.2px;
+}
+
+@mixin text__24 {
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+  letter-spacing: -0.2px;
+}
+
+@mixin text__32 {
+  font-size: 3.2rem;
+  line-height: 4rem;
+  letter-spacing: -0.2px;
+}
+
+@mixin text__bold {
+  font-weight: 600;
+}
+
+@mixin text__center {
+  text-align: center;
+}
+
+.text {
+  @include text;
+
+  &__12 {
+    @include text__12;
+  }
+
+  &__14 {
+    @include text__14;
+  }
+
+  &__16 {
+    @include text__16;
+  }
+
+  &__20 {
+    @include text__20;
+  }
+
+  &__24 {
+    @include text__24;
+  }
+
+  &__32 {
+    @include text__32;
+  }
+
+  &__bold {
+    @include text__bold;
+  }
+
+  &__center {
+    @include text__center;
+  }
+}
