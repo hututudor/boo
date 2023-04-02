@@ -1,2 +1,2 @@
 mkdir -p public/styles
-sass src/pages/auth.scss public/styles/auth.css --style compressed -w
+sass src/index.scss public/styles/index.css --style compressed -w
