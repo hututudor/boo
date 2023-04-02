@@ -1,0 +1,11 @@
+.books {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+
+  > div {
+    margin-right: size(5);
+    margin-bottom: size(6);
+  }
+}

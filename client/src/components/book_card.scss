@@ -1,0 +1,12 @@
+.book_card {
+  cursor: pointer;
+  background-color: $warm-grey-100;
+
+  padding: size(2) size(2);
+  border-radius: size(1);
+
+  img {
+    height: size(70);
+    margin-bottom: size(2);
+  }
+}
