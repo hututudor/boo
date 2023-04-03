@@ -2,15 +2,19 @@
   display: flex;
 
   &__justify-center {
-    justify-items: center;
+    justify-content: center;
   }
 
   &__justify-end {
-    justify-items: flex-end;
+    justify-content: flex-end;
   }
 
   &__justify-start {
-    justify-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  &__justify-between {
+    justify-content: space-between;
   }
 
   &__align-center {
