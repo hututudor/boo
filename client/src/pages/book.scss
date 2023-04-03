@@ -1,0 +1,52 @@
+.book {
+  display: flex;
+  justify-content: flex-start;
+
+  &-clickable {
+    color: $purple-600;
+    cursor: pointer;
+  }
+
+  &-image {
+    flex-basis: size(60);
+    flex-shrink: 0;
+    margin-right: size(10);
+  }
+
+  &-info {
+    flex-grow: 0;
+    text-align: justify;
+  }
+
+  &-details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  &-detail {
+    flex-basis: 30%;
+  }
+
+  &-related {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-reviews {
+    > div {
+      margin-bottom: size(4);
+    }
+  }
+
+  &-status-buttons {
+    margin-top: size(6);
+
+    button {
+      width: 100%;
+      margin-top: size(1);
+      margin-bottom: size(1);
+    }
+  }
+}

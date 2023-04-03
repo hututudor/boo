@@ -127,6 +127,7 @@
 
 main {
   margin-left: size(60);
-  min-height: calc(100vh - size(10));
+  min-height: calc(100vh - size(20));
+  padding: size(10);
   padding-bottom: size(10);
 }
