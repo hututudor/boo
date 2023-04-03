@@ -1,0 +1,39 @@
+@mixin grid {
+  display: grid;
+  grid-template-columns: size(20) repeat(3, 1fr) size(20);
+}
+
+.books_manager {
+  &-head {
+    @include grid();
+
+    border-top-left-radius: size(2);
+    border-top-right-radius: size(2);
+
+    padding: size(2) size(4);
+    background-color: $warm-grey-400;
+  }
+
+  &-rows {
+    > div {
+      @include grid();
+
+      padding: size(2) size(4);
+      background-color: $warm-grey-100;
+
+      &:hover {
+        background-color: $warm-grey-200;
+      }
+
+      &:last-child {
+        border-bottom-left-radius: size(2);
+        border-bottom-right-radius: size(2);
+      }
+
+      > div {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}

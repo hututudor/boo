@@ -56,6 +56,27 @@
     }
   }
 
+  &__icon {
+    @include button();
+
+    padding: 0;
+    height: size(8);
+    width: size(8);
+  }
+
+  &__red {
+    background-color: $red-vivid-600;
+
+    &:hover {
+      background-color: $red-vivid-700;
+    }
+
+    &:focus {
+      background-color: $red-vivid-500;
+      outline: none;
+    }
+  }
+
   &__link {
     width: fit-content;
     border: none;
