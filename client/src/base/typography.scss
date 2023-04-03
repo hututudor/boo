@@ -80,4 +80,8 @@
   &__center {
     @include text__center;
   }
+
+  &__primary {
+    color: $purple-400;
+  }
 }
