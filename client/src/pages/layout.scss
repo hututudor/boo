@@ -123,6 +123,38 @@
     justify-content: center;
     align-items: center;
   }
+
+  @include respond(tab-landscape) {
+    display: none;
+  }
+
+  &__show {
+    display: flex;
+  }
+}
+
+nav {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: size(2);
+  left: size(2);
+
+  > button {
+    @include button();
+
+    padding: 0;
+    height: size(10);
+    width: size(10);
+
+    > i {
+      transition: 0.5s transform ease-out;
+    }
+  }
+
+  @include respond(tab-landscape) {
+    display: block;
+  }
 }
 
 main {
@@ -130,4 +162,8 @@ main {
   min-height: calc(100vh - size(20));
   padding: size(10);
   padding-bottom: size(10);
+
+  @include respond(tab-landscape) {
+    margin-left: 0;
+  }
 }
