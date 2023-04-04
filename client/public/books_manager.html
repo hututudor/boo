@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books manager | Boo</title>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="fork-awesome.css" />
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+
+    <script src="./scripts/navigate.js"></script>
+  </head>
+  <body>
+    <aside class="side">
+      <div class="side-logo">
+        <img src="assets/logo_white.svg" alt="logo" />
+      </div>
+      <div class="side-search">
+        <input type="text" id="search" placeholder="Search" />
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </div>
+      <div class="side-links">
+        <button class="side-link" onclick="goTo('./home.html')">
+          <i class="fa fa-home" aria-hidden="true"></i>
+          Home
+        </button>
+        <button class="side-link" onclick="goTo('./books.html')">
+          <i class="fa fa-book" aria-hidden="true"></i>
+          Books
+        </button>
+        <button class="side-link" onclick="goTo('./reviews.html')">
+          <i class="fa fa-comment" aria-hidden="true"></i>
+          Reviews
+        </button>
+        <button
+          class="side-link side-link__active"
+          onclick="goTo('./books_manager.html')"
+        >
+          <i class="fa fa-table" aria-hidden="true"></i>
+          Books Manager
+        </button>
+        <div class="mt-3"></div>
+        <button class="side-link" onClick="goTo('./login.html')">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          Login
+        </button>
+        <button class="side-link" onClick="goTo('./register.html')">
+          <i class="fa fa-user-plus" aria-hidden="true"></i>
+          Register
+        </button>
+      </div>
+      <div class="side-footer">
+        <div class="text text__14">boo @ 2023</div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="flex flex__justify-between mb-8 w-100">
+        <div class="text text__32 text__bold">Books Manager</div>
+        <div>
+          <button
+            class="button button__primary"
+            onclick="goTo('./books_add.html')"
+          >
+            Add new book
+          </button>
+        </div>
+      </div>
+
+      <div class="books_manager">
+        <div class="books_manager-head">
+          <div class="text text__16 text__bold">ID</div>
+          <div class="text text__16 text__bold">Name</div>
+          <div class="text text__16 text__bold">Author</div>
+          <div class="text text__16 text__bold">Category</div>
+          <div class="text text__16 text__bold">Actions</div>
+        </div>
+
+        <div class="books_manager-rows">
+          <div>
+            <div class="text text__16">1</div>
+            <div class="text text__16">Words Of Radiance</div>
+            <div class="text text__16">Brandon Sanderson</div>
+            <div class="text text__16">Fantasy</div>
+            <div class="text text__16">
+              <button
+                class="button button__icon mr-2"
+                onclick="goTo('./books_edit.html')"
+              >
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="button button__icon button__red">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div>
+            <div class="text text__16">2</div>
+            <div class="text text__16">Rhythm Of War</div>
+            <div class="text text__16">Brandon Sanderson</div>
+            <div class="text text__16">Fantasy</div>
+            <div class="text text__16">
+              <button
+                class="button button__icon mr-2"
+                onclick="goTo('./books_edit.html')"
+              >
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="button button__icon button__red">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div>
+            <div class="text text__16">3</div>
+            <div class="text text__16">The Hero Of Ages</div>
+            <div class="text text__16">Brandon Sanderson</div>
+            <div class="text text__16">Fantasy</div>
+            <div class="text text__16">
+              <button
+                class="button button__icon mr-2"
+                onclick="goTo('./books_edit.html')"
+              >
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="button button__icon button__red">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div>
+            <div class="text text__16">4</div>
+            <div class="text text__16">The Well Of Ascension</div>
+            <div class="text text__16">Brandon Sanderson</div>
+            <div class="text text__16">Fantasy</div>
+            <div class="text text__16">
+              <button
+                class="button button__icon mr-2"
+                onclick="goTo('./books_edit.html')"
+              >
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="button button__icon button__red">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div>
+            <div class="text text__16">5</div>
+            <div class="text text__16">The Final Empire</div>
+            <div class="text text__16">Brandon Sanderson</div>
+            <div class="text text__16">Fantasy</div>
+            <div class="text text__16">
+              <button
+                class="button button__icon mr-2"
+                onclick="goTo('./books_edit.html')"
+              >
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="button button__icon button__red">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

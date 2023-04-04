@@ -1,0 +1,10 @@
+.book_form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: size(4);
+
+  &__full-row {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}
