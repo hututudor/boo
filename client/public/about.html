@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Boo</title>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="fork-awesome.css" />
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+
+    <script src="./scripts/navigate.js"></script>
+</head>
+
+<body>
+    <aside class="side">
+        <div class="side-logo">
+            <img src="assets/logo_white.svg" alt="logo" />
+        </div>
+        <div class="side-search">
+            <input type="text" id="search" placeholder="Search" />
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </div>
+        <div class="side-links">
+            <button class="side-link" onclick="goTo('./home.html')">
+                <i class="fa fa-home" aria-hidden="true"></i>
+                Home
+            </button>
+            <button class="side-link side-link__active" onclick="goTo('./books.html')">
+                <i class="fa fa-book" aria-hidden="true"></i>
+                Books
+            </button>
+            <button class="side-link" onclick="goTo('./reviews.html')">
+                <i class="fa fa-comment" aria-hidden="true"></i>
+                Reviews
+            </button>
+            <button class="side-link" onclick="goTo('./books_manager.html')">
+                <i class="fa fa-table" aria-hidden="true"></i>
+                Books Manager
+            </button>
+            <div class="mt-3"></div>
+            <button class="side-link" onClick="goTo('./login.html')">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Login
+            </button>
+            <button class="side-link" onClick="goTo('./register.html')">
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                Register
+            </button>
+        </div>
+        <div class="side-footer">
+            <div class="text text__14">boo @ 2023</div>
+        </div>
+    </aside>
+
+    <main>
+        <div class="about">
+            <div class="about-container">
+                <div class="text text__32 text__bold">About us</div>
+                <div class="text text__16">Welcome to our web application that aims to help individuals and groups keep
+                    track of their reading progress and express their opinions and annotations on the books they read.
+
+                    With our application, users can easily manage their book collections, organize them by various
+                    criteria such as category, author(s), publisher, year, edition, and links to related works. Our
+                    platform also provides various statistics that can be exported in open formats such as CSV and
+                    DocBook.
+
+                    Our system keeps users up-to-date with the latest news in the literary world through our RSS news
+                    feed, which provides notifications on new book releases, book reviews, changes in book rankings, and
+                    more.
+
+                    We are committed to providing a user-friendly and efficient reading management system that promotes
+                    the love of reading and facilitates the sharing of ideas and opinions on books. Join us today and
+                    discover the joy of reading in a whole new way!</div>
+            </div>
+            <div class="about-image">
+                <img src="assets/about/cover.jpg" class="w-100" alt="about" />
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
