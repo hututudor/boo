@@ -48,16 +48,28 @@
             justify-content: center;
             width: 30%;
             align-items: center;
+            position: sticky;
+            top:40%;
 
             @include respond(phone) {
                 width: 100%;
-                order: -1;
-                margin-bottom: size(10);
+                margin-top: size(10);
             }
     
             @include respond(tab-portrait) {
                 width: 100%;
-                order: -1;
+                margin-top: size(10);
+            }
+
+            .action{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .form
+            {
+                width: 70%;
             }
         }
     }

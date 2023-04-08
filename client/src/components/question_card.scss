@@ -31,7 +31,7 @@
             justify-content: flex-start;
             align-items: start;
             flex-wrap: wrap;
-            width: 50%;
+            width: 60%;
 
             @include respond(phone) {
                 width: 100%;
@@ -48,7 +48,7 @@
             justify-content: flex-end;
             flex-wrap: wrap;
             align-items: end;
-            width: 50%;
+            width: 40%;
 
             @include respond(phone) {
                 width: 100%;
