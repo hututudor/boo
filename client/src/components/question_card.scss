@@ -1,91 +1,90 @@
 .question_card {
-    cursor: pointer;
-    background-color: $warm-grey-100;
+  cursor: pointer;
+  background-color: $warm-grey-100;
 
-    padding: size(2) size(2);
-    border-radius: size(1);
+  padding: size(2) size(2);
+  border-radius: size(1);
+  margin-top: size(2);
+
+  &-specifications {
     margin-top: size(2);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 
-    &-specifications {
-        margin-top: size(2);
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-
-        @include respond(phone) {
-            flex-direction: column;
-            justify-content: start;
-            align-items: start;
-        }
-
-        @include respond(tab-portrait) {
-            flex-direction: column;
-            align-items: start;
-            justify-content: start;
-        }
-        
-
-        &-details {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: start;
-            flex-wrap: wrap;
-            width: 60%;
-
-            @include respond(phone) {
-                width: 100%;
-            }
-    
-            @include respond(tab-portrait) {
-                width: 100%;
-            }
-        }
-
-        &-statistics {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-            align-items: end;
-            width: 40%;
-
-            @include respond(phone) {
-                width: 100%;
-                justify-content: flex-start;
-                align-items: flex-start;
-            }
-    
-            @include respond(tab-portrait) {
-                width: 100%;
-                justify-content: flex-start;
-                align-items: flex-start;
-            }
-        }
-
-        &-element {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-
-            >label {
-                font-style: italic;
-                margin-left: size(1);
-            }
-
-            >i {
-                @include text__16;
-                margin-left: size(5);
-            }
-
-            >div {
-                margin: size(0) size(1);
-            }
-        }
-
-        #topic {
-            min-width: size(28);
-        }
+    @include respond(phone) {
+      flex-direction: column;
+      justify-content: start;
+      align-items: start;
     }
+
+    @include respond(tab-portrait) {
+      flex-direction: column;
+      align-items: start;
+      justify-content: start;
+    }
+
+    &-details {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: start;
+      flex-wrap: wrap;
+      width: 60%;
+
+      @include respond(phone) {
+        width: 100%;
+      }
+
+      @include respond(tab-portrait) {
+        width: 100%;
+      }
+    }
+
+    &-statistics {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      align-items: end;
+      width: 40%;
+
+      @include respond(phone) {
+        width: 100%;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
+      @include respond(tab-portrait) {
+        width: 100%;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+    }
+
+    &-element {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      > label {
+        font-style: italic;
+        margin-left: size(1);
+      }
+
+      > i {
+        @include text__16;
+        margin-left: size(5);
+      }
+
+      > div {
+        margin: size(0) size(1);
+      }
+    }
+
+    #topic {
+      min-width: size(28);
+    }
+  }
 }
