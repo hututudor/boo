@@ -28,10 +28,6 @@
       width: 70%;
       align-items: start;
 
-      @include respond(phone) {
-        width: 100%;
-      }
-
       @include respond(tab-portrait) {
         width: 100%;
       }
@@ -49,11 +45,6 @@
       align-items: center;
       position: sticky;
       top: 40%;
-
-      @include respond(phone) {
-        width: 100%;
-        margin-top: size(10);
-      }
 
       @include respond(tab-portrait) {
         width: 100%;

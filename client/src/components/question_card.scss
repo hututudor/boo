@@ -12,12 +12,6 @@
     flex-direction: row;
     justify-content: space-around;
 
-    @include respond(phone) {
-      flex-direction: column;
-      justify-content: start;
-      align-items: start;
-    }
-
     @include respond(tab-portrait) {
       flex-direction: column;
       align-items: start;
