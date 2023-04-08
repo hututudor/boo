@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="styles/auth.css" />
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+    <script src="./scripts/navigate.js"></script>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="page-container">
+        <img class="page-container-logo" src="assets/logo.svg" alt="logo" />
+        <div class="text text__32 text__bold text__center mb-4">Register</div>
+        <div class="form w-100">
+          <div class="form-input">
+            <label for="name">Your name</label>
+            <input id="name" placeholder="Your name" />
+          </div>
+          <div class="form-input">
+            <label for="email">Email</label>
+            <input id="email" placeholder="Email" />
+          </div>
+          <div class="form-input">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Password" />
+          </div>
+          <div class="form-input">
+            <label for="password">Confirm password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Confirm password"
+            />
+          </div>
+        </div>
+        <div class="flex flex__column flex__align-center mt-4">
+          <button class="button button__primary">register</button>
+          <button class="button button__link mt-4" onclick="goTo('login.html')">
+            Already have an account? Login.
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
