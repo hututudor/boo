@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: size(4);
-
+  
   @include respond(phone) {
     > div {
       grid-column-start: 1;
