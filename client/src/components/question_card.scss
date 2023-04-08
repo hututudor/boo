@@ -1,0 +1,54 @@
+.question_card {
+    cursor: pointer;
+    background-color: $warm-grey-100;
+
+    padding: size(2) size(2);
+    border-radius: size(1);
+    margin-top: size(2);
+
+    &-specifications {
+        margin-top: size(2);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        &-details {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: start;
+            width: 50%;
+
+            >label {
+                font-style: italic;
+                margin-left: size(1);
+            }
+
+            >i {
+                @include text__16;
+                margin-left: size(5);
+            }
+
+            >div {
+                margin: size(0) size(1);
+            }
+        }
+
+        &-statistics {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: end;
+            width: 50%;
+
+            >i {
+                @include text__16;
+                margin-left: size(5);
+            }
+
+            >div {
+                margin: size(0) size(1);
+            }
+        }
+    }
+}
