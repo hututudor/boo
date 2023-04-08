@@ -5,8 +5,22 @@
   padding: size(2) size(2);
   border-radius: size(1);
 
-  img {
+  min-width: size(45);
+
+  @include respond(tab-portrait) {
+    min-width: size(30);
+  }
+
+  &-image {
     height: size(70);
+    width: 100%;
     margin-bottom: size(2);
+
+    background-position: center;
+    background-size: cover;
+
+    @include respond(phone) {
+      height: size(100);
+    }
   }
 }

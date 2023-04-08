@@ -1,0 +1,21 @@
+.about {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+
+    &-image {
+        height: auto;
+        max-width: size(150);
+    }
+
+    &-container {
+        padding: size(20);
+        max-width: size(300);
+    }
+
+
+    .text__32 {
+        color: $purple-600;
+    }
+}
