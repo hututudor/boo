@@ -10,8 +10,16 @@
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 
     <script src="./scripts/navigate.js"></script>
+    <script src="./scripts/sidebar.js"></script>
+    <script src="./scripts/books-bg.js"></script>
   </head>
   <body>
+    <nav>
+      <button>
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+      </button>
+    </nav>
+
     <aside class="side">
       <div class="side-logo">
         <img src="assets/logo_white.svg" alt="logo" />
@@ -59,34 +67,35 @@
       <div class="text text__32 text__bold mb-4">All Books matching 'The'</div>
       <div class="books">
         <div class="book_card" onclick="goTo('./book.html')">
-          <img
-            src="./assets/books/the_final_empire.jpeg"
-            alt="words of radiance"
-          />
+          <div
+            class="book_card-image"
+            data-src="./assets/books/the_final_empire.jpeg"
+          ></div>
           <div class="text text__14 text__bold">The Final Empire</div>
           <div class="text text__14">Brandon Sanderson</div>
         </div>
         <div class="book_card" onclick="goTo('./book.html')">
-          <img
-            src="./assets/books/the_well_of_ascension.jpeg"
-            alt="words of radiance"
-          />
+          <div
+            class="book_card-image"
+            data-src="./assets/books/the_well_of_ascension.jpeg"
+          ></div>
           <div class="text text__14 text__bold">The Well Of Ascension</div>
           <div class="text text__14">Brandon Sanderson</div>
         </div>
         <div class="book_card" onclick="goTo('./book.html')">
-          <img
-            src="./assets/books/the_hero_of_ages.jpeg"
-            alt="words of radiance"
-          />
+          <div
+            class="book_card-image"
+            data-src="./assets/books/the_hero_of_ages.jpeg"
+          ></div>
           <div class="text text__14 text__bold">The Hero Of Ages</div>
           <div class="text text__14">Brandon Sanderson</div>
         </div>
         <div class="book_card" onclick="goTo('./book.html')">
-          <img
-            src="./assets/books/the_alloy_of_law.jpeg"
+          <div
+            class="book_card-image"
+            data-src="./assets/books/the_alloy_of_law.jpeg"
             alt="words of radiance"
-          />
+          ></div>
           <div class="text text__14 text__bold">The Alloy Of Law</div>
           <div class="text text__14">Brandon Sanderson</div>
         </div>

@@ -1,0 +1,32 @@
+.home {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  @include respond(phone) {
+    flex-direction: column;
+  }
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: size(5);
+
+  .stat {
+    flex-basis: 25%;
+  }
+
+  @include respond(tab-landscape) {
+    .stat {
+      flex-basis: 45%;
+    }
+  }
+
+  @include respond(phone) {
+    .stat {
+      flex-basis: 90%;
+    }
+  }
+}

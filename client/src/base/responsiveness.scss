@@ -1,3 +1,45 @@
+@mixin respond($breakpoint) {
+  // 600px
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 37.5em) {
+      @content;
+    }
+  }
+
+  // 900px
+  @if $breakpoint == tab-portrait {
+    @media only screen and (max-width: 56.25em) {
+      @content;
+    }
+  }
+
+  // 1200px
+  @if $breakpoint == tab-landscape {
+    @media only screen and (max-width: 75em) {
+      @content;
+    }
+  }
+
+  // 1800px
+  @if $breakpoint == big-desktop {
+    @media only screen and (min-width: 112.5em) {
+      @content;
+    }
+  }
+}
+
 html {
-  font-size: 62.5%;
+  font-size: 62.5%; // 1rem = 10px
+
+  // @include respond(tab-landing) {
+  //   font-size: 56.25%; // 1 rem = 9px
+  // }
+
+  // @include respond(tab-portrait) {
+  //   font-size: 50%; // 1 rem = 8px
+  // }
+
+  // @include respond(big-desktop) {
+  //   font-size: 75%; // 1 rem = 12px
+  // }
 }
