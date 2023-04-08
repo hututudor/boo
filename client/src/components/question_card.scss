@@ -18,6 +18,21 @@
             justify-content: flex-start;
             align-items: start;
             width: 50%;
+        }
+
+        &-statistics {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: end;
+            width: 50%;
+        }
+
+        &-element {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
 
             >label {
                 font-style: italic;
@@ -34,21 +49,8 @@
             }
         }
 
-        &-statistics {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            align-items: end;
-            width: 50%;
-
-            >i {
-                @include text__16;
-                margin-left: size(5);
-            }
-
-            >div {
-                margin: size(0) size(1);
-            }
+        #topic {
+            min-width: size(28);
         }
     }
 }
