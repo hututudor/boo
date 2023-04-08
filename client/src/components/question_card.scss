@@ -10,22 +10,57 @@
         margin-top: size(2);
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
+        justify-content: space-around;
+
+        @include respond(phone) {
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+        }
+
+        @include respond(tab-portrait) {
+            flex-direction: column;
+            align-items: start;
+            justify-content: start;
+        }
+        
 
         &-details {
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
             align-items: start;
+            flex-wrap: wrap;
             width: 50%;
+
+            @include respond(phone) {
+                width: 100%;
+            }
+    
+            @include respond(tab-portrait) {
+                width: 100%;
+            }
         }
 
         &-statistics {
             display: flex;
             flex-direction: row;
             justify-content: flex-end;
+            flex-wrap: wrap;
             align-items: end;
             width: 50%;
+
+            @include respond(phone) {
+                width: 100%;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+    
+            @include respond(tab-portrait) {
+                width: 100%;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
         }
 
         &-element {
