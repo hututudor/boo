@@ -1,6 +1,10 @@
 @mixin grid {
   display: grid;
   grid-template-columns: size(20) repeat(3, 1fr) size(20);
+
+  @include respond(phone) {
+    grid-template-columns: size(10) repeat(2, 1fr) size(20);
+  }
 }
 
 .books_manager {
@@ -12,6 +16,15 @@
 
     padding: size(2) size(4);
     background-color: $warm-grey-400;
+
+    > div {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      white-space: nowrap;
+      display: inline-block;
+      text-overflow: ellipsis;
+    }
   }
 
   &-rows {
@@ -33,7 +46,17 @@
       > div {
         display: flex;
         align-items: center;
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+        text-overflow: ellipsis;
       }
+    }
+  }
+
+  &__mobile-hidden {
+    @include respond(phone) {
+      display: none !important;
     }
   }
 }

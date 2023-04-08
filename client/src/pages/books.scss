@@ -5,7 +5,20 @@
   width: 100%;
 
   > div {
+    flex-basis: 15%;
     margin-right: size(5);
     margin-bottom: size(6);
+
+    @include respond(tab-landscape) {
+      flex-basis: 25%;
+    }
+
+    @include respond(tab-portrait) {
+      flex-basis: 40%;
+    }
+
+    @include respond(phone) {
+      flex-basis: 100%;
+    }
   }
 }
