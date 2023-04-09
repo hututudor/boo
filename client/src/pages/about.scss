@@ -12,6 +12,10 @@
   &-container {
     padding: size(20);
     max-width: size(300);
+
+    @include respond(tab-portrait) {
+      padding: 0;
+    }
   }
 
   .text__32 {
