@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)https://w3c.github.io/scholarly-html/ -->
+<html class="kruxvk idc0_346">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>Scholarly HTML</title>
+    <link rel="stylesheet" href="./scholarly.css" />
+    <script src="./scholarly.js"></script>
+    <style>
+      undefined
+    </style>
+    <script
+      type="module"
+      src="chrome-extension://jdkknkkbebbapilgoeccciglkfbmbnfm/hook.js"
+    ></script>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com/"
+      crossorigin="true"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" />
+    <link rel="stylesheet" href="./Scholarly HTML_files/css2" />
+  </head>
+  <body prefix="schema: http://schema.org">
+    <header>
+      <h1>BOO</h1>
+    </header>
+    <!--
+      XXX
+      - check refs
+      - the math example has too much maths
+      - bring back some of the old style
+      - make semantics, validation, processing sub-sections of each structural element
+      - have a section before that for general constructs
+        - explain why use RDFa
+        - explain our patterns: RDFa, roles
+      - figure captions need to get set throughout
+      - dedication? see doc-dedication
+      - syntactic constraints (prefix)
+      - needs more sthenurines
+      - examples of everything
+      - some notes on using Semantic CSS
+      - needs more RDFa in the spec itself
+    -->
+    <div role="contentinfo"></div>
+    <section typeof="sa:Abstract" id="abstract" role="doc-abstract">
+      <h2><span>1. </span>Abstract</h2>
+      <p>
+        In recent years, the popularity of online book communities has increased
+        significantly, and there has been a surge in the development of book
+        recommendation platforms. Goodreads is currently one of the most popular
+        online book communities, with millions of users worldwide. However,
+        there is a need for a more sophisticated book management system that
+        allows our users to sync their reading habits in get an analysis of
+        their habits. Our results demonstrate that our app can effectively
+        provide users with relevant book data that match their interests and
+        reading habits.
+      </p>
+    </section>
+    <section id="introduction" role="doc-introduction">
+      <!-- review? -->
+      <h2>Introduction</h2>
+      <p>
+        Boo enables their users to see relevant data on their favorite books,
+        with a system that allows them to update their progress and leave
+        reviews for others too see. There is also a recommendation system that
+        shows similar books for users that want to enhance their library.
+      </p>
+      <p>
+        You can create an account in order to track your progress and leave
+        reviews, but if you are just searching for information you can view it
+        unauthenticated.
+      </p>
+      <p>
+        You can export your reading data in CSV or DocBook format and you can
+        gain insight into how many books you read and the progress you have made
+        on those so you can compare those with your friends. Also, you can view
+        get personalized RSS feed so you never miss out on a book release
+      </p>
+      <p>
+        If you are a manager of the Boo website, you can help organize the
+        bookshelf by adding and updating information on books such as genre,
+        images, publishing etc.
+      </p>
+      <p>Our high-level goals are to:</p>
+      <ul>
+        <li>Enable book personalized recommendations for our users.</li>
+        <li>Be fully functioning on modern Web browsers and mobile.</li>
+        <li>Enable the social aspect of being part of a reading community.</li>
+      </ul>
+    </section>
+    <section id="structure">
+      <!-- review? -->
+      <h2>Structure</h2>
+      <p>Our Boo client has the following pages:</p>
+      <ul>
+        <li>login.html - login form</li>
+        <li>register.html - register form</li>
+        <li>home.html - list of own books and analytics</li>
+        <li>books.html - list of all the books</li>
+        <li>books_author.html - books list when filtering by author</li>
+        <li>books_genre.html - books list when filtering by genre</li>
+        <li>books_search.html - books list when searching for a book</li>
+        <li>reviews.html - list of reviews left</li>
+        <li>book.html - displays data for a book</li>
+        <li>about.html - explains the app's purpose</li>
+        <li>help.html - list of questions</li>
+        <li>help_question.html - question reply thread</li>
+        <li>profile.html - profile forms for updating info</li>
+        <li>books_manager.html - admin list of all the books</li>
+        <li>books_add.html - admin form for adding a new book</li>
+        <li>books_edit.html - admin form for updating a book</li>
+      </ul>
+      <section id="Root">
+        <!-- review? -->
+        <h3>The <code>navbar</code></h3>
+        <p>
+          The navbar contains links to all the pages. It is fully responsive (on
+          mobile it will collapse and you can toggle it with a button).
+        </p>
+
+        <pre><code>
+    &lt;nav&gt;
+      &lt;button&gt;
+        &lt;i class=&quot;fa fa-arrow-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+      &lt;/button&gt;
+    &lt;/nav&gt;
+
+    &lt;aside class=&quot;side&quot;&gt;
+      &lt;div class=&quot;side-logo&quot;&gt;
+        &lt;img src=&quot;assets/logo_white.svg&quot; alt=&quot;logo&quot; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;side-search&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;search&quot; placeholder=&quot;Search&quot; /&gt;
+        &lt;i class=&quot;fa fa-search&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;side-links&quot;&gt;
+        &lt;button class=&quot;side-link&quot; onclick=&quot;goTo('./home.html')&quot;&gt;
+          &lt;i class=&quot;fa fa-home&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+          Home
+        &lt;/button&gt;
+        ...
+        &lt;button class=&quot;side-link&quot; onClick=&quot;goTo('./register.html')&quot;&gt;
+          &lt;i class=&quot;fa fa-user-plus&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+          Register
+        &lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;side-footer&quot;&gt;
+        &lt;div class=&quot;text text__14&quot;&gt;boo @ 2023&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/aside&gt;
+          </code></pre>
+      </section>
+      <section id="article">
+        <!-- review? -->
+        <h3>The JS responsible for handling the navbar collapse on mobile.</h3>
+        <pre><code>
+        document.addEventListener('DOMContentLoaded', registerSidebarEvents);
+
+        function isSidebarOpen() {
+          return document
+            .getElementsByTagName('aside')[0]
+            .classList.contains('side__show');
+        }
+
+        function registerSidebarEvents() {
+          const button = document
+            .getElementsByTagName('nav')[0]
+            .getElementsByTagName('button')[0];
+
+          button.addEventListener('click', handleSidebarOpenClose);
+        }
+
+        function handleSidebarOpenClose() {
+          if (isSidebarOpen()) {
+            closeSidebar();
+          } else {
+            openSidebar();
+          }
+        }
+
+        function openSidebar() {
+          document.getElementsByTagName('aside')[0].classList.add('side__show');
+          document
+            .getElementsByTagName('nav')[0]
+            .getElementsByTagName('i')[0].style.transform = 'rotateZ(180deg)';
+        }
+
+        function closeSidebar() {
+          document.getElementsByTagName('aside')[0].classList.remove('side__show');
+          document
+            .getElementsByTagName('nav')[0]
+            .getElementsByTagName('i')[0].style.transform = 'rotateZ(0)';
+        }
+          </code></pre>
+      </section>
+      <section id="hunk">
+        <!-- review? -->
+        <h3>The CSS for the buttons</h3>
+        <p>
+          It uses the BEM naming scheme for styles such as primary and
+          secondary.
+        </p>
+        <code>
+          <pre>
+.button {
+  @include text;
+  @include text__12;
+
+  &amp;__primary {
+    @include button();
+  }
+
+  &amp;__secondary {
+    @include button();
+
+    background-color: $purple-050;
+    color: $purple-600;
+
+    &amp;:hover {
+      background-color: $purple-100;
+    }
+
+    &amp;:focus {
+      background-color: $purple-100;
+      outline: none;
+    }
+
+    &amp;:active {
+      transform: scale(95%);
+    }
+  }
+
+  &amp;__icon {
+    @include button();
+
+    padding: 0;
+    height: size(8);
+    width: size(8);
+  }
+
+  &amp;__red {
+    background-color: $red-vivid-600;
+
+    &amp;:hover {
+      background-color: $red-vivid-700;
+    }
+
+    &amp;:focus {
+      background-color: $red-vivid-500;
+      outline: none;
+    }
+  }
+
+  &amp;__link {
+    width: fit-content;
+    border: none;
+    color: $purple-600;
+    background: transparent;
+
+    user-select: none;
+    outline: none;
+
+    cursor: pointer;
+    text-transform: uppercase;
+
+    &amp;:hover {
+      color: $purple-700;
+    }
+
+    &amp;:focus {
+      color: $purple-500;
+      outline: none;
+    }
+
+    &amp;:active {
+      transform: scale(95%);
+    }
+  }
+}</pre
+          >
+        </code>
+      </section>
+      <section id="inline">
+        <!-- review? -->
+        <h3>The RSS button</h3>
+        <p>
+          It generates a custom RSS feed that lists recommended books and news.
+        </p>
+        <pre><code>
+          &lt;button class=&quot;button button__icon-large mr-4&quot;&gt;
+            &lt;i class=&quot;fa fa-rss&quot;&gt;&lt;/i&gt;
+          &lt;/button&gt;
+          </code></pre>
+      </section>
+      <section id="references">
+        <!-- review? -->
+        <h3>The SCSS utility classes</h3>
+        <p>
+          These classes are present in our pages and offer quick styles for any
+          element.
+        </p>
+        <pre><code>
+@mixin generateClassSizeVariants($class, $property, $start, $end) {
+  @for $index from $start to $end {
+    #{'.' + $class + '-' + $index} {
+      #{$property}: size($index);
+    }
+  }
+}
+
+@include generateClassSizeVariants('m', 'margin', 0, 100);
+@include generateClassSizeVariants('mb', 'margin-bottom', 0, 100);
+@include generateClassSizeVariants('mt', 'margin-top', 0, 100);
+@include generateClassSizeVariants('ml', 'margin-left', 0, 100);
+@include generateClassSizeVariants('mr', 'margin-right', 0, 100);
+
+@include generateClassSizeVariants('p', 'padding', 0, 100);
+@include generateClassSizeVariants('pb', 'padding-bottom', 0, 100);
+@include generateClassSizeVariants('pt', 'padding-top', 0, 100);
+@include generateClassSizeVariants('pl', 'padding-left', 0, 100);
+@include generateClassSizeVariants('pr', 'padding-right', 0, 100);
+
+.w-100 {
+  width: 100%;
+}
+
+@mixin text {
+  font-weight: 300;
+}
+
+@mixin text__12 {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  letter-spacing: 0.2px;
+}
+
+@mixin text__14 {
+  font-size: 1.4rem;
+  line-height: 2rem;
+  letter-spacing: 0.2px;
+}
+
+@mixin text__16 {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  letter-spacing: 0.2px;
+}
+
+@mixin text__20 {
+  font-size: 2rem;
+  line-height: 3.2rem;
+  letter-spacing: -0.2px;
+}
+
+@mixin text__24 {
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+  letter-spacing: -0.2px;
+}
+
+@mixin text__32 {
+  font-size: 3.2rem;
+  line-height: 4rem;
+  letter-spacing: -0.2px;
+}
+
+@mixin text__bold {
+  font-weight: 600;
+}
+
+@mixin text__center {
+  text-align: center;
+}
+
+.text {
+  @include text;
+
+  &amp;__12 {
+    @include text__12;
+  }
+
+  &amp;__14 {
+    @include text__14;
+  }
+
+  &amp;__16 {
+    @include text__16;
+  }
+
+  &amp;__20 {
+    @include text__20;
+  }
+
+  &amp;__24 {
+    @include text__24;
+  }
+
+  &amp;__32 {
+    @include text__32;
+  }
+
+  &amp;__bold {
+    @include text__bold;
+  }
+
+  &amp;__center {
+    @include text__center;
+  }
+
+  &amp;__primary {
+    color: $purple-400;
+  }
+}
+          </code></pre>
+      </section>
+
+      <section id="references">
+        <!-- review? -->
+        <h3>The responsive SCSS mixin</h3>
+        <p>
+          It is used for a systematic approach to making the responsive styles.
+        </p>
+
+        <pre><code>
+@mixin respond($breakpoint) {
+  // 600px
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 37.5em) {
+      @content;
+    }
+  }
+
+  // 900px
+  @if $breakpoint == tab-portrait {
+    @media only screen and (max-width: 56.25em) {
+      @content;
+    }
+  }
+
+  // 1200px
+  @if $breakpoint == tab-landscape {
+    @media only screen and (max-width: 75em) {
+      @content;
+    }
+  }
+
+  // 1800px
+  @if $breakpoint == big-desktop {
+    @media only screen and (min-width: 112.5em) {
+      @content;
+    }
+  }
+}</code></pre>
+      </section>
+    </section>
+
+    <section id="biblio-references">
+      <h2>References</h2>
+      <a href="http://goodreads.com">GoodReads</a><br />
+      <a href="https://sass-lang.com/">SASS</a><br />
+      <a href="https://forkaweso.me/">Fork Awesome</a><br />
+      <a href="http://meyerweb.com/eric/tools/css/reset/">CSS Reset</a><br />
+    </section>
+  </body>
+</html>

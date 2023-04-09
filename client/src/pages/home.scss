@@ -6,6 +6,11 @@
   @include respond(phone) {
     flex-direction: column;
   }
+
+  &-analytics {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .stats {
