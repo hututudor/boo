@@ -2,6 +2,8 @@
   width: size(60);
   min-height: 100vh;
 
+  top: 0;
+  bottom: 0;
   position: fixed;
 
   display: flex;
@@ -9,6 +11,7 @@
   justify-content: space-between;
 
   background-color: $purple-500;
+  overflow-y: auto;
 
   &-logo {
     height: size(10);
@@ -116,7 +119,7 @@
     justify-self: flex-end;
 
     background-color: $purple-900;
-    height: size(12);
+    min-height: size(12);
     color: $warm-grey-050;
 
     display: flex;
