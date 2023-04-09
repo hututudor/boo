@@ -1,0 +1,98 @@
+.help_question {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  align-items: start;
+
+  &-specifications {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 60%;
+    align-items: start;
+
+    @include respond(tab-portrait) {
+      width: 100%;
+    }
+
+    &-panel {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      width: 100%;
+      margin-top: size(4);
+      margin-left: size(4);
+
+      @include respond(tab-portrait) {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-left: 0;
+      }
+
+      > button {
+        background-color: Transparent;
+        background-repeat: no-repeat;
+        border: none;
+        cursor: pointer;
+        overflow: hidden;
+      }
+    }
+  }
+  &-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: start;
+    width: 100%;
+
+    @include respond(tab-portrait) {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+    }
+
+    &-answers {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      width: 60%;
+      align-items: start;
+      margin-left: size(4);
+      margin-top: size(16);
+
+      @include respond(tab-portrait) {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+
+    &-form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 40%;
+      align-items: center;
+      position: sticky;
+      top: 40%;
+
+      @include respond(tab-portrait) {
+        width: 100%;
+        margin-top: size(10);
+        position: static;
+        order: -1;
+      }
+
+      .action {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .form {
+        width: 80%;
+      }
+    }
+  }
+}
