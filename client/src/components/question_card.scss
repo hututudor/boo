@@ -26,10 +26,6 @@
       flex-wrap: wrap;
       width: 60%;
 
-      @include respond(phone) {
-        width: 100%;
-      }
-
       @include respond(tab-portrait) {
         width: 100%;
       }
@@ -42,12 +38,6 @@
       flex-wrap: wrap;
       align-items: end;
       width: 40%;
-
-      @include respond(phone) {
-        width: 100%;
-        justify-content: flex-start;
-        align-items: flex-start;
-      }
 
       @include respond(tab-portrait) {
         width: 100%;
