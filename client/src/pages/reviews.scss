@@ -1,0 +1,33 @@
+.reviews {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+
+  .column {
+    width: calc(50% - size(1.5));
+  }
+  .review{
+    margin-bottom: size(6);
+  }
+  div {
+    flex-basis: 48%;
+    margin-right: size(3);
+    margin-bottom: size(6);
+  
+    @include respond(tab-landscape) {
+      flex-basis: 30%;
+    }
+  
+    @include respond(tab-portrait) {
+      flex-basis: 48%;
+    }
+  
+    @include respond(phone) {
+      flex-basis: 100%;
+      margin-right: 0;
+    }
+  }
+  
+  
+}
