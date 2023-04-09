@@ -49,6 +49,7 @@
       @include respond(tab-portrait) {
         width: 100%;
         margin-top: size(10);
+        position: static;
       }
 
       .action {
