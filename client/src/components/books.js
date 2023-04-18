@@ -1,6 +1,4 @@
-document.addEventListener('DOMContentLoaded', loadBookImages);
-
-function loadBookImages() {
+export const loadBookImages = () => {
   const elements = document.getElementsByClassName('book_card-image');
 
   for (const element of elements) {
@@ -11,4 +9,4 @@ function loadBookImages() {
 
     element.style.backgroundImage = `url(${element.dataset.src})`;
   }
-}
+};

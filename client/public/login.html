@@ -7,7 +7,10 @@
     <title>Login</title>
     <link rel="stylesheet" href="styles/index.css" />
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-    <script src="./scripts/navigate.js"></script>
+
+    <meta name="page-name" content="login" />
+    <script src="./scripts/app.js"></script>
+    <script src="./goTo.js"></script>
   </head>
   <body>
     <div class="auth">
@@ -21,16 +24,19 @@
           </div>
           <div class="form-input">
             <label for="password">Password</label>
-            <input id="password" placeholder="Password" type="password"/>
+            <input id="password" placeholder="Password" type="password" />
           </div>
         </div>
         <div class="flex flex__column flex__align-center mt-4">
           <button class="button button__primary">Login</button>
-          <button class="button button__link mt-4" onclick="goTo('./register.html')">
+          <button
+            class="button button__link mt-4"
+            onclick="goTo('./register.html')"
+          >
             Don't have an account? Register
           </button>
         </div>
       </div>
     </div>
   </body>
-</html> 
+</html>
