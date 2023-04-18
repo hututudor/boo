@@ -1,11 +1,9 @@
 <?php
-define('OWN_URL', 'http://localhost');
 
-define('APP_ROOT', dirname(dirname(__FILE__)));
-define('URL_ROOT', '/');
-define('URL_SUBFOLDER', '');
+define("ROOT_DIR", dirname(__FILE__, 2));
 
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'boo');
+const DB_HOST = 'localhost';
+const DB_USER = 'root';
+const DB_PASS = '';
+const DB_NAME = 'boo';
+const JWT_SECRET = 'secret';
