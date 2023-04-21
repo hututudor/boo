@@ -34,6 +34,16 @@
 
   &__primary {
     @include button();
+
+    &:disabled {
+      background-color: $warm-grey-200;
+      color: $warm-grey-900;
+
+      cursor: not-allowed;
+      &:active {
+        transform: scale(100%);
+      }
+    }
   }
 
   &__secondary {

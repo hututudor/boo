@@ -1,0 +1,18 @@
+.loading {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $warm-grey-050;
+  z-index: 10000;
+
+  > img {
+    height: size(20);
+  }
+
+  &__hidden {
+    display: none;
+  }
+}

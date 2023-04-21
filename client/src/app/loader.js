@@ -1,6 +1,7 @@
+import { hidePageLoading, showPageLoading } from '../components';
 import { pagesConfig } from './pagesConfig';
 
-export const load = () => {
+export const load = async () => {
   const pageName = getPageName();
 
   if (!pageName) {
@@ -16,7 +17,9 @@ export const load = () => {
   }
 
   // load current page
-  pageConfig.load();
+  showPageLoading();
+  await pageConfig.load();
+  hidePageLoading();
 };
 
 const getPageName = () =>
