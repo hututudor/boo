@@ -1,6 +1,7 @@
 import { login } from '../api';
 import { disableButton, enableButton, setInputError } from '../components';
 import { isEmailValid } from '../utils/validation';
+import { checkNoAuth, handleAuth } from '../app/auth';
 
 const pageState = {
   emailTouched: false,
@@ -8,6 +9,7 @@ const pageState = {
 };
 
 export const load = () => {
+  checkNoAuth();
   registerLoginEvents();
 };
 
@@ -45,14 +47,13 @@ const handleLogin = async event => {
 
   disableButton(button);
 
-  const data = await login({
+  const { token } = await login({
     email: emailInput.value,
     password: passwordInput.value,
   });
 
   enableButton(button);
-
-  localStorage.setItem('token', data.token);
+  handleAuth(token);
 };
 
 const _validateEmailField = () => {
