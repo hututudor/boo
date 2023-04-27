@@ -77,7 +77,7 @@
       position: sticky;
       top: 30%;
 
-      @include respond(tab-portrait) {
+      @include respond(tab-potrait) {
         width: 100%;
         margin-top: size(10);
         position: static;
