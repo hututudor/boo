@@ -1,33 +1,26 @@
 .reviews {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   flex-wrap: wrap;
   width: 100%;
 
-  .column {
-    width: calc(50% - size(1.5));
-  }
-  .review{
+  .review {
+    flex-grow: 1;
+    flex-basis: 30%;
+    margin-right: size(16);
     margin-bottom: size(6);
-  }
-  div {
-    flex-basis: 48%;
-    margin-right: size(3);
-    margin-bottom: size(6);
-  
+
     @include respond(tab-landscape) {
-      flex-basis: 30%;
+      flex-basis: 25%;
     }
-  
+
     @include respond(tab-portrait) {
-      flex-basis: 48%;
+      flex-basis: 40%;
     }
-  
+
     @include respond(phone) {
       flex-basis: 100%;
       margin-right: 0;
     }
   }
-  
-  
 }
