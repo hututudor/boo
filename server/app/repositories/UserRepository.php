@@ -1,0 +1,54 @@
+<?php
+
+class UserRepository
+{
+    public static function getUserByEmail($email)
+    {
+        $db = DB::getInstance()->getConnection();
+        $statement = $db->prepare("SELECT * FROM users WHERE email = ?");
+
+        $statement->bind_param("s", $email);
+        $statement->execute();
+
+        if($statement->error) {
+            return null;
+        }
+
+        $row = $statement->get_result()->fetch_assoc();
+        if(!$row) {
+            return null;
+        }
+
+        return self::toUser($row);
+    }
+
+    private static function getUserById($id)
+    {
+        $db = DB::getInstance()->getConnection();
+        $statement = $db->prepare("SELECT * FROM users WHERE id = ?");
+
+        $statement->bind_param("i", $id);
+        $statement->execute();
+
+        if($statement->error) {
+            return null;
+        }
+
+        $row = $statement->get_result()->fetch_assoc();
+        if(!$row) {
+            return null;
+        }
+
+        return self::toUser($row);
+    }
+
+    private static function toUser(array $row): User {
+       return new User(
+           $row['id'],
+           $row['full_name'],
+           $row['email'],
+           $row['password'],
+           $row['is_admin']);
+    }
+
+}

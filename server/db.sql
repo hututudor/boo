@@ -7,3 +7,10 @@ create table books (
   pages int not null,
   PRIMARY KEY (id)
 );
+
+CREATE TABLE user (
+id INT AUTO_INCREMENT PRIMARY KEY,
+full_name VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
+password VARCHAR(255) NOT NULL
+);
