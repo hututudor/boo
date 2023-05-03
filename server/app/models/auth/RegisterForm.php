@@ -1,6 +1,5 @@
 <?php
 
-namespace app\models\auth;
 class RegisterForm
 {
     public string $fullName;

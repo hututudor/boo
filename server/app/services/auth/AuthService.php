@@ -1,14 +1,14 @@
 <?php
 
-namespace services\auth;
-
-use LoginForm;
-use RegisterForm;
-use services\response\IServiceResponse;
-use services\response\Unauthorized;
-use UserRepository;
-
-use firebase\JWT\JWT;
+require_once ROOT_DIR.'/app/services/response/IServiceResponse.php';
+require_once ROOT_DIR.'/app/services/response/Ok.php';
+require_once ROOT_DIR.'/app/services/response/Unauthorized.php';
+require_once ROOT_DIR.'/app/repositories/UserRepository.php';
+require_once ROOT_DIR.'/app/validation.php';
+require_once ROOT_DIR.'/app/models/auth/LoginForm.php';
+require_once ROOT_DIR.'/app/models/auth/RegisterForm.php';
+require_once ROOT_DIR.'/app/vendor/firebase/php-jwt/src/JWT.php';
+require_once ROOT_DIR.'/app/models/auth/User.php';
 
 class AuthService
 {
@@ -16,7 +16,7 @@ class AuthService
     {
         $user = UserRepository::getUserByEmail($loginForm->email);
 
-        if(!!$user)
+        if($user == null)
         {
             return new Unauthorized();
         }
@@ -43,6 +43,29 @@ class AuthService
 
     public static function register_user(RegisterForm $registerForm) : IServiceResponse
     {
-        return new Unauthorized();
+        $user = UserRepository::getUserByEmail($registerForm->email);
+
+        if($user != null)
+        {
+            return new BadAccess('The user is already registered with this email');
+        }
+
+        $hashedPassword = password_hash($registerForm->password, PASSWORD_DEFAULT);
+
+        $user = new User(
+            -1,
+            $registerForm->fullName,
+            $registerForm->email,
+            $hashedPassword
+        );
+
+        $registerCallAnswer = UserRepository::addUser($user);
+
+        if(!$registerCallAnswer)
+        {
+            return new InternalServerError('Something went wrong while registering the user.\n The user is not registered');
+        }
+
+        return new OK('The user is registered successfully');
     }
 }

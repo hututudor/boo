@@ -1,7 +1,6 @@
 <?php
 
-namespace services\response;
-
+require_once ROOT_DIR.'/app/services/response/IServiceResponse.php';
 class Unauthorized implements IServiceResponse
 {
     private string $message;

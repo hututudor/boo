@@ -40,6 +40,13 @@ class Response {
       echo json_encode($data);
     }
   }
+
+  public static function internalServerError($data = null): void {
+    header("HTTP/1.0 500 Internal Server Error");
+    if($data) {
+      echo json_encode($data);
+    }
+  }
 }
 
 class Route {

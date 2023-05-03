@@ -2,7 +2,21 @@
 
 class UserRepository
 {
-    public static function getUserByEmail($email)
+    public static function addUser($user) :? bool
+    {
+        $db = DB::getInstance()->getConnection();
+        $statement = $db->prepare("INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)");
+
+        $statement->bind_param("sss", $user->fullName, $user->email, $user->password);
+        $statement->execute();
+
+        if($statement->error) {
+            return false;
+        }
+
+        return true;
+    }
+    public static function getUserByEmail($email) : ?User
     {
         $db = DB::getInstance()->getConnection();
         $statement = $db->prepare("SELECT * FROM users WHERE email = ?");
@@ -22,7 +36,7 @@ class UserRepository
         return self::toUser($row);
     }
 
-    private static function getUserById($id)
+    private static function getUserById($id) : ?User
     {
         $db = DB::getInstance()->getConnection();
         $statement = $db->prepare("SELECT * FROM users WHERE id = ?");
@@ -42,7 +56,12 @@ class UserRepository
         return self::toUser($row);
     }
 
-    private static function toUser(array $row): User {
+    private static function toUser(array $row) : ?User{
+        if($row['id']==null || $row['full_name']==null || $row['email']==null || $row['password']==null || $row['is_admin']==null)
+        {
+            return null;
+        }
+
        return new User(
            $row['id'],
            $row['full_name'],

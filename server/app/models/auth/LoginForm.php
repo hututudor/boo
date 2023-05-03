@@ -1,6 +1,5 @@
 <?php
 
-namespace app\models\auth;
 class LoginForm
 {
     public string $email;

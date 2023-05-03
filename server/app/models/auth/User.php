@@ -1,6 +1,5 @@
 <?php
 
-namespace app\models\auth;
 class User
 {
     public int $id;
@@ -8,7 +7,7 @@ class User
     public string $email;
     public string $password;
     public bool $isAdmin;
-    public function __construct($id, $fullName, $email, $password, $isAdmin)
+    public function __construct($id, $fullName, $email, $password, $isAdmin = false)
     {
         $this->id = $id;
         $this->fullName = $fullName;
