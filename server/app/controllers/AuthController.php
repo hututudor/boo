@@ -28,6 +28,14 @@ class AuthController
         Response::success($response->getResponseMessage());
     }
 
+    private function validateLoginBody(Request $request): ?array
+    {
+        return validate($request->body, [
+            'email' => ['required'],
+            'password' => ['required']
+        ]);
+    }
+
     public function register(Request $request) : void
     {
         $bodyErrors = $this->validateRegisterBody($request);
@@ -37,10 +45,10 @@ class AuthController
         }
 
         $form = new RegisterForm(
+            $request->body['fullName'],
             $request->body['email'],
             $request->body['password'],
-            $request->body['firstName'],
-            $request->body['lastName']
+            $request->body['confirmPassword']
         );
 
         $response = AuthService::register_user($form);
@@ -57,21 +65,13 @@ class AuthController
 
         Response::success($response->getResponseMessage());
     }
-    private function validateLoginBody(Request $request): ?array
-    {
-        return validate($request->body, [
-            'email' => ['required'],
-            'password' => ['required']
-        ]);
-    }
-
     private function validateRegisterBody(Request $request): ?array
     {
         return validate($request->body, [
+            'fullName' => ['required'],
             'email' => ['required'],
             'password' => ['required'],
-            'firstName' => ['required'],
-            'lastName' => ['required']
+            'confirmPassword' => ['required']
         ]);
     }
 }

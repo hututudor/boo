@@ -57,11 +57,6 @@ class UserRepository
     }
 
     private static function toUser(array $row) : ?User{
-        if($row['id']==null || $row['full_name']==null || $row['email']==null || $row['password']==null || $row['is_admin']==null)
-        {
-            return null;
-        }
-
        return new User(
            $row['id'],
            $row['full_name'],

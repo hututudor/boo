@@ -1,5 +1,7 @@
 <?php
 
+use Firebase\JWT\JWT;
+
 require_once ROOT_DIR.'/app/services/response/IServiceResponse.php';
 require_once ROOT_DIR.'/app/services/response/Ok.php';
 require_once ROOT_DIR.'/app/services/response/Unauthorized.php';
@@ -21,9 +23,7 @@ class AuthService
             return new Unauthorized();
         }
 
-        $hashedPassword = password_hash($loginForm->password, PASSWORD_DEFAULT);
-
-        if(!password_verify($hashedPassword, $user->password)) {
+        if(!password_verify($loginForm->password, $user->password)) {
             return new Unauthorized();
         }
 
@@ -43,6 +43,11 @@ class AuthService
 
     public static function register_user(RegisterForm $registerForm) : IServiceResponse
     {
+        if($registerForm->password != $registerForm->confirmPassword)
+        {
+            return new BadAccess('The password and the confirm password do not match');
+        }
+
         $user = UserRepository::getUserByEmail($registerForm->email);
 
         if($user != null)
@@ -66,6 +71,11 @@ class AuthService
             return new InternalServerError('Something went wrong while registering the user.\n The user is not registered');
         }
 
-        return new OK('The user is registered successfully');
+        $loginForm = new LoginForm(
+            $registerForm->email,
+            $registerForm->password
+        );
+
+        return self::login_user($loginForm);
     }
 }
