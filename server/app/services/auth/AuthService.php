@@ -2,28 +2,28 @@
 
 use Firebase\JWT\JWT;
 
-require_once ROOT_DIR.'/app/services/response/IServiceResponse.php';
-require_once ROOT_DIR.'/app/services/response/Ok.php';
-require_once ROOT_DIR.'/app/services/response/Unauthorized.php';
-require_once ROOT_DIR.'/app/repositories/UserRepository.php';
-require_once ROOT_DIR.'/app/validation.php';
-require_once ROOT_DIR.'/app/models/auth/LoginForm.php';
-require_once ROOT_DIR.'/app/models/auth/RegisterForm.php';
-require_once ROOT_DIR.'/app/vendor/firebase/php-jwt/src/JWT.php';
-require_once ROOT_DIR.'/app/models/auth/User.php';
+require_once ROOT_DIR . '/app/services/response/IServiceResponse.php';
+require_once ROOT_DIR . '/app/services/response/Ok.php';
+require_once ROOT_DIR . '/app/services/response/Unauthorized.php';
+require_once ROOT_DIR . '/app/services/response/BadAccess.php';
+require_once ROOT_DIR . '/app/repositories/UserRepository.php';
+require_once ROOT_DIR . '/app/validation.php';
+require_once ROOT_DIR . '/app/models/auth/LoginForm.php';
+require_once ROOT_DIR . '/app/models/auth/RegisterForm.php';
+require_once ROOT_DIR . '/app/vendor/firebase/php-jwt/src/JWT.php';
+require_once ROOT_DIR . '/app/models/auth/User.php';
 
 class AuthService
 {
-    public static function login_user(LoginForm $loginForm) : IServiceResponse
+    public static function login_user(LoginForm $loginForm): IServiceResponse
     {
         $user = UserRepository::getUserByEmail($loginForm->email);
 
-        if($user == null)
-        {
+        if ($user == null) {
             return new Unauthorized();
         }
 
-        if(!password_verify($loginForm->password, $user->password)) {
+        if (!password_verify($loginForm->password, $user->password)) {
             return new Unauthorized();
         }
 
@@ -41,17 +41,15 @@ class AuthService
         return new OK($jwt);
     }
 
-    public static function register_user(RegisterForm $registerForm) : IServiceResponse
+    public static function register_user(RegisterForm $registerForm): IServiceResponse
     {
-        if($registerForm->password != $registerForm->confirmPassword)
-        {
+        if ($registerForm->password != $registerForm->confirmPassword) {
             return new BadAccess('The password and the confirm password do not match');
         }
 
         $user = UserRepository::getUserByEmail($registerForm->email);
 
-        if($user != null)
-        {
+        if ($user != null) {
             return new BadAccess('The user is already registered with this email');
         }
 
@@ -66,8 +64,7 @@ class AuthService
 
         $registerCallAnswer = UserRepository::addUser($user);
 
-        if(!$registerCallAnswer)
-        {
+        if (!$registerCallAnswer) {
             return new InternalServerError('Something went wrong while registering the user.\n The user is not registered');
         }
 
