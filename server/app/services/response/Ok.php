@@ -1,22 +1,22 @@
 <?php
 
-require_once ROOT_DIR.'/app/services/response/IServiceResponse.php';
+require_once ROOT_DIR . '/app/services/response/IServiceResponse.php';
 class Ok implements IServiceResponse
 {
-    private string $message;
+    private array $data;
 
-    public function getResponseStatusCode(): int
+    public function getResponseStatus(): string
     {
-        return 200;
+        return "HTTP/1.0 200 Ok";
     }
 
-    public function getResponseMessage(): string
+    public function getResponseData(): array
     {
-        return $this->message;
+        return $this->data;
     }
 
-    public function __construct($message = 'Ok')
+    public function __construct($data)
     {
-        $this->message = $message;
+        $this->data = $data;
     }
 }

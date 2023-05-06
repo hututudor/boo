@@ -20,12 +20,8 @@ class AuthController
 
         $response = AuthService::login_user($form);
 
-        if(!$response->getResponseStatusCode()==401)
-        {
-            Response::unauthorized();
-        }
 
-        Response::success($response->getResponseMessage());
+        Response::custom($response->getResponseStatus(), $response->getResponseData());
     }
 
     private function validateLoginBody(Request $request): ?array
@@ -36,10 +32,10 @@ class AuthController
         ]);
     }
 
-    public function register(Request $request) : void
+    public function register(Request $request): void
     {
         $bodyErrors = $this->validateRegisterBody($request);
-        if($bodyErrors) {
+        if ($bodyErrors) {
             Response::badRequest($bodyErrors);
             return;
         }
@@ -53,17 +49,7 @@ class AuthController
 
         $response = AuthService::register_user($form);
 
-        if(!$response->getResponseStatusCode()==400)
-        {
-            Response::badRequest();
-        }
-
-        if(!$response->getResponseStatusCode()==500)
-        {
-            Response::internalServerError();
-        }
-
-        Response::success($response->getResponseMessage());
+        Response::custom($response->getResponseStatus(), $response->getResponseData());
     }
     private function validateRegisterBody(Request $request): ?array
     {

@@ -38,7 +38,7 @@ class AuthService
 
         // Return the JWT token as a response
 
-        return new OK($jwt);
+        return new OK(['token' => $jwt]);
     }
 
     public static function register_user(RegisterForm $registerForm): IServiceResponse

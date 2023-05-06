@@ -5,14 +5,16 @@ class BadAccess implements IServiceResponse
 {
     private string $message;
 
-    public function getResponseStatusCode(): int
+    public function getResponseStatus(): string
     {
-        return 400;
+        return "HTTP/1.0 404 Not Found";
     }
 
-    public function getResponseMessage(): string
+    public function getResponseData(): array
     {
-        return $this->message;
+        return [
+            'message' => $this->message
+        ];
     }
 
     public function __construct($message = 'BadAccess')
