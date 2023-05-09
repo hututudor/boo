@@ -10,7 +10,6 @@ require_once ROOT_DIR . '/app/repositories/UserRepository.php';
 require_once ROOT_DIR . '/app/validation.php';
 require_once ROOT_DIR . '/app/models/auth/LoginForm.php';
 require_once ROOT_DIR . '/app/models/auth/RegisterForm.php';
-require_once ROOT_DIR . '/app/vendor/firebase/php-jwt/src/JWT.php';
 require_once ROOT_DIR . '/app/models/auth/User.php';
 
 class AuthService
@@ -27,16 +26,7 @@ class AuthService
             return new Unauthorized();
         }
 
-        //Set JWT payload
-        $payload = [
-            'id' => $user->id,
-            'isAdmin' => $user->isAdmin
-        ];
-
-        // Generate JWT token
-        $jwt = JWT::encode($payload, JWT_SECRET);
-
-        // Return the JWT token as a response
+       $jwt = self::generateJWT($user->id, $user->isAdmin);
 
         return new OK(['token' => $jwt]);
     }
@@ -71,4 +61,36 @@ class AuthService
 
         return self::login_user($loginForm);
     }
+
+    public static function generateJWT(int $userID, bool $isAdmin): string
+    {
+        $header = [
+            'alg' => 'HS256',
+            'typ' => 'JWT'
+        ];
+
+        $payload = [
+            'id' => $userID,
+            'isAdmin' => $isAdmin
+        ];
+
+        $headerEncoded = self::base64url_encode(json_encode($header));
+        $payloadEncoded = self::base64url_encode(json_encode($payload));
+
+        $secret = JWT_SECRET; // Replace with your own secret key
+        $signature = self::base64url_encode(hash_hmac('sha256', $headerEncoded . '.' . $payloadEncoded, $secret, true));
+
+        return $headerEncoded . '.' . $payloadEncoded . '.' . $signature;
+    }
+
+    private static function base64url_encode($data): bool|string
+    {
+        $base64 = base64_encode($data);
+        if (!$base64) {
+            return false;
+        }
+        $base64url = strtr($base64, '+/', '-_');
+        return rtrim($base64url, '=');
+    }
+
 }
