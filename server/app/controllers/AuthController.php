@@ -43,8 +43,7 @@ class AuthController
         $form = new RegisterForm(
             $request->body['fullName'],
             $request->body['email'],
-            $request->body['password'],
-            $request->body['confirmPassword']
+            $request->body['password']
         );
 
         $response = AuthService::register_user($form);
@@ -57,7 +56,6 @@ class AuthController
             'fullName' => ['required'],
             'email' => ['required'],
             'password' => ['required'],
-            'confirmPassword' => ['required']
         ]);
     }
 }

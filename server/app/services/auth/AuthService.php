@@ -43,10 +43,6 @@ class AuthService
 
     public static function register_user(RegisterForm $registerForm): IServiceResponse
     {
-        if ($registerForm->password != $registerForm->confirmPassword) {
-            return new BadAccess('The password and the confirm password do not match');
-        }
-
         $user = UserRepository::getUserByEmail($registerForm->email);
 
         if ($user != null) {
