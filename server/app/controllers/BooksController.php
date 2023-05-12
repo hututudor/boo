@@ -30,7 +30,14 @@ class BooksController {
 
     $book->pages = $request->body['pages'];
     $book->title = $request->body['title'];
+    $book->image = $request->body['image'];
     $book->author = $request->body['author'];
+    $book->description = $request->body['description'];
+    $book->isbn = $request->body['isbn'];
+    $book->genre = $request->body['genre'];
+    $book->publisher = $request->body['publisher'];
+    $book->format = $request->body['format'];
+    $book->publication_date = $request->body['publication_date'];
 
     $inserted = BookRepository::insert($book);
 
@@ -52,8 +59,15 @@ class BooksController {
     $book = new Book();
     $book->pages = $request->body['pages'];
     $book->title = $request->body['title'];
+    $book->image = $request->body['image'];
     $book->author = $request->body['author'];
     $book->id = $request->params['id'];
+    $book->description = $request->body['description'];
+    $book->isbn = $request->body['isbn'];
+    $book->genre = $request->body['genre'];
+    $book->publisher = $request->body['publisher'];
+    $book->format = $request->body['format'];
+    $book->publication_date = $request->body['publication_date'];
 
     $updated = BookRepository::update($book);
 
@@ -74,7 +88,14 @@ class BooksController {
     return validate($request->body, [
       'pages' => ['required', 'number'],
       'title' => ['required'],
-      'author' => ['required']
+      'author' => ['required'],
+      'image' => ['required'],
+      'description' => ['required'],
+      'isbn' => ['required'],
+      'genre' => ['required'],
+      'publisher' => ['required'],
+      'format' => ['required'],
+      'publication_date' => ['required','date']
     ]);
   }
 }
