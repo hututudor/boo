@@ -2,7 +2,7 @@
   &-input {
     display: flex;
     flex-direction: column;
-    margin-bottom: size(4);
+    margin-bottom: size(2);
     width: 100%;
 
     > label {
@@ -29,6 +29,14 @@
         border-color: $purple-600;
         outline: none;
       }
+    }
+
+    > span {
+      @include text;
+      @include text__12;
+
+      height: size(4);
+      color: $red-vivid-600;
     }
   }
 
@@ -141,5 +149,9 @@
 
   &-action {
     text-align: center;
+  }
+
+  > #error {
+    color: $red-vivid-600;
   }
 }

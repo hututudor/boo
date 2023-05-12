@@ -7,30 +7,44 @@
     <title>Login</title>
     <link rel="stylesheet" href="styles/index.css" />
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-    <script src="./scripts/navigate.js"></script>
+
+    <meta name="page-name" content="login" />
+    <script src="./scripts/app.js"></script>
+    <script src="./goTo.js"></script>
   </head>
   <body>
+    <div class="loading" id="loading">
+      <img src="assets/loading.gif" alt="logo" />
+    </div>
+
     <div class="auth">
       <div class="auth-container">
         <img class="auth-container-logo" src="assets/logo.svg" alt="logo" />
         <div class="text text__32 text__bold text__center mb-4">Login</div>
-        <div class="form w-100">
+        <form class="form w-100">
           <div class="form-input">
             <label for="email">Email</label>
             <input id="email" placeholder="Email" />
+            <span></span>
           </div>
           <div class="form-input">
             <label for="password">Password</label>
-            <input id="password" placeholder="Password" type="password"/>
+            <input id="password" placeholder="Password" type="password" />
+            <span></span>
           </div>
-        </div>
-        <div class="flex flex__column flex__align-center mt-4">
-          <button class="button button__primary">Login</button>
-          <button class="button button__link mt-4" onclick="goTo('./register.html')">
-            Don't have an account? Register
-          </button>
-        </div>
+          <div id="error" class="text text__16 text__center w-100"></div>
+          <div class="flex flex__column flex__align-center mt-4">
+            <button class="button button__primary" type="submit">Login</button>
+            <button
+              class="button button__link mt-4"
+              onclick="goTo('./register.html')"
+              type="button"
+            >
+              Don't have an account? Register
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </body>
-</html> 
+</html>
