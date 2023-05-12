@@ -1,17 +1,44 @@
-import { sleep } from '../utils/time';
+import { API_BASE } from '../config';
 
 export const login = async ({ email, password }) => {
-  await sleep(500);
+  const res = await fetch(`${API_BASE}/auth/login`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
 
-  return {
-    token: '12344',
-  };
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw data;
+  }
+
+  return data;
 };
 
 export const register = async ({ email, name, password }) => {
-  await sleep(500);
+  const res = await fetch(`${API_BASE}/auth/register`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      fullName: name,
+      email,
+      password,
+    }),
+  });
 
-  return {
-    token: '12344',
-  };
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw data;
+  }
+
+  return data;
 };

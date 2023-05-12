@@ -1,5 +1,10 @@
 import { login } from '../api';
-import { disableButton, enableButton, setInputError } from '../components';
+import {
+  disableButton,
+  enableButton,
+  setInputError,
+  setFormError,
+} from '../components';
 import { isEmailValid } from '../utils/validation';
 import { checkNoAuth, handleAuth } from '../app/auth';
 
@@ -44,16 +49,22 @@ const handleLogin = async event => {
   const button = document.querySelector('button[type="submit"]');
   const emailInput = document.getElementById('email');
   const passwordInput = document.getElementById('password');
+  const form = document.getElementsByTagName('form')[0];
 
   disableButton(button);
 
-  const { token } = await login({
-    email: emailInput.value,
-    password: passwordInput.value,
-  });
+  try {
+    const { token } = await login({
+      email: emailInput.value,
+      password: passwordInput.value,
+    });
 
-  enableButton(button);
-  handleAuth(token);
+    handleAuth(token);
+  } catch (err) {
+    setFormError(form, err.message);
+  } finally {
+    enableButton(button);
+  }
 };
 
 const _validateEmailField = () => {

@@ -150,4 +150,8 @@
   &-action {
     text-align: center;
   }
+
+  > #error {
+    color: $red-vivid-600;
+  }
 }

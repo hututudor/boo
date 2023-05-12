@@ -26,7 +26,7 @@ class AuthService
             return new Unauthorized();
         }
 
-       $jwt = self::generateJWT($user->id, $user->isAdmin);
+        $jwt = self::generateJWT($user->id, $user->isAdmin);
 
         return new OK(['token' => $jwt]);
     }
@@ -36,7 +36,7 @@ class AuthService
         $user = UserRepository::getUserByEmail($registerForm->email);
 
         if ($user != null) {
-            return new BadAccess('The user is already registered with this email');
+            return new BadAccess('The email is already in use');
         }
 
         $hashedPassword = password_hash($registerForm->password, PASSWORD_DEFAULT);
@@ -92,5 +92,4 @@ class AuthService
         $base64url = strtr($base64, '+/', '-_');
         return rtrim($base64url, '=');
     }
-
 }
