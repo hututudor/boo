@@ -1,7 +1,7 @@
 <?php
 
 class Book {
-  public int $id;
+  public ?int $id;
   public string $title;
   public string $image;
   public string $author;
@@ -12,7 +12,7 @@ class Book {
   public string $format;
   public string $publication_date;
 
-  public function __construct($id = null, $title = '', $image = '', $author = '', $pages = 0, $isbn = '', $genre = '', $publisher = '', $format = '', $publication_date = null) {
+  public function __construct($id = null, $title = '', $image = '', $author = '', $pages = 0, $isbn = '', $genre = '', $publisher = '', $format = '', $publication_date = '') {
     $this->id = $id;
     $this->title = $title;
     $this->image = $image;

@@ -40,8 +40,8 @@ class BookRepository {
 
   public static function insert(Book $book): ?Book {
     $db = DB::getInstance()->getConnection();
-    $statement = $db->prepare("INSERT INTO books (title, image, author, book_description, pages, isbn, genre, publisher, format, publication_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $statement->bind_param("sssss", $book->title, $book->image, $book->author, $book->book_description, $book->pages, $book->isbn, $book->genre, $book->publisher, $book->format, $book->publication_date);
+    $statement = $db->prepare("INSERT INTO books (title, image, author, description, pages, isbn, genre, publisher, format, publication_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $statement->bind_param("ssssisssss", $book->title, $book->image, $book->author, $book->description, $book->pages, $book->isbn, $book->genre, $book->publisher, $book->format, $book->publication_date);
     $statement->execute();
 
     if($statement->error) {
@@ -54,8 +54,8 @@ class BookRepository {
 
 public static function update(Book $book): bool {
   $db = DB::getInstance()->getConnection();
-  $statement = $db->prepare("UPDATE books SET title = ?, image = ?, author = ?, book_description = ?, pages = ?, isbn = ?, genre = ?, publisher = ?, format = ?, publication_date = ? WHERE id = ?");
-  $statement->bind_param("sssss", $book->title, $book->image, $book->author, $book->book_description, $book->pages, $book->isbn, $book->genre, $book->publisher, $book->format, $book->publication_date, $book->id);
+  $statement = $db->prepare("UPDATE books SET title = ?, image = ?, author = ?, description = ?, pages = ?, isbn = ?, genre = ?, publisher = ?, format = ?, publication_date = ? WHERE id = ?");
+  $statement->bind_param("ssssisssssi", $book->title, $book->image, $book->author, $book->description, $book->pages, $book->isbn, $book->genre, $book->publisher, $book->format, $book->publication_date, $book->id);
   $statement->execute();
 
   return !!$statement->error;
