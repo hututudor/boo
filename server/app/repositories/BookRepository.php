@@ -69,6 +69,6 @@ public static function update(Book $book): bool {
   }
 
   private static function toBook(array $row): Book {
-    return new Book($row['id'], $row['title'], $row['image'], $row['author'], $row['pages'], $row['isbn'], $row['genre'], $row['publisher'], $row['format'], $row['publication_date']);
+    return new Book($row['id'], $row['title'], $row['image'], $row['author'], $row['description'], $row['pages'], $row['isbn'], $row['genre'], $row['publisher'], $row['format'], $row['publication_date']);
   }
 }

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="fork-awesome.css" />
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 
-    <meta name="page-name" content="books_add" />
+    <meta name="page-name" content="books_edit" />
     <script src="./scripts/app.js"></script>
     <script src="./goTo.js"></script>
   </head>
@@ -32,51 +32,14 @@
         <input type="text" id="search" placeholder="Search" />
         <i class="fa fa-search" aria-hidden="true"></i>
       </div>
-      <div class="side-links">
-        <button class="side-link" onclick="goTo('./home.html')">
-          <i class="fa fa-home" aria-hidden="true"></i>
-          Home
-        </button>
-        <button class="side-link" onclick="goTo('./books.html')">
-          <i class="fa fa-book" aria-hidden="true"></i>
-          Books
-        </button>
-        <button class="side-link" onclick="goTo('./reviews.html')">
-          <i class="fa fa-comment" aria-hidden="true"></i>
-          Reviews
-        </button>
-        <button
-          class="side-link side-link__active"
-          onclick="goTo('./books_manager.html')"
-        >
-          <i class="fa fa-table" aria-hidden="true"></i>
-          Books Manager
-        </button>
-        <button class="side-link" onclick="goTo('./about.html')">
-          <i class="fa fa-info-circle" aria-hidden="true"></i>
-          About
-        </button>
-        <button class="side-link" onclick="goTo('./help.html')">
-          <i class="fa fa-question-circle" aria-hidden="true"></i>
-          Help
-        </button>
-        <div class="mt-3"></div>
-        <button class="side-link" onClick="goTo('./login.html')">
-          <i class="fa fa-user" aria-hidden="true"></i>
-          Login
-        </button>
-        <button class="side-link" onClick="goTo('./register.html')">
-          <i class="fa fa-user-plus" aria-hidden="true"></i>
-          Register
-        </button>
-      </div>
+      <div class="side-links"></div>
       <div class="side-footer">
         <div class="text text__14">boo @ 2023</div>
       </div>
     </aside>
 
     <main>
-      <div class="text text__32 text__bold mb-4">Add new book</div>
+      <div class="text text__32 text__bold mb-4">Edit book</div>
 
       <div class="form book_form">
         <div class="form-input">
@@ -86,6 +49,7 @@
             id="name"
             name="name"
             placeholder="The name of the book"
+            value="The Way Of Kings"
           />
         </div>
         <div class="form-input">
@@ -95,6 +59,7 @@
             id="author"
             name="author"
             placeholder="The author of the book"
+            value="Brandon Sanderson"
           />
         </div>
         <div class="form-textarea book_form__full-row">
@@ -105,7 +70,9 @@
             name="description"
             placeholder="The description of the book"
             rows="10"
-          ></textarea>
+          >
+Roshar is a world of stone and storms. Uncanny tempests of incredible power sweep across the rocky terrain so frequently that they have shaped ecology and civilization alike. Animals hide in shells, trees pull in branches, and grass retracts into the soilless ground. Cities are built only where the topography offers shelter. It has been centuries since the fall of the ten consecrated orders known as the Knights Radiant, but their Shardblades and Shardplate remain: mystical swords and suits of armor that transform ordinary men into near-invincible warriors. Men trade kingdoms for Shardblades. Wars were fought for them, and won by them. One such war rages on a ruined landscape called the Shattered Plains. There, Kaladin, who traded his medical apprenticeship for a spear to protect his little brother, has been reduced to slavery. In a war that makes no sense, where ten armies fight separately against a single foe, he struggles to save his men and to fathom the leaders who consider them expendable. Brightlord Dalinar Kholin commands one of those other armies. Like his brother, the late king, he is fascinated by an ancient text called The Way of Kings. Troubled by over-powering visions of ancient times and the Knights Radiant, he has begun to doubt his own sanity. Across the ocean, an untried young woman named Shallan seeks to train under an eminent scholar and notorious heretic, Dalinar's niece, Jasnah. Though she genuinely loves learning, Shallan's motives are less than pure. As she plans a daring theft, her research for Jasnah hints at secrets of the Knights Radiant and the true cause of the war. The result of over ten years of planning, writing, and world-building, The Way of Kings is but the opening movement of the Stormlight Archive, a bold masterpiece in the making. Speak again the ancient oaths: Life before death. Strength before weakness. Journey before Destination. and return to men the Shards they once bore. The Knights Radiant must stand again.
+          </textarea>
         </div>
         <div class="form-input">
           <label for="isbn">ISBN</label>
@@ -114,6 +81,7 @@
             id="isbn"
             name="isbn"
             placeholder="The ISBN of the book"
+            value="9780765326355"
           />
         </div>
         <div class="form-input">
@@ -123,6 +91,7 @@
             id="publisher"
             name="publisher"
             placeholder="The publisher of the book"
+            value="Tor Books"
           />
         </div>
         <div class="form-input">
@@ -132,6 +101,7 @@
             id="pages"
             name="pages"
             placeholder="The number of pages of the book"
+            value="1007"
           />
         </div>
         <div class="form-input">
@@ -141,19 +111,20 @@
             id="published"
             name="published"
             placeholder="The published date of the book"
+            value="31 August 2010"
           />
         </div>
         <div class="form-dropdown">
           <label for="format">Format</label>
           <select name="format" id="format">
-            <option value="hardcover">Hardcover</option>
+            <option value="hardcover" selected>Hardcover</option>
             <option value="paperback">Paperback</option>
           </select>
         </div>
         <div class="form-dropdown">
           <label for="genre">Genre</label>
           <select name="genre" id="genre">
-            <option value="fantasy">Fantasy</option>
+            <option value="fantasy" selected>Fantasy</option>
             <option value="adventure">Adventure</option>
             <option value="romance">Romance</option>
             <option value="dystopian">Dystopian</option>
@@ -168,7 +139,7 @@
 
         <div class="form-file">
           <label for="cover">Book Cover</label>
-          <div>No file chosen</div>
+          <div>way_of_kings.jpeg</div>
           <input
             type="file"
             id="cover"

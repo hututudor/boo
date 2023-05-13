@@ -15,7 +15,7 @@ class Request {
 
 class Response {
   public static function success($data = null): void {
-    if($data) {
+    if($data || is_array($data)) {
       echo json_encode($data);
     }
   }

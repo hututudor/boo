@@ -5,3 +5,4 @@ export * from './loading';
 export * from './input';
 export * from './button';
 export * from './form';
+export * from './bookCard';

@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>All books | Boo</title>
+    <title>Books by Brandon Sanderson | Boo</title>
     <link rel="stylesheet" href="styles/index.css" />
     <link rel="stylesheet" href="fork-awesome.css" />
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 
-    <meta name="page-name" content="books" />
+    <meta name="page-name" content="books_author" />
     <script src="./scripts/app.js"></script>
     <script src="./goTo.js"></script>
   </head>
@@ -32,51 +32,16 @@
         <input type="text" id="search" placeholder="Search" />
         <i class="fa fa-search" aria-hidden="true"></i>
       </div>
-      <div class="side-links">
-        <button class="side-link" onclick="goTo('./home.html')">
-          <i class="fa fa-home" aria-hidden="true"></i>
-          Home
-        </button>
-        <button
-          class="side-link side-link__active"
-          onclick="goTo('./books.html')"
-        >
-          <i class="fa fa-book" aria-hidden="true"></i>
-          Books
-        </button>
-        <button class="side-link" onclick="goTo('./reviews.html')">
-          <i class="fa fa-comment" aria-hidden="true"></i>
-          Reviews
-        </button>
-        <button class="side-link" onclick="goTo('./books_manager.html')">
-          <i class="fa fa-table" aria-hidden="true"></i>
-          Books Manager
-        </button>
-        <button class="side-link" onclick="goTo('./about.html')">
-          <i class="fa fa-info-circle" aria-hidden="true"></i>
-          About
-        </button>
-        <button class="side-link" onclick="goTo('./help.html')">
-          <i class="fa fa-question-circle" aria-hidden="true"></i>
-          Help
-        </button>
-        <div class="mt-3"></div>
-        <button class="side-link" onClick="goTo('./login.html')">
-          <i class="fa fa-user" aria-hidden="true"></i>
-          Login
-        </button>
-        <button class="side-link" onClick="goTo('./register.html')">
-          <i class="fa fa-user-plus" aria-hidden="true"></i>
-          Register
-        </button>
-      </div>
+      <div class="side-links"></div>
       <div class="side-footer">
         <div class="text text__14">boo @ 2023</div>
       </div>
     </aside>
 
     <main>
-      <div class="text text__32 text__bold mb-4">All Books</div>
+      <div class="text text__32 text__bold mb-4">
+        All Books By Brandon Sanderson
+      </div>
       <div class="books">
         <div class="book_card" onclick="goTo('./book.html')">
           <div

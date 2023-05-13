@@ -1,5 +1,5 @@
-import { registerSidebarEvents } from '../components';
+import { renderSidebar } from '../components';
 
 export const load = () => {
-  registerSidebarEvents();
+  renderSidebar();
 };

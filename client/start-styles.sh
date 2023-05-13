@@ -1,2 +1,2 @@
-mkdir -p public/styles
-sass styles/index.scss public/styles/index.css --style compressed -w
+mkdir -p ../server/public/styles
+sass styles/index.scss ../server/public/styles/index.css --style compressed -w

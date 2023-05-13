@@ -1,6 +1,6 @@
-import { registerSidebarEvents, loadFormFiles } from '../components';
+import { renderSidebar, loadFormFiles } from '../components';
 
 export const load = () => {
-  registerSidebarEvents();
+  renderSidebar();
   loadFormFiles();
 };

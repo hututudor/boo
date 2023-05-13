@@ -1,3 +1,5 @@
+server/public/styles
+server/public/scripts
 .idea/
 .DS_Store
 build/
