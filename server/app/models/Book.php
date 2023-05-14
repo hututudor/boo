@@ -5,6 +5,7 @@ class Book {
   public string $title;
   public string $image;
   public string $author;
+  public string $description;
   public int $pages;
   public string $isbn;
   public string $genre;
@@ -12,11 +13,12 @@ class Book {
   public string $format;
   public string $publication_date;
 
-  public function __construct($id = null, $title = '', $image = '', $author = '', $pages = 0, $isbn = '', $genre = '', $publisher = '', $format = '', $publication_date = '') {
+  public function __construct($id = null, $title = '', $image = '', $author = '', $description = '', $pages = 0, $isbn = '', $genre = '', $publisher = '', $format = '', $publication_date = '') {
     $this->id = $id;
     $this->title = $title;
     $this->image = $image;
     $this->author = $author;
+    $this->description = $description;
     $this->pages = $pages;
     $this->isbn = $isbn;
     $this->genre = $genre;

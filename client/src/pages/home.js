@@ -1,6 +1,6 @@
-import { loadBookImages, registerSidebarEvents } from '../components';
+import { loadBookImages, renderSidebar } from '../components';
 
 export const load = () => {
-  registerSidebarEvents();
+  renderSidebar();
   loadBookImages();
 };

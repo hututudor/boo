@@ -1,9 +1,11 @@
-import { registerSidebarEvents, loadBookImages } from '../components';
-import { sleep } from '../utils/time';
+import { listBooks } from '../api';
+import { renderSidebar, getBookCardNode } from '../components';
 
 export const load = async () => {
-  registerSidebarEvents();
-  loadBookImages();
+  renderSidebar();
 
-  await sleep(1000);
+  const books = await listBooks();
+
+  const booksNode = document.getElementsByClassName('books')[0];
+  books.forEach(book => booksNode.appendChild(getBookCardNode(book)));
 };

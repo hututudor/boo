@@ -22,5 +22,5 @@ export const load = async () => {
   hidePageLoading();
 };
 
-const getPageName = () =>
+export const getPageName = () =>
   document.querySelector('meta[name="page-name"]')?.getAttribute('content');

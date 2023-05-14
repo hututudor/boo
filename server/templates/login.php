@@ -5,21 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="styles/index.css" />
-    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="<?php path('styles/index.css') ?>" />
+    <link rel="shortcut icon" href="<?php path('assets/favicon.ico') ?>" type="image/x-icon" />
 
     <meta name="page-name" content="login" />
-    <script src="./scripts/app.js"></script>
-    <script src="./goTo.js"></script>
+    <script src="<?php path('scripts/app.js') ?>"></script>
+    <script src="<?php path('goTo.js') ?>"></script>
   </head>
   <body>
     <div class="loading" id="loading">
-      <img src="assets/loading.gif" alt="logo" />
+      <img src="<?php path('assets/loading.gif') ?>" alt="logo" />
     </div>
 
     <div class="auth">
       <div class="auth-container">
-        <img class="auth-container-logo" src="assets/logo.svg" alt="logo" />
+        <img class="auth-container-logo" src="<?php path('assets/logo.svg') ?>" alt="logo" />
         <div class="text text__32 text__bold text__center mb-4">Login</div>
         <form class="form w-100">
           <div class="form-input">
@@ -37,7 +37,7 @@
             <button class="button button__primary" type="submit">Login</button>
             <button
               class="button button__link mt-4"
-              onclick="goTo('./register.html')"
+              onclick="goTo('./register')"
               type="button"
             >
               Don't have an account? Register

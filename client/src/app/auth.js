@@ -21,6 +21,11 @@ export const isAuth = () => {
   return true;
 };
 
+export const logout = () => {
+  localStorage.removeItem(TOKEN_KEY);
+  location.reload();
+};
+
 export const checkAuth = () => {
   if (!isAuth()) {
     _redirectToLogin();
@@ -48,7 +53,7 @@ export const handleAuth = token => {
 
 const _redirectToLogin = () => {
   localStorage.removeItem(TOKEN_KEY);
-  goTo('./login.html');
+  goTo('./login');
 };
 
-const _redirectToHome = () => goTo('./home.html');
+const _redirectToHome = () => goTo('./');

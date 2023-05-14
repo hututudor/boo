@@ -15,8 +15,8 @@ class Request {
 
 class Response {
   public static function success($data = null): void {
-    if($data) {
-      echo json_encode($data);
+    if($data || is_array($data)) {
+      echo json_encode($data, JSON_UNESCAPED_SLASHES);
     }
   }
 
