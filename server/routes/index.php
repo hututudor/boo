@@ -2,6 +2,8 @@
 
 global $router;
 
+$router->post('/api/upload', 'FileController@upload');
+
 $router->get('/api/books', 'BooksController@list');
 $router->get('/api/books/:id', 'BooksController@get');
 $router->post('/api/books', 'BooksController@add');

@@ -1,5 +1,6 @@
 server/public/styles
 server/public/scripts
+server/public/assets/upload/*
 .idea/
 .DS_Store
 build/
