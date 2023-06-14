@@ -1,7 +1,5 @@
 <?php
 
-use Firebase\JWT\JWT;
-
 require_once ROOT_DIR . '/app/services/response/IServiceResponse.php';
 require_once ROOT_DIR . '/app/services/response/Ok.php';
 require_once ROOT_DIR . '/app/services/response/Unauthorized.php';
@@ -11,6 +9,7 @@ require_once ROOT_DIR . '/app/validation.php';
 require_once ROOT_DIR . '/app/models/auth/LoginForm.php';
 require_once ROOT_DIR . '/app/models/auth/RegisterForm.php';
 require_once ROOT_DIR . '/app/models/auth/User.php';
+require_once ROOT_DIR . '/app/services/utils/JwtUtils.php';
 
 class AuthService
 {
@@ -26,7 +25,9 @@ class AuthService
             return new Unauthorized();
         }
 
-        $jwt = self::generateJWT($user->id, $user->isAdmin);
+        $jwt = JwtUtils::generateJWT($user->id, $user->isAdmin);
+
+        $decode_jwt = JwtUtils::decode_jwt($jwt);
 
         return new OK(['token' => $jwt]);
     }
@@ -62,34 +63,5 @@ class AuthService
         return self::login_user($loginForm);
     }
 
-    public static function generateJWT(int $userID, bool $isAdmin): string
-    {
-        $header = [
-            'alg' => 'HS256',
-            'typ' => 'JWT'
-        ];
 
-        $payload = [
-            'id' => $userID,
-            'isAdmin' => $isAdmin
-        ];
-
-        $headerEncoded = self::base64url_encode(json_encode($header));
-        $payloadEncoded = self::base64url_encode(json_encode($payload));
-
-        $secret = JWT_SECRET; // Replace with your own secret key
-        $signature = self::base64url_encode(hash_hmac('sha256', $headerEncoded . '.' . $payloadEncoded, $secret, true));
-
-        return $headerEncoded . '.' . $payloadEncoded . '.' . $signature;
-    }
-
-    private static function base64url_encode($data): bool|string
-    {
-        $base64 = base64_encode($data);
-        if (!$base64) {
-            return false;
-        }
-        $base64url = strtr($base64, '+/', '-_');
-        return rtrim($base64url, '=');
-    }
 }
