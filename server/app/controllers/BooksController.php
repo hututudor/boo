@@ -73,6 +73,7 @@ class BooksController {
 
     if(!$updated) {
       Response::notFound();
+      return;
     }
 
     Response::success(BookRepository::getById($book->id));

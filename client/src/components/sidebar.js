@@ -25,7 +25,7 @@ const sidebarConfig = [
     name: 'Books Manager',
     icon: 'fa-table',
     isActive: () => getPageName() === 'books_manager',
-    onClick: () => goTo(URL_BASE + '/books_manager'),
+    onClick: () => goTo(URL_BASE + '/manager'),
   },
   {
     name: 'About',
