@@ -20,3 +20,6 @@ $router->get('/books', 'ViewController@books');
 $router->get('/books/:id', 'ViewController@book');
 $router->get('/about', 'ViewController@about');
 $router->get('/help', 'ViewController@help');
+$router->get('/manager', 'ViewController@manager');
+$router->get('/manager/add', 'ViewController@managerAdd');
+$router->get('/manager/:id', 'ViewController@managerEdit');

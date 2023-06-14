@@ -80,6 +80,14 @@
     > input {
       display: none;
     }
+
+    > span {
+      @include text;
+      @include text__12;
+
+      height: size(4);
+      color: $red-vivid-600;
+    }
   }
 
   &-dropdown {
@@ -113,6 +121,14 @@
         outline: none;
       }
     }
+
+    > span {
+      @include text;
+      @include text__12;
+
+      height: size(4);
+      color: $red-vivid-600;
+    }
   }
 
   &-textarea {
@@ -144,6 +160,14 @@
         border-color: $purple-600;
         outline: none;
       }
+    }
+
+    > span {
+      @include text;
+      @include text__12;
+
+      height: size(4);
+      color: $red-vivid-600;
     }
   }
 
