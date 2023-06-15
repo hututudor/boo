@@ -2,6 +2,7 @@
 
 require_once ROOT_DIR . '/app/validation.php';
 require_once ROOT_DIR . '/app/services/auth/AuthService.php';
+require_once ROOT_DIR . '/app/services/utils/AuthorizationUtils.php';
 
 class AuthController
 {
@@ -20,8 +21,10 @@ class AuthController
 
         $response = AuthService::login_user($form);
 
+       $is_simple_authorized = AuthorizationUtils::isSimpleAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
+       $is_admin_authorized = AuthorizationUtils::isAdminAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
 
-        Response::custom($response->getResponseStatus(), $response->getResponseData());
+       Response::custom($response->getResponseStatus(), $response->getResponseData());
     }
 
     private function validateLoginBody(Request $request): ?array

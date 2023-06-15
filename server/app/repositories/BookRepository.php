@@ -58,7 +58,7 @@ public static function update(Book $book): bool {
   $statement->bind_param("ssssisssssi", $book->title, $book->image, $book->author, $book->description, $book->pages, $book->isbn, $book->genre, $book->publisher, $book->format, $book->publication_date, $book->id);
   $statement->execute();
 
-  return !!$statement->error;
+  return !$statement->error;
 }
 
   public static function deleteById(string $id): void {
