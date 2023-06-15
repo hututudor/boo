@@ -84,6 +84,21 @@ class BooksController {
     Response::success();
   }
 
+  public function getUserStatusForBook(Request $request): void
+  {
+      if($this->validateUserStatusForBookBody($request)) {
+          Response::badRequest();
+          return;
+      }
+  }
+
+  private function validateUserStatusForBookBody(Request $request): ?array {
+    return validate($request->body, [
+      'id' => ['required'],
+        'token' => ['required']
+    ]);
+  }
+
   private function validateBookBody(Request $request): ?array {
     return validate($request->body, [
       'pages' => ['required', 'number'],

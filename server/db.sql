@@ -23,3 +23,12 @@ email VARCHAR(255) UNIQUE NOT NULL,
 password VARCHAR(255) NOT NULL,
 is_admin BOOLEAN DEFAULT FALSE
 );
+
+CREATE TABLE user_books (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            user_id INT NOT NULL,
+                            book_id INT NOT NULL,
+                            status ENUM('want to read', 'reading', 'read', 'didn\'t read') NOT NULL,
+                            FOREIGN KEY (user_id) REFERENCES users(id),
+                            FOREIGN KEY (book_id) REFERENCES books(id)
+);
