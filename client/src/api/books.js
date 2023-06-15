@@ -24,18 +24,52 @@ export const getBook = async id => {
   return data;
 };
 
-export const uploadImage = async file => {
-  const formData = new FormData();
-  formData.append('file', file);
+export const getBookReviews = async id => {
+  const res = await fetch(`${API_BASE}/books/${id}/reviews`);
 
-  const res = await fetch(`${API_BASE}/upload`, {
+  // const data = await res.json();
+
+  // if (!res.ok) {
+  //   throw data;
+  // }
+
+  return [
+    {
+      id: 1,
+      user: { name: 'Tudor Hutu', id: 1 },
+      createdAt: 'August 12 2023',
+      content: 'epic book',
+    },
+    {
+      id: 2,
+      user: { name: 'Marcel', id: 2 },
+      createdAt: 'August 11 2023',
+      content: 'nice',
+    },
+    {
+      id: 3,
+      user: { name: 'Victor', id: 4 },
+      createdAt: 'October 11 2022',
+      content: 'kinda boring :(',
+    },
+  ];
+};
+
+export const addBookReview = async (id, { content }) => {
+  const res = await fetch(`${API_BASE}/books/${id}/reviews`, {
     method: 'POST',
-    body: formData,
+    body: JSON.stringify({
+      content,
+    }),
   });
 
-  const data = await res.json();
+  // const data = await res.json();
 
-  return data.file;
+  // if (!res.ok) {
+  //   throw data;
+  // }
+
+  return null;
 };
 
 export const addBook = async ({
@@ -117,3 +151,17 @@ export const deleteBook = async id =>
   fetch(`${API_BASE}/books/${id}`, {
     method: 'DELETE',
   });
+
+export const uploadImage = async file => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const res = await fetch(`${API_BASE}/upload`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  const data = await res.json();
+
+  return data.file;
+};
