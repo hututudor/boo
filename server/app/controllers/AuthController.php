@@ -21,9 +21,6 @@ class AuthController
 
         $response = AuthService::login_user($form);
 
-       $is_simple_authorized = AuthorizationUtils::isSimpleAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
-       $is_admin_authorized = AuthorizationUtils::isAdminAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
-
        Response::custom($response->getResponseStatus(), $response->getResponseData());
     }
 

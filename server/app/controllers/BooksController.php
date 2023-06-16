@@ -1,6 +1,7 @@
 <?php
 
 require_once ROOT_DIR . '/app/repositories/BookRepository.php';
+require_once ROOT_DIR . '/app/services/books/BooksService.php';
 require_once ROOT_DIR . '/app/validation.php';
 
 class BooksController {
@@ -85,21 +86,41 @@ class BooksController {
     Response::success();
   }
 
-  public function getUserStatusForBook(Request $request): void
+  public function getReadingStatus(Request $request): void
   {
-      if($this->validateUserStatusForBookBody($request)) {
-          Response::badRequest();
-          return;
-      }
+      $serviceResponse = BooksService::getReadingStatus($request->params['id'], Headers::getHeaderValue($request->headers, 'Authorization'));
+
+      Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
   }
 
-  private function validateUserStatusForBookBody(Request $request): ?array {
+    public function updateReadingStatus(Request $request): void
+    {
+        if($this->validateReadingStatusBody($request)) {
+            Response::badRequest($request->body);
+            return;
+        }
+
+        $serviceResponse = BooksService::updateReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
+
+        Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
+    }
+
+    public function addReadingStatus(Request $request): void
+    {
+        if($this->validateReadingStatusBody($request)) {
+            Response::badRequest($request->body);
+            return;
+        }
+
+        $serviceResponse = BooksService::addReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
+
+        Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
+    }
+  private function validateReadingStatusBody(Request $request): ?array {
     return validate($request->body, [
-      'id' => ['required'],
-        'token' => ['required']
+        'status' => ['required']
     ]);
   }
-
   private function validateBookBody(Request $request): ?array {
     return validate($request->body, [
       'pages' => ['required', 'number'],

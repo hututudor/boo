@@ -24,11 +24,16 @@ password VARCHAR(255) NOT NULL,
 is_admin BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE user_books (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            user_id INT NOT NULL,
-                            book_id INT NOT NULL,
-                            status ENUM('want to read', 'reading', 'read', 'didn\'t read') NOT NULL,
-                            FOREIGN KEY (user_id) REFERENCES users(id),
-                            FOREIGN KEY (book_id) REFERENCES books(id)
+CREATE OR REPLACE TABLE user_books
+(
+    id      INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    book_id INT NOT NULL,
+    status  ENUM ('want to read', 'reading', 'read', 'didn''t read') NOT NULL,
+    CONSTRAINT user_books_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT user_books_ibfk_2 FOREIGN KEY (book_id) REFERENCES books (id),
+    CONSTRAINT unique_user_book_pair UNIQUE (user_id, book_id)
 );
+
+CREATE INDEX book_id ON user_books (book_id);
+CREATE INDEX user_id ON user_books (user_id);

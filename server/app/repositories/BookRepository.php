@@ -68,6 +68,42 @@ public static function update(Book $book): bool {
     $statement->execute();
   }
 
+  public static function getReadingStatus(string $bookId, string $userId) : ?string {
+    $db = DB::getInstance()->getConnection();
+    $statement = $db->prepare("SELECT * FROM user_books WHERE book_id = ? AND user_id = ?");
+    $statement->bind_param("ss", $bookId, $userId);
+    $statement->execute();
+
+    if($statement->error) {
+      return null;
+    }
+
+    $row = $statement->get_result()->fetch_assoc();
+    if(!$row) {
+      return null;
+    }
+
+    return $row['status'];
+  }
+
+  public static function updateReadingStatus(string $bookId, string $userId, string $status): bool {
+    $db = DB::getInstance()->getConnection();
+    $statement = $db->prepare("UPDATE user_books SET status = ? WHERE book_id = ? AND user_id = ?");
+    $statement->bind_param("sss",$status,$bookId, $userId);
+    $statement->execute();
+
+    return !$statement->error;
+  }
+
+  public static function insertReadingStatus(string $bookId, string $userId, string $status): bool {
+    $db = DB::getInstance()->getConnection();
+    $statement = $db->prepare("INSERT INTO user_books (book_id, user_id, status) VALUES (?, ?, ?)");
+    $statement->bind_param("iis", $bookId, $userId, $status);
+    $statement->execute();
+
+    return !$statement->error;
+  }
+
   private static function toBook(array $row): Book {
     return new Book($row['id'], $row['title'], $row['image'], $row['author'], $row['description'], $row['pages'], $row['isbn'], $row['genre'], $row['publisher'], $row['format'], $row['publication_date']);
   }
