@@ -1,0 +1,181 @@
+.form {
+  &-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: size(2);
+    width: 100%;
+
+    > label {
+      @include text;
+      @include text__12;
+      @include text__bold;
+
+      margin-bottom: size(1);
+    }
+
+    > input {
+      @include text;
+      @include text__14;
+
+      padding-left: size(1);
+      padding-right: size(1);
+      height: size(8);
+
+      border: 1px solid $warm-grey-200;
+      outline: none;
+
+      &:focus,
+      &:hover {
+        border-color: $purple-600;
+        outline: none;
+      }
+    }
+
+    > span {
+      @include text;
+      @include text__12;
+
+      height: size(4);
+      color: $red-vivid-600;
+    }
+  }
+
+  &-file {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: size(4);
+    width: 100%;
+
+    > label {
+      @include text;
+      @include text__12;
+      @include text__bold;
+
+      margin-bottom: size(1);
+    }
+
+    > div {
+      @include text;
+      @include text__14;
+
+      background-color: white;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      padding-left: size(1);
+      padding-right: size(1);
+      height: size(8);
+
+      border: 1px solid $warm-grey-200;
+      outline: none;
+
+      &:focus,
+      &:hover {
+        border-color: $purple-600;
+        outline: none;
+      }
+    }
+
+    > input {
+      display: none;
+    }
+
+    > span {
+      @include text;
+      @include text__12;
+
+      height: size(4);
+      color: $red-vivid-600;
+    }
+  }
+
+  &-dropdown {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: size(4);
+    width: 100%;
+
+    > label {
+      @include text;
+      @include text__12;
+      @include text__bold;
+
+      margin-bottom: size(1);
+    }
+
+    > select {
+      @include text;
+      @include text__14;
+
+      padding-left: size(1);
+      padding-right: size(1);
+      height: size(8);
+
+      border: 1px solid $warm-grey-200;
+      outline: none;
+
+      &:focus,
+      &:hover {
+        border-color: $purple-600;
+        outline: none;
+      }
+    }
+
+    > span {
+      @include text;
+      @include text__12;
+
+      height: size(4);
+      color: $red-vivid-600;
+    }
+  }
+
+  &-textarea {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: size(4);
+    width: 100%;
+
+    > label {
+      @include text;
+      @include text__12;
+      @include text__bold;
+
+      margin-bottom: size(1);
+    }
+
+    > textarea {
+      @include text;
+      @include text__14;
+
+      padding-left: size(1);
+      padding-right: size(1);
+
+      border: 1px solid $warm-grey-200;
+      outline: none;
+
+      &:focus,
+      &:hover {
+        border-color: $purple-600;
+        outline: none;
+      }
+    }
+
+    > span {
+      @include text;
+      @include text__12;
+
+      height: size(4);
+      color: $red-vivid-600;
+    }
+  }
+
+  &-action {
+    text-align: center;
+  }
+
+  > #error {
+    color: $red-vivid-600;
+  }
+}

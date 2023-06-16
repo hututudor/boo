@@ -58,7 +58,7 @@ public static function update(Book $book): bool {
   $statement->bind_param("ssssisssssi", $book->title, $book->image, $book->author, $book->description, $book->pages, $book->isbn, $book->genre, $book->publisher, $book->format, $book->publication_date, $book->id);
   $statement->execute();
 
-  return !!$statement->error;
+  return !$statement->error;
 }
 
   public static function deleteById(string $id): void {
@@ -69,6 +69,6 @@ public static function update(Book $book): bool {
   }
 
   private static function toBook(array $row): Book {
-    return new Book($row['id'], $row['title'], $row['image'], $row['author'], $row['pages'], $row['isbn'], $row['genre'], $row['publisher'], $row['format'], $row['publication_date']);
+    return new Book($row['id'], $row['title'], $row['image'], $row['author'], $row['description'], $row['pages'], $row['isbn'], $row['genre'], $row['publisher'], $row['format'], $row['publication_date']);
   }
 }

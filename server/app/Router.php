@@ -6,8 +6,28 @@ enum RouteMethod: string {
   case PUT = 'PUT';
   case DELETE = 'DELETE';
 }
+class Headers
+{
+    public static function checkHeaderExistence(array $headers, string $headerName): bool
+    {
+        return isset($headers[$headerName]);
+    }
+
+    public static function getHeaderValue(array $headers, string $headerName): string
+    {
+
+        $headerValue = $headers[$headerName];
+
+        if($headerName == 'Authorization') {
+            $headerValue = str_replace('Bearer ', '', $headerValue);
+        }
+
+        return $headerValue;
+    }
+}
 
 class Request {
+  public array $headers;
   public array $params;
   public array $body;
   public array $query;
@@ -15,8 +35,8 @@ class Request {
 
 class Response {
   public static function success($data = null): void {
-    if($data) {
-      echo json_encode($data);
+    if($data || is_array($data)) {
+      echo json_encode($data, JSON_UNESCAPED_SLASHES);
     }
   }
 
@@ -114,6 +134,7 @@ class Router {
       }
 
       $request = new Request;
+      $request->headers = getallheaders();
       $request->params = $this->parseParams($routePath, $currentPath);
       $request->query = $_GET;
       $request->body = $this->parseBody();
