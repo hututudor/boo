@@ -19,7 +19,7 @@ class BookRepository {
 
     return $books;
   }
-
+  
   public static function getById(string $id): ?Book {
     $db = DB::getInstance()->getConnection();
     $statement = $db->prepare("SELECT * FROM books WHERE id = ?");

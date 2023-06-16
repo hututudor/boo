@@ -1,8 +1,8 @@
 <?php
 
-require_once ROOT_DIR . '/app/models/Review.php';
+require_once ROOT_DIR . '/app/models/Reviews.php';
 
-class ReviewRepository {
+class ReviewsRepository {
   public static function getAll(): array {
     $db = DB::getInstance()->getConnection();
     $statement = $db->prepare("SELECT * FROM reviews");
@@ -20,7 +20,7 @@ class ReviewRepository {
     return $reviews;
   }
 
-  public static function getById(string $id): ?Review {
+  public static function getById(int $id): ?Review {
     $db = DB::getInstance()->getConnection();
     $statement = $db->prepare("SELECT * FROM reviews WHERE id = ?");
     $statement->bind_param("i", $id);
@@ -38,7 +38,25 @@ class ReviewRepository {
     return self::toReview($row);
   }
 
-  public static function getByBookId(string $bookId): array {
+  public static function getByUserId($userId): array {
+    $db = DB::getInstance()->getConnection();
+    $statement = $db->prepare("SELECT * FROM reviews WHERE user_id = ?");
+    $statement->bind_param("i", $userId);
+    $statement->execute();
+
+    if ($statement->error) {
+        return [];
+    }
+
+    $reviews = [];
+    foreach ($statement->get_result() as $row) {
+        $reviews[] = self::toReview($row);
+    }
+
+    return $reviews;
+}
+
+  public static function getByBookId(int $bookId): array {
     $db = DB::getInstance()->getConnection();
     $statement = $db->prepare("SELECT * FROM reviews WHERE book_id = ?");
     $statement->bind_param("i", $bookId);
@@ -79,10 +97,10 @@ class ReviewRepository {
     return !!$statement->error;
   }
 
-  public static function deleteById(int $id, int $user_id, int $book_id): void {
+  public static function deleteById(int $id): void {
     $db = DB::getInstance()->getConnection();
-    $statement = $db->prepare("DELETE FROM reviews WHERE id = ? AND user_id = ? AND book_id = ?");
-    $statement->bind_param("iii", $id, $user_id, $book_id);
+    $statement = $db->prepare("DELETE FROM reviews WHERE id = ?");
+    $statement->bind_param("i", $id);
     $statement->execute();
   }
 
