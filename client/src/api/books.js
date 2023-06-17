@@ -25,6 +25,18 @@ export const getBook = async id => {
   return data;
 };
 
+export const getBookRecommendations = async id => {
+  const res = await fetch(`${API_BASE}/books/${id}/recommendations`);
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw data;
+  }
+
+  return data;
+};
+
 export const getBookReviews = async id => {
   const res = await fetch(`${API_BASE}/books/${id}/reviews`);
 
@@ -83,6 +95,9 @@ export const addBook = async ({
       format,
       publication_date: published,
     }),
+    headers: {
+      Authorization: getAuthToken(),
+    },
   });
 
   const data = await res.json();
@@ -121,6 +136,9 @@ export const editBook = async ({
       format,
       publication_date: published,
     }),
+    headers: {
+      Authorization: getAuthToken(),
+    },
   });
 
   const data = await res.json();
@@ -135,6 +153,9 @@ export const editBook = async ({
 export const deleteBook = async id =>
   fetch(`${API_BASE}/books/${id}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: getAuthToken(),
+    },
   });
 
 export const uploadImage = async file => {

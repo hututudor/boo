@@ -1,4 +1,10 @@
-import { addBookReview, deleteReview, getBook, getBookReviews } from '../api';
+import {
+  addBookReview,
+  deleteReview,
+  getBook,
+  getBookRecommendations,
+  getBookReviews,
+} from '../api';
 import { isAuth } from '../app/auth';
 import {
   renderSidebar,
@@ -9,6 +15,7 @@ import {
   setInputError,
   disableButton,
   enableButton,
+  getBookCardNode,
 } from '../components';
 
 const pageState = {
@@ -25,6 +32,9 @@ export const load = async () => {
 
   const book = await getBook(pageState.id);
   showBook(book);
+
+  const recommendations = await getBookRecommendations(pageState.id);
+  showRecommendations(recommendations);
 
   handleAuthDisplay();
 
@@ -60,6 +70,20 @@ const showBook = book => {
   document.getElementById('publisher').innerHTML = book.publisher;
   document.getElementById('format').innerHTML = book.format;
   document.getElementById('published-date').innerHTML = book.publication_date;
+};
+
+const showRecommendations = recommendations => {
+  const recommendationsNode =
+    document.getElementsByClassName('book-related')[0];
+
+  if (!recommendations?.length) {
+    const recommendationsSection = document.getElementById('recommendations');
+    recommendationsSection.style.display = 'none';
+  }
+
+  recommendations.forEach(book =>
+    recommendationsNode.appendChild(getBookCardNode(book, '..')),
+  );
 };
 
 const registerModalEvents = () => {
