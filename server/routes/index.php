@@ -10,6 +10,7 @@ $router->post('/api/books/:book_id/reviews', 'ReviewsController@add');
 $router->delete('/api/reviews/:id', 'ReviewsController@delete');
 
 $router->get('/api/books', 'BooksController@list');
+$router->get('/api/books/:id/recommendations', 'BooksController@listRecommendations');
 $router->get('/api/books/:id', 'BooksController@get');
 $router->post('/api/books', 'BooksController@add');
 $router->put('/api/books/:id', 'BooksController@update');

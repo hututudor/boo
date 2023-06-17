@@ -2,6 +2,8 @@
 
 require_once ROOT_DIR . '/app/repositories/BookRepository.php';
 require_once ROOT_DIR . '/app/validation.php';
+require_once __DIR__ . '/../services/utils/JwtUtils.php';
+require_once __DIR__ . '/../services/utils/AuthorizationUtils.php';
 
 class BooksController {
   public function get(Request $request): void {
@@ -17,6 +19,18 @@ class BooksController {
 
   public function list(Request $request): void {
     Response::success(BookRepository::getAll());
+  }
+
+  public function listRecommendations(Request $request): void {
+    $book = BookRepository::getById($request->params['id']);
+    if(!$book) {
+      Response::notFound();
+      return;
+    }
+
+    $books = BookRepository::getRelated($book);
+
+    Response::success($books);
   }
 
   public function add(Request $request) {

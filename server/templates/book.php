@@ -110,27 +110,9 @@
           </div>
         </div>
 
-        <div class="text text__20 text__bold mt-6 mb-2">More like this</div>
-        <div class="book-related">
-          <div class="book_card" onclick="goTo('./book.html')">
-            <div class="book_card-image" data-src="./assets/books/words_of_radiance.jpeg"></div>
-            <div class="text text__14 text__bold">Words Of Radiance</div>
-            <div class="text text__14">Brandon Sanderson</div>
-          </div>
-          <div class="book_card" onclick="goTo('./book.html')">
-            <div class="book_card-image" data-src="./assets/books/oathbringer.jpeg"></div>
-            <div class="text text__14 text__bold">Oathbringer</div>
-            <div class="text text__14">Brandon Sanderson</div>
-          </div>
-          <div class="book_card" onclick="goTo('./book.html')">
-            <div class="book_card-image" data-src="./assets/books/rhythm_of_war.jpeg"></div>
-            <div class="text text__14 text__bold">Rhythm Of War</div>
-            <div class="text text__14">Brandon Sanderson</div>
-          </div>
-          <div class="book_card" onclick="goTo('./book.html')">
-            <div class="book_card-image" data-src="./assets/books/the_final_empire.jpeg"></div>
-            <div class="text text__14 text__bold">The Final Empire</div>
-            <div class="text text__14">Brandon Sanderson</div>
+        <div id="recommendations">
+          <div class="text text__20 text__bold mt-6 mb-2">More like this</div>
+          <div class="book-related">
           </div>
         </div>
 
