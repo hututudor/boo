@@ -76,8 +76,8 @@ class ReviewsRepository {
 
   public static function insert(Review $review): ?Review {
     $db = DB::getInstance()->getConnection();
-    $statement = $db->prepare("INSERT INTO reviews (book_id, user_id, description) VALUES (?, ?, ?)");
-    $statement->bind_param("iis", $review->book_id, $review->user_id, $review->description);
+    $statement = $db->prepare("INSERT INTO reviews (book_id, user_id, content, review_date) VALUES (?, ?, ?, ?)");
+    $statement->bind_param("iiss", $review->book_id, $review->user_id, $review->content, $review->review_date);
     $statement->execute();
 
     if($statement->error) {
@@ -90,8 +90,8 @@ class ReviewsRepository {
 
   public static function update(Review $review): bool {
     $db = DB::getInstance()->getConnection();
-    $statement = $db->prepare("UPDATE reviews SET book_id = ?, user_id = ?, description = ? WHERE id = ?");
-    $statement->bind_param("iisi", $review->book_id, $review->user_id, $review->description, $review->id);
+    $statement = $db->prepare("UPDATE reviews SET book_id = ?, user_id = ?, content = ?, review_date = ? WHERE id = ?");
+    $statement->bind_param("iissi", $review->book_id, $review->user_id, $review->content, $review->review_date, $review->id);
     $statement->execute();
 
     return !!$statement->error;
@@ -105,6 +105,6 @@ class ReviewsRepository {
   }
 
   private static function toReview(array $row): Review {
-    return new Review($row['id'], $row['book_id'], $row['user_id'], $row['description']);
+    return new Review($row['id'], $row['book_id'], $row['user_id'], $row['content'], $row['review_date']);
   }
 }

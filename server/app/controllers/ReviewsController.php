@@ -40,7 +40,8 @@ class ReviewsController {
     $decodedToken = JwtUtils::decode_jwt($jwtToken);
     $review->user_id = $decodedToken->id;
 
-    $review->description = $request->body['description'];
+    $review->content = $request->body['content'];
+    $review->review_date = date('d/m/Y');
 
     $inserted = ReviewsRepository::insert($review);
 
@@ -53,16 +54,14 @@ class ReviewsController {
   }
 
   public function getByBookId(Request $request): void {
-    $is_simple_authorized = AuthorizationUtils::isSimpleAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
-    if (!$is_simple_authorized)
-    {
-        Response::unauthorized();
-        return;
-    }
-
     $bookId = $request->params['book_id'];
     $reviews = ReviewsRepository::getByBookId($bookId);
 
+    foreach ($reviews as &$review)
+    {
+      $user = UserRepository::getUserById($review->user_id);
+      $review->user = $user;
+    }
     Response::success($reviews);
   }
 
@@ -85,7 +84,13 @@ class ReviewsController {
     $userId = $decodedToken->id;
   
     $reviews = ReviewsRepository::getByUserId($userId);
-  
+    
+    foreach ($reviews as &$review)
+    {
+      $book = BookRepository::getById($review->book_id);
+      $review->book = $book;
+    }
+
     Response::success($reviews);
   }
   
@@ -103,7 +108,8 @@ class ReviewsController {
     $jwtToken = Headers::getHeaderValue($request->headers, 'Authorization');
     $decodedToken = JwtUtils::decode_jwt($jwtToken);
     $review->user_id = $decodedToken->id;
-    $review->description = $request->body['description'];
+    $review->content = $request->body['content'];
+    $review->review_date = $request->body['content'];
 
     $updated = ReviewsRepository::update($review);
 
@@ -149,7 +155,7 @@ class ReviewsController {
 
   private function validateReviewBody(Request $request): ?array {
     return validate($request->body, [
-      'description' => ['required']
+      'content' => ['required']
     ]);
   }
 }

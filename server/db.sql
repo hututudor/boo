@@ -29,7 +29,8 @@ CREATE TABLE reviews (
   id INT AUTO_INCREMENT PRIMARY KEY,
   book_id INT,
   user_id INT,
-  description VARCHAR(1000) NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (book_id) REFERENCES books(id)
+  content VARCHAR(1000) NOT NULL,
+  review_date varchar(256),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
 );
