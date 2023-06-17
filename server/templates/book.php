@@ -71,7 +71,10 @@
           <button class="button button__secondary">Read</button>
           <button class="button button__secondary">Didn't read</button>
         </div>
-      </div>
+        <div class="book-status-login flex flex__column">
+          <button class="button button__primary">Login to track progress</button>
+        </div>
+        </div>
       <div class="book-info">
         <div class="book-title-desktop">
           <div class="text text__32 text__bold" id="title"></div>
@@ -131,16 +134,19 @@
           </div>
         </div>
 
-        <div class="text text__20 text__bold mt-6 mb-2">Review this book</div>
-        <form class="form">
-          <div class="form-textarea">
-            <textarea name="message" rows="5" placeholder="Message" id="content"></textarea>
-            <span></span>
-          </div>
-          <div class="action">
-            <button type="submit" class="button button__primary">Post Review</button>
-          </div>
-        </form>
+        <div id="add-review">
+          <div class="text text__20 text__bold mt-6 mb-2">Review this book</div>
+          <form class="form">
+            <div class="form-textarea">
+              <textarea name="message" rows="5" placeholder="Message" id="content"></textarea>
+              <span></span>
+            </div>
+            <div class="action">
+              <button type="submit" class="button button__primary">Post Review</button>
+            </div>
+          </form>
+        </div>
+
 
         <div class="text text__20 text__bold mt-6 mb-2">Reviews</div>
         <div class="book-reviews">

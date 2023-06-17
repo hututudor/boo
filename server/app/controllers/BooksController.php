@@ -20,6 +20,12 @@ class BooksController {
   }
 
   public function add(Request $request) {
+    $is_admin_authorized = AuthorizationUtils::isAdminAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
+    if (!$is_admin_authorized) {
+      Response::unauthorized();
+      return;
+    }
+
     $bodyErrors = $this->validateBookBody($request);
     if($bodyErrors) {
       Response::badRequest($bodyErrors);
@@ -50,6 +56,12 @@ class BooksController {
   }
 
   public function update(Request $request): void {
+    $is_admin_authorized = AuthorizationUtils::isAdminAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
+    if (!$is_admin_authorized) {
+      Response::unauthorized();
+      return;
+    }
+
     $bodyErrors = $this->validateBookBody($request);
     if($bodyErrors) {
       Response::badRequest($bodyErrors);
@@ -80,6 +92,12 @@ class BooksController {
   }
 
   public function delete(Request $request): void {
+    $is_admin_authorized = AuthorizationUtils::isAdminAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
+    if (!$is_admin_authorized) {
+      Response::unauthorized();
+      return;
+    }
+
     BookRepository::deleteById($request->params['id']);
 
     Response::success();

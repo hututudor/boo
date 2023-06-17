@@ -10,6 +10,10 @@ class JwtUtils{
         }
         $secret = JWT_SECRET;
         $jwtParts = explode('.', $jwt);
+        if(sizeof($jwtParts) < 3) {
+          return null;
+        }
+
         $signature = self::base64url_encode(hash_hmac('sha256', $jwtParts[0] . '.' . $jwtParts[1], $secret, true));
 
         if ($signature != $jwtParts[2]) {

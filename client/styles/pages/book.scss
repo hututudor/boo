@@ -84,6 +84,16 @@
     }
   }
 
+  &-status-login {
+    margin-top: size(2);
+
+    button {
+      width: 100%;
+      margin-top: size(1);
+      margin-bottom: size(1);
+    }
+  }
+
   &-title {
     &-desktop {
       display: block;
