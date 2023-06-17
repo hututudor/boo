@@ -4,6 +4,10 @@ class JwtUtils{
 
     public static function decode_jwt(string $jwt): ?object
     {
+        if (!$jwt)
+        {
+            return null;
+        }
         $secret = JWT_SECRET;
         $jwtParts = explode('.', $jwt);
         $signature = self::base64url_encode(hash_hmac('sha256', $jwtParts[0] . '.' . $jwtParts[1], $secret, true));

@@ -1,4 +1,5 @@
 <?php
+require_once ROOT_DIR . '/app/models/auth/User.php';
 
 class UserRepository
 {
@@ -36,7 +37,7 @@ class UserRepository
         return self::toUser($row);
     }
 
-    private static function getUserById($id) : ?User
+    public static function getUserById($id) : ?User
     {
         $db = DB::getInstance()->getConnection();
         $statement = $db->prepare("SELECT * FROM users WHERE id = ?");
