@@ -7,3 +7,4 @@ export * from './button';
 export * from './form';
 export * from './bookCard';
 export * from './modal';
+export * from './review';

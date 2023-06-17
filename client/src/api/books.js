@@ -1,3 +1,4 @@
+import { getAuthToken } from '../app/auth';
 import { API_BASE } from '../config';
 
 export const listBooks = async () => {
@@ -24,18 +25,36 @@ export const getBook = async id => {
   return data;
 };
 
-export const uploadImage = async file => {
-  const formData = new FormData();
-  formData.append('file', file);
+export const getBookReviews = async id => {
+  const res = await fetch(`${API_BASE}/books/${id}/reviews`);
 
-  const res = await fetch(`${API_BASE}/upload`, {
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw data;
+  }
+
+  return data;
+};
+
+export const addBookReview = async (id, { content }) => {
+  const res = await fetch(`${API_BASE}/books/${id}/reviews`, {
     method: 'POST',
-    body: formData,
+    body: JSON.stringify({
+      content,
+    }),
+    headers: {
+      Authorization: getAuthToken(),
+    },
   });
 
   const data = await res.json();
 
-  return data.file;
+  if (!res.ok) {
+    throw data;
+  }
+
+  return null;
 };
 
 export const addBook = async ({
@@ -117,3 +136,17 @@ export const deleteBook = async id =>
   fetch(`${API_BASE}/books/${id}`, {
     method: 'DELETE',
   });
+
+export const uploadImage = async file => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const res = await fetch(`${API_BASE}/upload`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  const data = await res.json();
+
+  return data.file;
+};

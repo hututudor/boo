@@ -24,6 +24,17 @@
     <img src="<?php path('assets/loading.gif') ?>" alt="logo" />
   </div>
 
+  <div class="modal modal__hidden" id="delete-modal">
+    <div class="modal-content">
+      <div class="text text__32 text__bold mb-2">Delete Review</div>
+      <div class="text text__16 mb-8">Are you sure? This operation cannot be reverted</div>
+      <div class="flex flex__justify-center">
+        <button class="button button__secondary mr-4" id="delete-modal-cancel">Cancel</button>
+        <button class="button button__primary button__red" id="delete-modal-delete">Delete</button>
+      </div>
+    </div>
+  </div>
+
   <nav>
     <button>
       <i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -121,61 +132,18 @@
         </div>
 
         <div class="text text__20 text__bold mt-6 mb-2">Review this book</div>
-        <div class="form">
+        <form class="form">
           <div class="form-textarea">
-            <textarea name="message" rows="5" placeholder="Message"></textarea>
+            <textarea name="message" rows="5" placeholder="Message" id="content"></textarea>
+            <span></span>
           </div>
           <div class="action">
-            <button class="button button__primary">Post</button>
+            <button type="submit" class="button button__primary">Post Review</button>
           </div>
-        </div>
+        </form>
 
         <div class="text text__20 text__bold mt-6 mb-2">Reviews</div>
         <div class="book-reviews">
-          <div class="review">
-            <div class="text text__16 text__bold mb-1">
-              Anthony Clarke - August 12 2023
-            </div>
-            <div class="text text__16">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Officiis, alias voluptates ipsum vitae, laudantium error autem
-              quis tempore sint at sunt. Alias veniam sequi a ullam quod et
-              labore nobis!
-            </div>
-          </div>
-          <div class="review">
-            <div class="text text__16 text__bold mb-1">
-              Anthony Clarke - August 12 2023
-            </div>
-            <div class="text text__16">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Officiis, alias voluptates ipsum vitae, laudantium error autem
-              quis tempore sint at sunt. Alias veniam sequi a ullam quod et
-              labore nobis!
-            </div>
-          </div>
-          <div class="review">
-            <div class="text text__16 text__bold mb-1">
-              Anthony Clarke - August 12 2023
-            </div>
-            <div class="text text__16">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Officiis, alias voluptates ipsum vitae, laudantium error autem
-              quis tempore sint at sunt. Alias veniam sequi a ullam quod et
-              labore nobis!
-            </div>
-          </div>
-          <div class="review">
-            <div class="text text__16 text__bold mb-1">
-              Anthony Clarke - August 12 2023
-            </div>
-            <div class="text text__16">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Officiis, alias voluptates ipsum vitae, laudantium error autem
-              quis tempore sint at sunt. Alias veniam sequi a ullam quod et
-              labore nobis!
-            </div>
-          </div>
         </div>
       </div>
     </div>

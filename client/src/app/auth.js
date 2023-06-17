@@ -21,7 +21,59 @@ export const isAuth = () => {
   return true;
 };
 
+let _currentUserId = null;
+
+export const getCurrentUserId = () => {
+  if (!isAuth()) {
+    return;
+  }
+
+  if (_currentUserId) {
+    return _currentUserId;
+  }
+
+  const token = localStorage.getItem(TOKEN_KEY);
+
+  if (!token) {
+    return false;
+  }
+
+  const data = decodeJWT(token);
+  _currentUserId = data.id;
+
+  return _currentUserId;
+};
+
+let _isAdmin = null;
+
+export const isAdmin = () => {
+  if (!isAuth()) {
+    return false;
+  }
+
+  if (_isAdmin) {
+    return _isAdmin;
+  }
+
+  const token = localStorage.getItem(TOKEN_KEY);
+
+  if (!token) {
+    return false;
+  }
+
+  const data = decodeJWT(token);
+  _isAdmin = data.isAdmin;
+
+  return _isAdmin;
+};
+
+export const getAuthToken = () =>
+  `Bearer ${localStorage.getItem(TOKEN_KEY) ?? ''}`;
+
 export const logout = () => {
+  _isAdmin = null;
+  _currentUserId = null;
+
   localStorage.removeItem(TOKEN_KEY);
   location.reload();
 };
