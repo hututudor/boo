@@ -41,7 +41,7 @@ class ReviewsController {
     $review->user_id = $decodedToken->id;
 
     $review->content = $request->body['content'];
-    $review->review_date = date('d/m/Y');
+    $review->review_date = date('d.m.Y');
 
     $inserted = ReviewsRepository::insert($review);
 

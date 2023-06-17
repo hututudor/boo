@@ -67,6 +67,9 @@ export const isAdmin = () => {
   return _isAdmin;
 };
 
+export const getAuthToken = () =>
+  `Bearer ${localStorage.getItem(TOKEN_KEY) ?? ''}`;
+
 export const logout = () => {
   _isAdmin = null;
   _currentUserId = null;

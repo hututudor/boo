@@ -1,3 +1,4 @@
+import { getAuthToken } from '../app/auth';
 import { API_BASE } from '../config';
 
 export const listBooks = async () => {
@@ -27,32 +28,13 @@ export const getBook = async id => {
 export const getBookReviews = async id => {
   const res = await fetch(`${API_BASE}/books/${id}/reviews`);
 
-  // const data = await res.json();
+  const data = await res.json();
 
-  // if (!res.ok) {
-  //   throw data;
-  // }
+  if (!res.ok) {
+    throw data;
+  }
 
-  return [
-    {
-      id: 1,
-      user: { name: 'Tudor Hutu', id: 1 },
-      createdAt: 'August 12 2023',
-      content: 'epic book',
-    },
-    {
-      id: 2,
-      user: { name: 'Marcel', id: 2 },
-      createdAt: 'August 11 2023',
-      content: 'nice',
-    },
-    {
-      id: 3,
-      user: { name: 'Victor', id: 4 },
-      createdAt: 'October 11 2022',
-      content: 'kinda boring :(',
-    },
-  ];
+  return data;
 };
 
 export const addBookReview = async (id, { content }) => {
@@ -61,13 +43,16 @@ export const addBookReview = async (id, { content }) => {
     body: JSON.stringify({
       content,
     }),
+    headers: {
+      Authorization: getAuthToken(),
+    },
   });
 
-  // const data = await res.json();
+  const data = await res.json();
 
-  // if (!res.ok) {
-  //   throw data;
-  // }
+  if (!res.ok) {
+    throw data;
+  }
 
   return null;
 };

@@ -1,6 +1,10 @@
 import { getCurrentUserId, isAdmin } from '../app/auth';
 
-export const getReviewNode = ({ user, createdAt, content }, onDelete) => {
+export const getReviewNode = (
+  { user, book, review_date, content, user_id },
+  onDelete,
+  showUser = true,
+) => {
   const review = document.createElement('div');
   review.classList.add('review');
 
@@ -9,7 +13,12 @@ export const getReviewNode = ({ user, createdAt, content }, onDelete) => {
   infoNode.classList.add('text__16');
   infoNode.classList.add('text__bold');
   infoNode.classList.add('mb-1');
-  infoNode.innerHTML = `${user.name} - ${createdAt}`;
+
+  if (showUser) {
+    infoNode.innerHTML = `${user.fullName} - ${review_date}`;
+  } else {
+    infoNode.innerHTML = `${book.title} - ${review_date}`;
+  }
 
   const deleteIconNode = document.createElement('i');
   deleteIconNode.classList.add('fa');
@@ -28,7 +37,7 @@ export const getReviewNode = ({ user, createdAt, content }, onDelete) => {
   topRowNode.classList.add('flex__align-center');
   topRowNode.appendChild(infoNode);
 
-  if (isAdmin() || getCurrentUserId() == user.id) {
+  if (isAdmin() || getCurrentUserId() == user_id) {
     topRowNode.appendChild(deleteButtonNode);
   }
 
