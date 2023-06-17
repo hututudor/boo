@@ -18,11 +18,6 @@ $router->delete('/api/books/:id', 'BooksController@delete');
 $router->post('/api/auth/login', 'AuthController@login');
 $router->post('/api/auth/register', 'AuthController@register');
 
-$router->get('/api/books/:book_id/reviews', 'ReviewsController@getByBookId');
-$router->get('/api/reviews', 'ReviewsController@getByUserId');
-$router->post('/api/books/:book_id/reviews', 'ReviewsController@add');
-$router->delete('/api/reviews/:id', 'ReviewsController@delete');
-
 $router->get('/login', 'ViewController@login');
 $router->get('/register', 'ViewController@register');
 $router->get('/', 'ViewController@books');
