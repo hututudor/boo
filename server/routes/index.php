@@ -4,6 +4,11 @@ global $router;
 
 $router->post('/api/upload', 'FileController@upload');
 
+$router->get('/books/:bookId/reviews', 'ReviewsController@getByBookId');
+$router->get('/reviews', 'ReviewsController@getByUserId');
+$router->post('/books/:bookdId/reviews', 'ReviewsController@add');
+$router->delete('/reviews/:reviewId', 'ReviewsController@delete');
+
 $router->get('/api/books', 'BooksController@list');
 $router->get('/api/books/:id', 'BooksController@get');
 $router->post('/api/books', 'BooksController@add');
@@ -23,3 +28,4 @@ $router->get('/help', 'ViewController@help');
 $router->get('/manager', 'ViewController@manager');
 $router->get('/manager/add', 'ViewController@managerAdd');
 $router->get('/manager/:id', 'ViewController@managerEdit');
+
