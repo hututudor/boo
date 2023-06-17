@@ -1,4 +1,5 @@
 import { addBookReview, deleteReview, getBook, getBookReviews } from '../api';
+import { isAuth } from '../app/auth';
 import {
   renderSidebar,
   loadBookImages,
@@ -25,9 +26,12 @@ export const load = async () => {
   const book = await getBook(pageState.id);
   showBook(book);
 
+  handleAuthDisplay();
+
   displayReviews();
   registerModalEvents();
   registerFormEvents();
+  registerGoToLogin();
 };
 
 const displayReviews = async () => {
@@ -147,4 +151,32 @@ const _touchFields = () => {
 const _touchField = name => () => {
   const key = `${name}Touched`;
   pageState[key] = true;
+};
+
+const registerGoToLogin = () => {
+  const loginButtonSection = document
+    .getElementsByClassName('book-status-login')[0]
+    .querySelector('button');
+
+  loginButtonSection.addEventListener('click', () => goTo('../login'));
+};
+
+const handleAuthDisplay = () => {
+  const statusButtonSection = document.getElementsByClassName(
+    'book-status-buttons',
+  )[0];
+
+  const loginButtonSection =
+    document.getElementsByClassName('book-status-login')[0];
+
+  const addReviewBook = document.getElementById('add-review');
+
+  if (!isAuth()) {
+    statusButtonSection.style.display = 'none';
+    loginButtonSection.style.display = 'flex';
+    addReviewBook.style.display = 'none';
+  } else {
+    statusButtonSection.style.display = 'flex';
+    loginButtonSection.style.display = 'none';
+  }
 };
