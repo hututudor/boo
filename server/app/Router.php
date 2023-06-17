@@ -16,6 +16,11 @@ class Headers
     public static function getHeaderValue(array $headers, string $headerName): string
     {
 
+        if (!array_key_exists($headerName,$headers))
+        {
+          return "";
+        }
+        
         $headerValue = $headers[$headerName];
 
         if($headerName == 'Authorization') {

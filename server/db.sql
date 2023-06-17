@@ -1,5 +1,6 @@
 drop table if exists books;
 drop table if exists users;
+drop table if exists reviews;
 
 create table books (
   id int not null auto_increment,
@@ -22,4 +23,14 @@ full_name VARCHAR(255) NOT NULL,
 email VARCHAR(255) UNIQUE NOT NULL,
 password VARCHAR(255) NOT NULL,
 is_admin BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE reviews (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  book_id INT,
+  user_id INT,
+  content VARCHAR(1000) NOT NULL,
+  review_date varchar(256),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
 );
