@@ -1,6 +1,7 @@
 <?php
 
 require_once ROOT_DIR . '/app/repositories/BookRepository.php';
+require_once ROOT_DIR . '/app/services/books/ReadingStatusService.php';
 require_once ROOT_DIR . '/app/validation.php';
 require_once __DIR__ . '/../services/utils/JwtUtils.php';
 require_once __DIR__ . '/../services/utils/AuthorizationUtils.php';
@@ -117,6 +118,40 @@ class BooksController {
     Response::success();
   }
 
+  public function getReadingStatus(Request $request): void
+  {
+      $serviceResponse = ReadingStatusService::getReadingStatus($request->params['id'], Headers::getHeaderValue($request->headers, 'Authorization'));
+
+      Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
+  }
+
+  public function updateReadingStatus(Request $request): void
+  {
+      try {
+
+          if ($this->validateReadingStatusBody($request)) {
+              Response::badRequest($request->body);
+              return;
+          }
+
+          $serviceResponse = ReadingStatusService::updateReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
+
+          if($serviceResponse->getResponseStatus() == 'HTTP/1.0 200 Ok' || $serviceResponse->getResponseStatus() == 'HTTP/1.0 201 Created'){
+              Response::success();
+              return;
+          }
+          else
+                Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
+      }catch (Exception $e){
+          Response::internalServerError('Error updating reading status');
+      }
+  }
+
+  private function validateReadingStatusBody(Request $request): ?array {
+    return validate($request->body, [
+        'status' => ['required']
+    ]);
+  }
   private function validateBookBody(Request $request): ?array {
     return validate($request->body, [
       'pages' => ['required', 'number'],

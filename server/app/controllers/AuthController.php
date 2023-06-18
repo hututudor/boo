@@ -21,7 +21,6 @@ class AuthController
 
         $response = AuthService::login_user($form);
 
-
        Response::custom($response->getResponseStatus(), $response->getResponseData());
     }
 
