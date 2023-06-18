@@ -67,7 +67,7 @@
         <img id="image" class="w-100" alt="Book image" />
         <div class="book-status-buttons flex flex__column">
           <button class="button button__secondary">Want To Read</button>
-          <button class="button button__primary">Reading</button>
+          <button class="button button__secondary">Reading</button>
           <button class="button button__secondary">Read</button>
           <button class="button button__secondary">Didn't read</button>
         </div>
