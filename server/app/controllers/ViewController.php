@@ -11,6 +11,10 @@ class ViewController {
     TemplateManager::view('register');
   }
 
+  public function home(): void {
+    TemplateManager::view('home');
+  }
+
   public function about(): void {
     TemplateManager::view('about');
   }

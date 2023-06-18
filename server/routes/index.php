@@ -21,6 +21,7 @@ $router->post('/api/auth/register', 'AuthController@register');
 
 $router->get('/login', 'ViewController@login');
 $router->get('/register', 'ViewController@register');
+$router->get('/home', 'ViewController@home');
 $router->get('/', 'ViewController@books');
 $router->get('/books', 'ViewController@books');
 $router->get('/books/:id', 'ViewController@book');
