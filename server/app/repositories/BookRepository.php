@@ -151,6 +151,61 @@ public static function update(Book $book): bool {
       return !$statement->error;
   }
 
+  public static function searchBooks($query) {
+    $db = DB::getInstance()->getConnection();
+    $searchTerm = '%' . $query . '%';
+    $statement = $db->prepare("SELECT * FROM books WHERE title LIKE ? OR description LIKE ? OR author LIKE ?");
+    $statement->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
+    $statement->execute();
+  
+    if ($statement->error) {
+      return [];
+    }
+  
+    $books = [];
+    foreach ($statement->get_result() as $row) {
+      $books[] = self::toBook($row);
+    }
+  
+    return $books;
+  }
+  
+  public static function getByCategory($category) {
+    $db = DB::getInstance()->getConnection();
+    $statement = $db->prepare("SELECT * FROM books WHERE genre = ?");
+    $statement->bind_param("s", $category);
+    $statement->execute();
+  
+    if ($statement->error) {
+      return [];
+    }
+  
+    $books = [];
+    foreach ($statement->get_result() as $row) {
+      $books[] = self::toBook($row);
+    }
+  
+    return $books;
+  }
+  
+  public static function getByAuthor($author) {
+    $db = DB::getInstance()->getConnection();
+    $statement = $db->prepare("SELECT * FROM books WHERE author = ?");
+    $statement->bind_param("s", $author);
+    $statement->execute();
+  
+    if ($statement->error) {
+      return [];
+    }
+  
+    $books = [];
+    foreach ($statement->get_result() as $row) {
+      $books[] = self::toBook($row);
+    }
+  
+    return $books;
+  }
+
   private static function toBook(array $row): Book {
     return new Book($row['id'], $row['title'], $row['image'], $row['author'], $row['description'], $row['pages'], $row['isbn'], $row['genre'], $row['publisher'], $row['format'], $row['publication_date']);
   }

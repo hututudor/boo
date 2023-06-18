@@ -147,11 +147,36 @@ class BooksController {
       }
   }
 
+  public function search(Request $request): void {
+    $query = $request->params['query'];
+    print_r($query);
+    $books = BookRepository::searchBooks($query);
+
+    Response::success($books);
+}
+
+  public function getByCategory(Request $request): void {
+    $query = $request->params['query'];
+
+    $books = BookRepository::getByCategory($query);
+
+    Response::success($books);
+  }
+
+  public function getByAuthor(Request $request): void {
+    $query = $request->params['query'];
+
+    $books = BookRepository::getByAuthor($query);
+
+    Response::success($books);
+  }
+
   private function validateReadingStatusBody(Request $request): ?array {
     return validate($request->body, [
         'status' => ['required']
     ]);
   }
+
   private function validateBookBody(Request $request): ?array {
     return validate($request->body, [
       'pages' => ['required', 'number'],

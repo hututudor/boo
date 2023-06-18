@@ -16,6 +16,11 @@ $router->delete('/api/books/:id', 'BooksController@delete');
 $router->get('/api/books/:id/readingStatus', 'BooksController@getReadingStatus');
 $router->put('/api/books/:id/readingStatus', 'BooksController@updateReadingStatus');
 
+$router->get('/api/books/search/:query', 'BooksController@search');
+$router->get('/api/books/category/:query', 'BooksController@getByCategory');
+$router->get('/api/books/author/:query', 'BooksController@getByAuthor');
+
+
 $router->post('/api/auth/login', 'AuthController@login');
 $router->post('/api/auth/register', 'AuthController@register');
 
