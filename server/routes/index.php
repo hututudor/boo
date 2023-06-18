@@ -13,6 +13,8 @@ $router->get('/api/books/:id', 'BooksController@get');
 $router->post('/api/books', 'BooksController@add');
 $router->put('/api/books/:id', 'BooksController@update');
 $router->delete('/api/books/:id', 'BooksController@delete');
+$router->get('/api/books/:id/readingStatus', 'BooksController@getReadingStatus');
+$router->put('/api/books/:id/readingStatus', 'BooksController@updateReadingStatus');
 
 $router->post('/api/auth/login', 'AuthController@login');
 $router->post('/api/auth/register', 'AuthController@register');
@@ -28,3 +30,5 @@ $router->get('/help', 'ViewController@help');
 $router->get('/manager', 'ViewController@manager');
 $router->get('/manager/add', 'ViewController@managerAdd');
 $router->get('/manager/:id', 'ViewController@managerEdit');
+
+$router->get('/api/home/analytics', 'HomeController@getAnalytics');
