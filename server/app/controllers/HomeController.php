@@ -17,13 +17,12 @@ class HomeController
                 return;
             }
 
-            $readingCounter = BookRepository::countStatus('reading');
-            $readCounter = BookRepository::countStatus('read');
-            $toReadCounter = BookRepository::countStatus('want to read');
-
             $decoded = JwtUtils::decode_jwt($jwt);
             $userId = $decoded->id;
 
+            $readingCounter = BookRepository::countStatus( $userId,'reading');
+            $readCounter = BookRepository::countStatus($userId,'read');
+            $toReadCounter = BookRepository::countStatus($userId,'want to read');
             $reviewsCounter = ReviewsRepository::countUserReviews($userId);
 
             $response = array(

@@ -122,11 +122,11 @@ public static function update(Book $book): bool {
     return !$statement->error;
   }
 
-  public static function countStatus(string $readingStatus) : int
+  public static function countStatus(string $userId, string $readingStatus) : int
   {
       $db = DB::getInstance()->getConnection();
-        $statement = $db->prepare("SELECT COUNT(*) AS counter FROM user_books WHERE status = ?");
-        $statement->bind_param("s", $readingStatus);
+        $statement = $db->prepare("SELECT COUNT(*) AS counter FROM user_books WHERE user_id = ? AND status = ?");
+        $statement->bind_param("is", $userId, $readingStatus);
         $statement->execute();
 
         if($statement->error) {
