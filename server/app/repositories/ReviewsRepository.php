@@ -104,6 +104,24 @@ class ReviewsRepository {
     $statement->execute();
   }
 
+  public static function countUserReviews(int $userId): int {
+    $db = DB::getInstance()->getConnection();
+    $statement = $db->prepare("SELECT COUNT(*) AS counter FROM reviews WHERE user_id = ?");
+    $statement->bind_param("i", $userId);
+    $statement->execute();
+
+    if($statement->error) {
+      return 0;
+    }
+
+    $row = $statement->get_result()->fetch_assoc();
+    if(!$row) {
+      return 0;
+    }
+
+    return $row['counter'];
+  }
+
   private static function toReview(array $row): Review {
     return new Review($row['id'], $row['book_id'], $row['user_id'], $row['content'], $row['review_date']);
   }

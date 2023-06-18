@@ -4,7 +4,7 @@ class JwtUtils{
 
     public static function decode_jwt(string $jwt): ?object
     {
-        if (!$jwt)
+        if (!$jwt || $jwt == "")
         {
             return null;
         }

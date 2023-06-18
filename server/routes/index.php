@@ -30,3 +30,5 @@ $router->get('/help', 'ViewController@help');
 $router->get('/manager', 'ViewController@manager');
 $router->get('/manager/add', 'ViewController@managerAdd');
 $router->get('/manager/:id', 'ViewController@managerEdit');
+
+$router->get('/api/home/analytics', 'HomeController@getAnalytics');
