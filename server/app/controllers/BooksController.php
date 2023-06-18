@@ -127,14 +127,24 @@ class BooksController {
 
   public function updateReadingStatus(Request $request): void
   {
-      if($this->validateReadingStatusBody($request)) {
-          Response::badRequest($request->body);
-          return;
+      try {
+
+          if ($this->validateReadingStatusBody($request)) {
+              Response::badRequest($request->body);
+              return;
+          }
+
+          $serviceResponse = ReadingStatusService::updateReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
+
+          if($serviceResponse->getResponseStatus() == 'HTTP/1.0 200 Ok' || $serviceResponse->getResponseStatus() == 'HTTP/1.0 201 Created'){
+              Response::success();
+              return;
+          }
+          else
+                Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
+      }catch (Exception $e){
+          Response::internalServerError('Error updating reading status');
       }
-
-      $serviceResponse = ReadingStatusService::updateReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
-
-      Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
   }
 
   private function validateReadingStatusBody(Request $request): ?array {
