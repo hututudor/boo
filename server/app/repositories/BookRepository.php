@@ -154,7 +154,7 @@ public static function update(Book $book): bool {
   public static function searchBooks($query) {
     $db = DB::getInstance()->getConnection();
     $searchTerm = '%' . $query . '%';
-    $statement = $db->prepare("SELECT * FROM books WHERE title LIKE ? OR description LIKE ? OR author LIKE ?");
+    $statement = $db->prepare("SELECT * FROM books WHERE lower(title) LIKE lower(?) OR lower(description) LIKE lower(?) OR lower(author) LIKE lower(?)");
     $statement->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
     $statement->execute();
   
@@ -172,7 +172,7 @@ public static function update(Book $book): bool {
   
   public static function getByCategory($category) {
     $db = DB::getInstance()->getConnection();
-    $statement = $db->prepare("SELECT * FROM books WHERE genre = ?");
+    $statement = $db->prepare("SELECT * FROM books WHERE lower(genre) = lower(?)");
     $statement->bind_param("s", $category);
     $statement->execute();
   
@@ -190,7 +190,7 @@ public static function update(Book $book): bool {
   
   public static function getByAuthor($author) {
     $db = DB::getInstance()->getConnection();
-    $statement = $db->prepare("SELECT * FROM books WHERE author = ?");
+    $statement = $db->prepare("SELECT * FROM books WHERE lower(author) = lower(?)");
     $statement->bind_param("s", $author);
     $statement->execute();
   

@@ -7,6 +7,10 @@ $router->get('/api/reviews', 'ReviewsController@getByUserId');
 $router->post('/api/books/:book_id/reviews', 'ReviewsController@add');
 $router->delete('/api/reviews/:id', 'ReviewsController@delete');
 
+$router->get('/api/books/search', 'BooksController@search');
+$router->get('/api/books/category', 'BooksController@getByCategory');
+$router->get('/api/books/author', 'BooksController@getByAuthor');
+
 $router->get('/api/books', 'BooksController@list');
 $router->get('/api/books/:id/recommendations', 'BooksController@listRecommendations');
 $router->get('/api/books/:id', 'BooksController@get');
@@ -15,10 +19,6 @@ $router->put('/api/books/:id', 'BooksController@update');
 $router->delete('/api/books/:id', 'BooksController@delete');
 $router->get('/api/books/:id/readingStatus', 'BooksController@getReadingStatus');
 $router->put('/api/books/:id/readingStatus', 'BooksController@updateReadingStatus');
-
-$router->get('/api/books/search/:query', 'BooksController@search');
-$router->get('/api/books/category/:query', 'BooksController@getByCategory');
-$router->get('/api/books/author/:query', 'BooksController@getByAuthor');
 
 
 $router->post('/api/auth/login', 'AuthController@login');

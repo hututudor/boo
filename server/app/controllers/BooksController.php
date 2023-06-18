@@ -148,15 +148,24 @@ class BooksController {
   }
 
   public function search(Request $request): void {
-    $query = $request->params['query'];
-    print_r($query);
+    if(!array_key_exists('query', $request->query)) {
+      Response::badRequest(['error' => 'no query term']);
+      return;
+    }
+
+    $query = $request->query['query'];
     $books = BookRepository::searchBooks($query);
 
     Response::success($books);
 }
 
   public function getByCategory(Request $request): void {
-    $query = $request->params['query'];
+    if(!array_key_exists('query', $request->query)) {
+      Response::badRequest(['error' => 'no query term']);
+      return;
+    }
+
+    $query = $request->query['query'];
 
     $books = BookRepository::getByCategory($query);
 
@@ -164,7 +173,12 @@ class BooksController {
   }
 
   public function getByAuthor(Request $request): void {
-    $query = $request->params['query'];
+    if(!array_key_exists('query', $request->query)) {
+      Response::badRequest(['error' => 'no query term']);
+      return;
+    }
+
+    $query = $request->query['query'];
 
     $books = BookRepository::getByAuthor($query);
 
