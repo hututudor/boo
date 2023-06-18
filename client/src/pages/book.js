@@ -222,7 +222,7 @@ const statusIndexes = {
 };
 
 const displayStatus = async () => {
-  const { status } = await getBookStatus(pageState.id);
+  const [status] = await getBookStatus(pageState.id);
 
   const statusButtonWrapper = document.getElementsByClassName(
     'book-status-buttons',
@@ -234,8 +234,8 @@ const displayStatus = async () => {
   const statusButton = buttons[statusIndex];
 
   buttons.forEach(button => {
-    statusButton.classList.remove('button__primary');
-    statusButton.classList.add('button__secondary');
+    button.classList.remove('button__primary');
+    button.classList.add('button__secondary');
   });
 
   statusButton.classList.remove('button__secondary');
@@ -247,23 +247,17 @@ const registerStatusEvents = () => {
     'book-status-buttons',
   )[0];
 
-  const statusIndex =
-    statusIndexes[status] ?? statusIndexes[bookStatus.notRead];
   const buttons = statusButtonWrapper.querySelectorAll('button');
 
   Object.keys(bookStatus).forEach(status => {
     buttons[statusIndexes[bookStatus[status]]].addEventListener(
       'click',
-      handleStatusChange(status),
+      handleStatusChange(bookStatus[status]),
     );
   });
 };
 
 const handleStatusChange = status => async () => {
-  showPageLoading();
-
   await setBookStatus(pageState.id, status);
   await displayStatus();
-
-  hidePageLoading();
 };

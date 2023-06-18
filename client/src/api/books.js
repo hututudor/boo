@@ -163,16 +163,13 @@ export const getBookStatus = async id => {
     headers: { Authorization: getAuthToken() },
   });
 
-  // const data = await res.json();
+  const data = await res.json();
 
-  // if (!res.ok) {
-  //   throw data;
-  // }
+  if (!res.ok) {
+    throw data;
+  }
 
-  // return data;
-  return {
-    status: 'reading',
-  };
+  return data;
 };
 
 export const setBookStatus = async (id, status) => {
