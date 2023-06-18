@@ -15,7 +15,6 @@ $router->put('/api/books/:id', 'BooksController@update');
 $router->delete('/api/books/:id', 'BooksController@delete');
 $router->get('/api/books/readingStatus/:id', 'BooksController@getReadingStatus');
 $router->put('/api/books/readingStatus/:id', 'BooksController@updateReadingStatus');
-$router->post('/api/books/readingStatus/:id', 'BooksController@addReadingStatus');
 
 $router->post('/api/auth/login', 'AuthController@login');
 $router->post('/api/auth/register', 'AuthController@register');
