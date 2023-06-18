@@ -122,26 +122,37 @@ public static function update(Book $book): bool {
     return !$statement->error;
   }
 
+
   public static function countStatus(string $userId, string $readingStatus) : int
   {
       $db = DB::getInstance()->getConnection();
-        $statement = $db->prepare("SELECT COUNT(*) AS counter FROM user_books WHERE user_id = ? AND status = ?");
-        $statement->bind_param("is", $userId, $readingStatus);
-        $statement->execute();
+      $statement = $db->prepare("SELECT COUNT(*) AS counter FROM user_books WHERE user_id = ? AND status = ?");
+      $statement->bind_param("is", $userId, $readingStatus);
+      $statement->execute();
 
-        if($statement->error) {
-            return 0;
-        }
+      if ($statement->error) {
+          return 0;
+      }
 
-        $row = $statement->get_result()->fetch_assoc();
-        if(!$row) {
-            return 0;
-        }
+      $row = $statement->get_result()->fetch_assoc();
+      if (!$row) {
+          return 0;
+      }
 
-        return $row['counter'];
+      return $row['counter'];
+  }
+  public static function deleteReadingStatus(string $bookId, string $userId) : bool
+  {
+      $db = DB::getInstance()->getConnection();
+      $statement = $db->prepare("DELETE FROM user_books WHERE book_id = ? AND user_id = ?");
+      $statement->bind_param("ii", $bookId, $userId);
+      $statement->execute();
+
+      return !$statement->error;
   }
 
   private static function toBook(array $row): Book {
     return new Book($row['id'], $row['title'], $row['image'], $row['author'], $row['description'], $row['pages'], $row['isbn'], $row['genre'], $row['publisher'], $row['format'], $row['publication_date']);
   }
+
 }

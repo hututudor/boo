@@ -125,29 +125,28 @@ class BooksController {
       Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
   }
 
-    public function updateReadingStatus(Request $request): void
-    {
-        if($this->validateReadingStatusBody($request)) {
-            Response::badRequest($request->body);
-            return;
-        }
+  public function updateReadingStatus(Request $request): void
+  {
+      try {
 
-        $serviceResponse = ReadingStatusService::updateReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
+          if ($this->validateReadingStatusBody($request)) {
+              Response::badRequest($request->body);
+              return;
+          }
 
-        Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
-    }
+          $serviceResponse = ReadingStatusService::updateReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
 
-    public function addReadingStatus(Request $request): void
-    {
-        if($this->validateReadingStatusBody($request)) {
-            Response::badRequest($request->body);
-            return;
-        }
+          if($serviceResponse->getResponseStatus() == 'HTTP/1.0 200 Ok' || $serviceResponse->getResponseStatus() == 'HTTP/1.0 201 Created'){
+              Response::success();
+              return;
+          }
+          else
+                Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
+      }catch (Exception $e){
+          Response::internalServerError('Error updating reading status');
+      }
+  }
 
-        $serviceResponse = ReadingStatusService::addReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
-
-        Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
-    }
   private function validateReadingStatusBody(Request $request): ?array {
     return validate($request->body, [
         'status' => ['required']

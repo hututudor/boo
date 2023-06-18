@@ -31,8 +31,8 @@ CREATE OR REPLACE TABLE user_books
     user_id INT NOT NULL,
     book_id INT NOT NULL,
     status  ENUM ('want to read', 'reading', 'read', 'didn''t read') NOT NULL,
-    CONSTRAINT user_books_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id),
-    CONSTRAINT user_books_ibfk_2 FOREIGN KEY (book_id) REFERENCES books (id),
+    CONSTRAINT user_books_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    CONSTRAINT user_books_ibfk_2 FOREIGN KEY (book_id) REFERENCES books (id) ON DELETE CASCADE,
     CONSTRAINT unique_user_book_pair UNIQUE (user_id, book_id)
 );
 
