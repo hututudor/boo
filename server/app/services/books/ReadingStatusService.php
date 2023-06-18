@@ -47,33 +47,36 @@ class ReadingStatusService
             return self::addReadingStatus($bookId, $newStatus, $jwtToken, true);
         }
 
+        if($newStatus == 'didn\'t read'){
+            return self::deleteReadingStatus($bookId, $userId);
+        }
+
+        if($status == $newStatus){
+            return new OK((array)'updated');
+        }
+
         BookRepository::updateReadingStatus($bookId, $userId, $newStatus);
         return new Ok((array)'updated');
     }
 
-    public static function addReadingStatus(string $bookId, string $newStatus, string $jwtToken, bool $force = false) : IServiceResponse
+    private static function addReadingStatus(string $bookId, string $userId, string $status) : IServiceResponse
     {
-        if(!AuthorizationUtils::isSimpleAuthorized($jwtToken)) {
-            return new Unauthorized((array)'The user is not logged in');
-        }
-
-        $decoded = JwtUtils::decode_jwt($jwtToken);
-        $userId = $decoded->id;
-
-        if($force)
-        {
-            BookRepository::insertReadingStatus($bookId, $userId, $newStatus);
+        try {
+            BookRepository::insertReadingStatus($bookId, $userId, $status);
             return new Created((array)'inserted');
+        }catch (Exception $e){
+            return new InternalServerError((array)$e->getMessage());
         }
+    }
 
-        $status = BookRepository::getReadingStatus($bookId, $userId);
-
-        if($status != null){
-            return new BadAccess('The row already exists. Try applying the update operation');
+    private static function deleteReadingStatus(string $bookId, string $userId) : IServiceResponse
+    {
+        try {
+            BookRepository::deleteReadingStatus($bookId, $userId);
+            return new Ok((array)'deleted');
+        }catch (Exception $e){
+            return new InternalServerError((array)$e->getMessage());
         }
-
-        BookRepository::insertReadingStatus($bookId, $userId, $newStatus);
-        return new Created((array)'inserted');
     }
 
 }

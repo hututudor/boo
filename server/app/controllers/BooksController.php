@@ -125,29 +125,18 @@ class BooksController {
       Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
   }
 
-    public function updateReadingStatus(Request $request): void
-    {
-        if($this->validateReadingStatusBody($request)) {
-            Response::badRequest($request->body);
-            return;
-        }
+  public function updateReadingStatus(Request $request): void
+  {
+      if($this->validateReadingStatusBody($request)) {
+          Response::badRequest($request->body);
+          return;
+      }
 
-        $serviceResponse = ReadingStatusService::updateReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
+      $serviceResponse = ReadingStatusService::updateReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
 
-        Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
-    }
+      Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
+  }
 
-    public function addReadingStatus(Request $request): void
-    {
-        if($this->validateReadingStatusBody($request)) {
-            Response::badRequest($request->body);
-            return;
-        }
-
-        $serviceResponse = ReadingStatusService::addReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
-
-        Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
-    }
   private function validateReadingStatusBody(Request $request): ?array {
     return validate($request->body, [
         'status' => ['required']
