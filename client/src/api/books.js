@@ -157,17 +157,3 @@ export const deleteBook = async id =>
       Authorization: getAuthToken(),
     },
   });
-
-export const uploadImage = async file => {
-  const formData = new FormData();
-  formData.append('file', file);
-
-  const res = await fetch(`${API_BASE}/upload`, {
-    method: 'POST',
-    body: formData,
-  });
-
-  const data = await res.json();
-
-  return data.file;
-};
