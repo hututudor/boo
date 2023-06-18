@@ -2,8 +2,6 @@
 
 global $router;
 
-$router->post('/api/upload', 'FileController@upload');
-
 $router->get('/api/books/:book_id/reviews', 'ReviewsController@getByBookId');
 $router->get('/api/reviews', 'ReviewsController@getByUserId');
 $router->post('/api/books/:book_id/reviews', 'ReviewsController@add');
@@ -30,4 +28,3 @@ $router->get('/help', 'ViewController@help');
 $router->get('/manager', 'ViewController@manager');
 $router->get('/manager/add', 'ViewController@managerAdd');
 $router->get('/manager/:id', 'ViewController@managerEdit');
-
