@@ -1,7 +1,7 @@
 <?php
 
 require_once ROOT_DIR . '/app/repositories/BookRepository.php';
-require_once ROOT_DIR . '/app/services/books/BooksService.php';
+require_once ROOT_DIR . '/app/services/books/ReadingStatusService.php';
 require_once ROOT_DIR . '/app/validation.php';
 require_once __DIR__ . '/../services/utils/JwtUtils.php';
 require_once __DIR__ . '/../services/utils/AuthorizationUtils.php';
@@ -120,7 +120,7 @@ class BooksController {
 
   public function getReadingStatus(Request $request): void
   {
-      $serviceResponse = BooksService::getReadingStatus($request->params['id'], Headers::getHeaderValue($request->headers, 'Authorization'));
+      $serviceResponse = ReadingStatusService::getReadingStatus($request->params['id'], Headers::getHeaderValue($request->headers, 'Authorization'));
 
       Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
   }
@@ -132,7 +132,7 @@ class BooksController {
             return;
         }
 
-        $serviceResponse = BooksService::updateReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
+        $serviceResponse = ReadingStatusService::updateReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
 
         Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
     }
@@ -144,7 +144,7 @@ class BooksController {
             return;
         }
 
-        $serviceResponse = BooksService::addReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
+        $serviceResponse = ReadingStatusService::addReadingStatus($request->params['id'], $request->body['status'], Headers::getHeaderValue($request->headers, 'Authorization'));
 
         Response::custom($serviceResponse->getResponseStatus(), $serviceResponse->getResponseData());
     }

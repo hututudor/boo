@@ -8,12 +8,10 @@ require_once ROOT_DIR . '/app/services/response/BadAccess.php';
 require_once ROOT_DIR . '/app/services/response/Created.php';
 require_once ROOT_DIR . '/app/services/response/IServiceResponse.php';
 
-class BooksService
+class ReadingStatusService
 {
     public static function getReadingStatus(string $bookId, string $jwtToken) : IServiceResponse
     {
-        //create a const variable called DEFAULT_STATUS
-
         $DEFAULT_READING_STATUS = array('didn\'t read');
 
         if(!AuthorizationUtils::isSimpleAuthorized($jwtToken)) {
