@@ -4,6 +4,8 @@ import {
   getBook,
   getBookRecommendations,
   getBookReviews,
+  getBookStatus,
+  setBookStatus,
 } from '../api';
 import { isAuth } from '../app/auth';
 import {
@@ -16,7 +18,10 @@ import {
   disableButton,
   enableButton,
   getBookCardNode,
+  showPageLoading,
+  hidePageLoading,
 } from '../components';
+import { bookStatus } from '../constants/books';
 
 const pageState = {
   id: 0,
@@ -36,12 +41,14 @@ export const load = async () => {
   const recommendations = await getBookRecommendations(pageState.id);
   showRecommendations(recommendations);
 
-  handleAuthDisplay();
+  await handleAuthDisplay();
 
   displayReviews();
+
   registerModalEvents();
   registerFormEvents();
   registerGoToLogin();
+  registerStatusEvents();
 };
 
 const displayReviews = async () => {
@@ -185,7 +192,7 @@ const registerGoToLogin = () => {
   loginButtonSection.addEventListener('click', () => goTo('../login'));
 };
 
-const handleAuthDisplay = () => {
+const handleAuthDisplay = async () => {
   const statusButtonSection = document.getElementsByClassName(
     'book-status-buttons',
   )[0];
@@ -202,5 +209,61 @@ const handleAuthDisplay = () => {
   } else {
     statusButtonSection.style.display = 'flex';
     loginButtonSection.style.display = 'none';
+
+    await displayStatus();
   }
+};
+
+const statusIndexes = {
+  [bookStatus.wantToRead]: 0,
+  [bookStatus.reading]: 1,
+  [bookStatus.read]: 2,
+  [bookStatus.notRead]: 3,
+};
+
+const displayStatus = async () => {
+  const { status } = await getBookStatus(pageState.id);
+
+  const statusButtonWrapper = document.getElementsByClassName(
+    'book-status-buttons',
+  )[0];
+
+  const statusIndex =
+    statusIndexes[status] ?? statusIndexes[bookStatus.notRead];
+  const buttons = statusButtonWrapper.querySelectorAll('button');
+  const statusButton = buttons[statusIndex];
+
+  buttons.forEach(button => {
+    statusButton.classList.remove('button__primary');
+    statusButton.classList.add('button__secondary');
+  });
+
+  statusButton.classList.remove('button__secondary');
+  statusButton.classList.add('button__primary');
+};
+
+const registerStatusEvents = () => {
+  const statusButtonWrapper = document.getElementsByClassName(
+    'book-status-buttons',
+  )[0];
+
+  const statusIndex =
+    statusIndexes[status] ?? statusIndexes[bookStatus.notRead];
+  const buttons = statusButtonWrapper.querySelectorAll('button');
+
+  Object.keys(bookStatus).forEach(status => {
+    buttons[statusIndexes[bookStatus[status]]].addEventListener(
+      'click',
+      handleStatusChange(status),
+    );
+  });
+};
+
+const handleStatusChange = status => async () => {
+  showPageLoading();
+
+  await setBookStatus(pageState.id, status);
+  await displayStatus();
+
+  hidePageLoading();
 };
