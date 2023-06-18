@@ -10,6 +10,10 @@ class BooksService
 {
     public static function getReadingStatus(string $bookId, string $jwtToken) : IServiceResponse
     {
+        //create a const variable called DEFAULT_STATUS
+
+        $DEFAULT_READING_STATUS = array('didn\'t read');
+
         if(!AuthorizationUtils::isSimpleAuthorized($jwtToken)) {
             return new Unauthorized((array)'The user is not logged in');
         }
@@ -20,7 +24,7 @@ class BooksService
         $status = BookRepository::getReadingStatus($bookId, $userId);
 
         if($status == null){
-            return new Ok((array)'didn\'t read');
+            return new Ok($DEFAULT_READING_STATUS);
         }
 
         $status_to_array = (array) $status;
@@ -40,7 +44,7 @@ class BooksService
         $status = BookRepository::getReadingStatus($bookId, $userId);
 
         if($status == null){
-            $response = self::addReadingStatus($bookId, $newStatus, $jwtToken);
+            return self::addReadingStatus($bookId, $newStatus, $jwtToken);
         }
 
         BookRepository::updateReadingStatus($bookId, $userId, $newStatus);
@@ -63,7 +67,7 @@ class BooksService
         }
 
         BookRepository::insertReadingStatus($bookId, $userId, $newStatus);
-        return new Ok((array)'inserted');
+        return new Created((array)'inserted');
     }
 
 }
