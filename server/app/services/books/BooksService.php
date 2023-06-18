@@ -5,6 +5,8 @@ require_once ROOT_DIR . '/app/services/utils/AuthorizationUtils.php';
 require_once ROOT_DIR . '/app/services/response/Ok.php';
 require_once ROOT_DIR . '/app/services/response/Unauthorized.php';
 require_once ROOT_DIR . '/app/services/response/BadAccess.php';
+require_once ROOT_DIR . '/app/services/response/Created.php';
+require_once ROOT_DIR . '/app/services/response/IServiceResponse.php';
 
 class BooksService
 {
