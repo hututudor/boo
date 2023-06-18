@@ -46,14 +46,14 @@ class BooksService
         $status = BookRepository::getReadingStatus($bookId, $userId);
 
         if($status == null){
-            return self::addReadingStatus($bookId, $newStatus, $jwtToken);
+            return self::addReadingStatus($bookId, $newStatus, $jwtToken, true);
         }
 
         BookRepository::updateReadingStatus($bookId, $userId, $newStatus);
         return new Ok((array)'updated');
     }
 
-    public static function addReadingStatus(string $bookId, string $newStatus, string $jwtToken) : IServiceResponse
+    public static function addReadingStatus(string $bookId, string $newStatus, string $jwtToken, bool $force = false) : IServiceResponse
     {
         if(!AuthorizationUtils::isSimpleAuthorized($jwtToken)) {
             return new Unauthorized((array)'The user is not logged in');
@@ -61,6 +61,12 @@ class BooksService
 
         $decoded = JwtUtils::decode_jwt($jwtToken);
         $userId = $decoded->id;
+
+        if($force)
+        {
+            BookRepository::insertReadingStatus($bookId, $userId, $newStatus);
+            return new Created((array)'inserted');
+        }
 
         $status = BookRepository::getReadingStatus($bookId, $userId);
 
