@@ -147,11 +147,50 @@ class BooksController {
       }
   }
 
+  public function search(Request $request): void {
+    if(!array_key_exists('query', $request->query)) {
+      Response::badRequest(['error' => 'no query term']);
+      return;
+    }
+
+    $query = $request->query['query'];
+    $books = BookRepository::searchBooks($query);
+
+    Response::success($books);
+}
+
+  public function getByCategory(Request $request): void {
+    if(!array_key_exists('query', $request->query)) {
+      Response::badRequest(['error' => 'no query term']);
+      return;
+    }
+
+    $query = $request->query['query'];
+
+    $books = BookRepository::getByCategory($query);
+
+    Response::success($books);
+  }
+
+  public function getByAuthor(Request $request): void {
+    if(!array_key_exists('query', $request->query)) {
+      Response::badRequest(['error' => 'no query term']);
+      return;
+    }
+
+    $query = $request->query['query'];
+
+    $books = BookRepository::getByAuthor($query);
+
+    Response::success($books);
+  }
+
   private function validateReadingStatusBody(Request $request): ?array {
     return validate($request->body, [
         'status' => ['required']
     ]);
   }
+
   private function validateBookBody(Request $request): ?array {
     return validate($request->body, [
       'pages' => ['required', 'number'],
