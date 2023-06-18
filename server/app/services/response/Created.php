@@ -7,7 +7,7 @@ class Created implements IServiceResponse
 
     public function getResponseStatus(): string
     {
-        return "HTTP/1.0 201 Ok";
+        return "HTTP/1.0 201 Created";
     }
 
     public function getResponseData(): array
