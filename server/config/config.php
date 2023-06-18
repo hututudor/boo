@@ -7,4 +7,4 @@ const DB_USER = 'root';
 const DB_PASS = '';
 const DB_NAME = 'boo';
 const JWT_SECRET = '84sX6p6CVRJjrWZnTo';
-const PUBLIC_ASSETS_URL = 'http://localhost:8000/www/server/public';
+const PUBLIC_ASSETS_URL = 'http://localhost:8000/www/public';

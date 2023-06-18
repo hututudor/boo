@@ -23,6 +23,10 @@ class ViewController {
     TemplateManager::view('books');
   }
 
+  public function reviews(): void {
+    TemplateManager::view('reviews');
+  }
+
   public function book(Request $request): void {
     TemplateManager::view('book', $request->params);
   }

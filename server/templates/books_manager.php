@@ -20,10 +20,10 @@
 
     <div class="modal modal__hidden" id="delete-modal">
       <div class="modal-content">
-        <div class="text text__32 text__bold mb-2">Delete book</div>
+        <div class="text text__32 text__bold mb-2">Delete Book</div>
         <div class="text text__16 mb-4">Are you sure? This operation cannot be reverted</div>
         <div class="flex flex__justify-center">
-          <button class="button button__secondary mr-4" id="delete-modal-cancel">Cancel</button>
+          <button class="button button__secondary mr-8" id="delete-modal-cancel">Cancel</button>
           <button class="button button__primary button__red" id="delete-modal-delete">Delete</button>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { getAuthToken } from '../app/auth';
 import { API_BASE } from '../config';
 
 export const listBooks = async () => {
@@ -24,18 +25,48 @@ export const getBook = async id => {
   return data;
 };
 
-export const uploadImage = async file => {
-  const formData = new FormData();
-  formData.append('file', file);
+export const getBookRecommendations = async id => {
+  const res = await fetch(`${API_BASE}/books/${id}/recommendations`);
 
-  const res = await fetch(`${API_BASE}/upload`, {
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw data;
+  }
+
+  return data;
+};
+
+export const getBookReviews = async id => {
+  const res = await fetch(`${API_BASE}/books/${id}/reviews`);
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw data;
+  }
+
+  return data;
+};
+
+export const addBookReview = async (id, { content }) => {
+  const res = await fetch(`${API_BASE}/books/${id}/reviews`, {
     method: 'POST',
-    body: formData,
+    body: JSON.stringify({
+      content,
+    }),
+    headers: {
+      Authorization: getAuthToken(),
+    },
   });
 
   const data = await res.json();
 
-  return data.file;
+  if (!res.ok) {
+    throw data;
+  }
+
+  return null;
 };
 
 export const addBook = async ({
@@ -64,6 +95,9 @@ export const addBook = async ({
       format,
       publication_date: published,
     }),
+    headers: {
+      Authorization: getAuthToken(),
+    },
   });
 
   const data = await res.json();
@@ -102,6 +136,9 @@ export const editBook = async ({
       format,
       publication_date: published,
     }),
+    headers: {
+      Authorization: getAuthToken(),
+    },
   });
 
   const data = await res.json();
@@ -116,4 +153,7 @@ export const editBook = async ({
 export const deleteBook = async id =>
   fetch(`${API_BASE}/books/${id}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: getAuthToken(),
+    },
   });

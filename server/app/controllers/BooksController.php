@@ -3,6 +3,8 @@
 require_once ROOT_DIR . '/app/repositories/BookRepository.php';
 require_once ROOT_DIR . '/app/services/books/BooksService.php';
 require_once ROOT_DIR . '/app/validation.php';
+require_once __DIR__ . '/../services/utils/JwtUtils.php';
+require_once __DIR__ . '/../services/utils/AuthorizationUtils.php';
 
 class BooksController {
   public function get(Request $request): void {
@@ -20,7 +22,25 @@ class BooksController {
     Response::success(BookRepository::getAll());
   }
 
+  public function listRecommendations(Request $request): void {
+    $book = BookRepository::getById($request->params['id']);
+    if(!$book) {
+      Response::notFound();
+      return;
+    }
+
+    $books = BookRepository::getRelated($book);
+
+    Response::success($books);
+  }
+
   public function add(Request $request) {
+    $is_admin_authorized = AuthorizationUtils::isAdminAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
+    if (!$is_admin_authorized) {
+      Response::unauthorized();
+      return;
+    }
+
     $bodyErrors = $this->validateBookBody($request);
     if($bodyErrors) {
       Response::badRequest($bodyErrors);
@@ -51,6 +71,12 @@ class BooksController {
   }
 
   public function update(Request $request): void {
+    $is_admin_authorized = AuthorizationUtils::isAdminAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
+    if (!$is_admin_authorized) {
+      Response::unauthorized();
+      return;
+    }
+
     $bodyErrors = $this->validateBookBody($request);
     if($bodyErrors) {
       Response::badRequest($bodyErrors);
@@ -81,6 +107,12 @@ class BooksController {
   }
 
   public function delete(Request $request): void {
+    $is_admin_authorized = AuthorizationUtils::isAdminAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
+    if (!$is_admin_authorized) {
+      Response::unauthorized();
+      return;
+    }
+
     BookRepository::deleteById($request->params['id']);
 
     Response::success();

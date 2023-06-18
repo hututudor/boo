@@ -1,4 +1,4 @@
-import { isAuth, logout } from '../app/auth';
+import { isAdmin, isAuth, logout } from '../app/auth';
 import { getPageName } from '../app/loader';
 import { URL_BASE } from '../config';
 
@@ -8,6 +8,7 @@ const sidebarConfig = [
     icon: 'fa-home',
     isActive: () => getPageName() === 'home',
     onClick: () => goTo(URL_BASE + '/home'),
+    isHidden: () => !isAuth(),
   },
   {
     name: 'Books',
@@ -20,12 +21,14 @@ const sidebarConfig = [
     icon: 'fa-comment',
     isActive: () => getPageName() === 'reviews',
     onClick: () => goTo(URL_BASE + '/reviews'),
+    isHidden: () => !isAuth(),
   },
   {
     name: 'Books Manager',
     icon: 'fa-table',
     isActive: () => getPageName() === 'books_manager',
     onClick: () => goTo(URL_BASE + '/manager'),
+    isHidden: () => !isAdmin(),
   },
   {
     name: 'About',
@@ -78,7 +81,9 @@ export const renderSidebar = () => {
     return;
   }
 
-  sidebarConfig.forEach(item => sidebar.appendChild(getSidebarItem(item)));
+  sidebarConfig
+    .filter(item => !item?.isHidden || !item.isHidden())
+    .forEach(item => sidebar.appendChild(getSidebarItem(item)));
   sidebar.appendChild(getSidebarDivider());
 
   if (isAuth()) {

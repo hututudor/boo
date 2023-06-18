@@ -19,7 +19,7 @@ class BookRepository {
 
     return $books;
   }
-
+  
   public static function getById(string $id): ?Book {
     $db = DB::getInstance()->getConnection();
     $statement = $db->prepare("SELECT * FROM books WHERE id = ?");
@@ -36,6 +36,24 @@ class BookRepository {
     }
 
     return self::toBook($row);
+  }
+
+  public static function getRelated(Book $book): array {
+    $db = DB::getInstance()->getConnection();
+    $statement = $db->prepare("SELECT * FROM books where id != ? and genre = ? limit 4");
+    $statement->bind_param("is", $book->id, $book->genre);
+    $statement->execute();
+
+    if($statement->error) {
+      return [];
+    }
+
+    $books = [];
+    foreach ($statement->get_result() as $row) {
+      $books[] = self::toBook($row);
+    }
+
+    return $books;
   }
 
   public static function insert(Book $book): ?Book {
