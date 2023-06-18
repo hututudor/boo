@@ -155,4 +155,23 @@ public static function update(Book $book): bool {
     return new Book($row['id'], $row['title'], $row['image'], $row['author'], $row['description'], $row['pages'], $row['isbn'], $row['genre'], $row['publisher'], $row['format'], $row['publication_date']);
   }
 
+    public static function getBooksByStatus($userId, string $status) : array
+    {
+        $db = DB::getInstance()->getConnection();
+        $statement = $db->prepare("SELECT * FROM books WHERE id IN (SELECT book_id FROM user_books WHERE user_id = ? AND status = ?)");
+        $statement->bind_param("is", $userId, $status);
+        $statement->execute();
+
+        if($statement->error) {
+            return [];
+        }
+
+        $books = [];
+        foreach ($statement->get_result() as $row) {
+            $books[] = self::toBook($row);
+        }
+
+        return $books;
+    }
+
 }
