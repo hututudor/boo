@@ -32,3 +32,4 @@ $router->get('/manager/add', 'ViewController@managerAdd');
 $router->get('/manager/:id', 'ViewController@managerEdit');
 
 $router->get('/api/home/analytics', 'HomeController@getAnalytics');
+$router->get('/api/home/books', 'HomeController@getBooks');

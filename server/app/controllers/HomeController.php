@@ -38,4 +38,34 @@ class HomeController
             Response::internalServerError($e->getMessage());
         }
     }
+
+    public static function getBooks(Request $request) : void
+    {
+        try {
+            $jwt = Headers::getHeaderValue($request->headers, 'Authorization');
+
+            if(!AuthorizationUtils::isSimpleAuthorized($jwt)) {
+                Response::unauthorized();
+                return;
+            }
+
+            $decoded = JwtUtils::decode_jwt($jwt);
+            $userId = $decoded->id;
+
+            $readingBooks = BookRepository::getBooksByStatus($userId, 'reading');
+            $toReadBooks = BookRepository::getBooksByStatus($userId, 'want to read');
+            $readBooks = BookRepository::getBooksByStatus($userId, 'read');
+
+            $books = array(
+                'reading' => $readingBooks,
+                'toRead' => $toReadBooks,
+                'read' => $readBooks
+            );
+
+            Response::success($books);
+        }
+        catch (Exception $e) {
+            Response::internalServerError($e->getMessage());
+        }
+    }
 }
