@@ -122,6 +122,25 @@ public static function update(Book $book): bool {
     return !$statement->error;
   }
 
+  public static function countStatus(string $readingStatus) : int
+  {
+      $db = DB::getInstance()->getConnection();
+        $statement = $db->prepare("SELECT COUNT(*) AS counter FROM user_books WHERE status = ?");
+        $statement->bind_param("s", $readingStatus);
+        $statement->execute();
+
+        if($statement->error) {
+            return 0;
+        }
+
+        $row = $statement->get_result()->fetch_assoc();
+        if(!$row) {
+            return 0;
+        }
+
+        return $row['counter'];
+  }
+
   private static function toBook(array $row): Book {
     return new Book($row['id'], $row['title'], $row['image'], $row['author'], $row['description'], $row['pages'], $row['isbn'], $row['genre'], $row['publisher'], $row['format'], $row['publication_date']);
   }
