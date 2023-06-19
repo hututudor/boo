@@ -13,6 +13,45 @@ export const listBooks = async () => {
   return data;
 };
 
+export const listBooksSearch = async query => {
+  const queryParams = new URLSearchParams({ query });
+  const res = await fetch(`${API_BASE}/books/search?${queryParams}`);
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw data;
+  }
+
+  return data;
+};
+
+export const listBooksGenre = async query => {
+  const queryParams = new URLSearchParams({ query });
+  const res = await fetch(`${API_BASE}/books/category?${queryParams}`);
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw data;
+  }
+
+  return data;
+};
+
+export const listBooksAuthor = async query => {
+  const queryParams = new URLSearchParams({ query });
+  const res = await fetch(`${API_BASE}/books/author?${queryParams}`);
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw data;
+  }
+
+  return data;
+};
+
 export const getBook = async id => {
   const res = await fetch(`${API_BASE}/books/${id}`);
 

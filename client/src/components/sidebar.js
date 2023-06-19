@@ -129,7 +129,30 @@ export const registerSidebarEvents = () => {
     .getElementsByTagName('nav')[0]
     .getElementsByTagName('button')[0];
 
+  const searchWrapper = document.getElementsByClassName('side-search')[0];
+  const searchInput = searchWrapper.querySelector('input');
+  const searchButton = searchWrapper.querySelector('i');
+
+  searchInput.addEventListener('keypress', handleSearchKeyPress);
+  searchButton.addEventListener('click', search);
+
   button.addEventListener('click', handleSidebarOpenClose);
+};
+
+const handleSearchKeyPress = event => {
+  if (event.keyCode == 13) {
+    search();
+  }
+};
+
+const search = () => {
+  const queryValue = document.getElementById('search').value;
+  if (!queryValue) {
+    return;
+  }
+
+  const queryParam = new URLSearchParams({ query: queryValue });
+  window.location.href = `${URL_BASE}/books/search?${queryParam}`;
 };
 
 const isSidebarOpen = () => {
