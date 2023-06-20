@@ -31,7 +31,7 @@ $router->post('/api/auth/register', 'AuthController@register');
 $router->get('/api/users', 'AdminController@getAllUsers');
 $router->put('/api/users/:id/promote', 'AdminController@promote');
 $router->put('/api/users/:id/demote', 'AdminController@demote');
-$router->delete('/api/users/:id/delete', 'AdminController@delete');
+$router->delete('/api/users/:id', 'AdminController@delete');
 
 $router->get('/login', 'ViewController@login');
 $router->get('/register', 'ViewController@register');
@@ -46,6 +46,7 @@ $router->get('/books/:id', 'ViewController@book');
 $router->get('/reviews', 'ViewController@reviews');
 $router->get('/about', 'ViewController@about');
 $router->get('/help', 'ViewController@help');
+$router->get('/manager/users', 'ViewController@usersManager');
 $router->get('/manager', 'ViewController@manager');
 $router->get('/manager/add', 'ViewController@managerAdd');
 $router->get('/manager/:id', 'ViewController@managerEdit');

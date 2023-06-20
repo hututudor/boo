@@ -31,6 +31,13 @@ const sidebarConfig = [
     isHidden: () => !isAdmin(),
   },
   {
+    name: 'Users Manager',
+    icon: 'fa-users',
+    isActive: () => getPageName() === 'users_manager',
+    onClick: () => goTo(URL_BASE + '/manager/users'),
+    isHidden: () => !isAdmin(),
+  },
+  {
     name: 'About',
     icon: 'fa-info-circle',
     isActive: () => getPageName() === 'about',

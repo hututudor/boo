@@ -76,3 +76,43 @@ export const updateUserPassword = async ({ password }) => {
 
   return data;
 };
+
+export const listUsers = async () => {
+  const res = await fetch(`${API_BASE}/users`, {
+    headers: {
+      Authorization: getAuthToken(),
+    },
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw data;
+  }
+
+  return data.users;
+};
+
+export const deleteUser = async id =>
+  fetch(`${API_BASE}/users/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: getAuthToken(),
+    },
+  });
+
+export const promoteUser = async id =>
+  fetch(`${API_BASE}/users/${id}/promote`, {
+    method: 'PUT',
+    headers: {
+      Authorization: getAuthToken(),
+    },
+  });
+
+export const demoteUser = async id =>
+  fetch(`${API_BASE}/users/${id}/demote`, {
+    method: 'PUT',
+    headers: {
+      Authorization: getAuthToken(),
+    },
+  });
