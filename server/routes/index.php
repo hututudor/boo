@@ -28,6 +28,11 @@ $router->get('/api/profile', 'UserController@getProfile');
 $router->post('/api/auth/login', 'AuthController@login');
 $router->post('/api/auth/register', 'AuthController@register');
 
+$router->get('/api/users', 'AdminController@getAllUsers');
+$router->put('/api/users/:id/promote', 'AdminController@promote');
+$router->put('/api/users/:id/demote', 'AdminController@demote');
+$router->delete('/api/users/:id/delete', 'AdminController@delete');
+
 $router->get('/login', 'ViewController@login');
 $router->get('/register', 'ViewController@register');
 $router->get('/home', 'ViewController@home');
