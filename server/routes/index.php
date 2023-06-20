@@ -20,9 +20,9 @@ $router->delete('/api/books/:id', 'BooksController@delete');
 $router->get('/api/books/:id/readingStatus', 'BooksController@getReadingStatus');
 $router->put('/api/books/:id/readingStatus', 'BooksController@updateReadingStatus');
 
-$router->post('/api/profile/email', 'UserController@updateEmail');
-$router->post('/api/profile/name', 'UserController@updateName');
-$router->post('/api/profile/password', 'UserController@updatePassword');
+$router->put('/api/profile/email', 'UserController@updateEmail');
+$router->put('/api/profile/name', 'UserController@updateName');
+$router->put('/api/profile/password', 'UserController@updatePassword');
 $router->get('/api/profile', 'UserController@getProfile');
 
 $router->post('/api/auth/login', 'AuthController@login');
@@ -31,6 +31,7 @@ $router->post('/api/auth/register', 'AuthController@register');
 $router->get('/login', 'ViewController@login');
 $router->get('/register', 'ViewController@register');
 $router->get('/home', 'ViewController@home');
+$router->get('/profile', 'ViewController@profile');
 $router->get('/', 'ViewController@books');
 $router->get('/books', 'ViewController@books');
 $router->get('/books/search', 'ViewController@search');

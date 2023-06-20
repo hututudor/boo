@@ -1,3 +1,5 @@
+import { URL_BASE } from '../config';
+
 export const getBookCardNode = ({ id, image, title, author }, base = '.') => {
   const imageNode = document.createElement('div');
   imageNode.classList.add('book_card-image');
@@ -16,7 +18,7 @@ export const getBookCardNode = ({ id, image, title, author }, base = '.') => {
 
   const container = document.createElement('div');
   container.classList.add('book_card');
-  container.addEventListener('click', () => goTo(`${base}/books/${id}`));
+  container.addEventListener('click', () => goTo(`${URL_BASE}/books/${id}`));
 
   container.appendChild(imageNode);
   container.appendChild(titleNode);

@@ -19,6 +19,10 @@ class ViewController {
     TemplateManager::view('about');
   }
 
+  public function profile(): void {
+    TemplateManager::view('profile');
+  }
+
   public function help(): void {
     TemplateManager::view('help');
   }

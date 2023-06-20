@@ -222,11 +222,5 @@ export const setBookStatus = async (id, status) => {
     },
   });
 
-  // const data = await res.json();
-
-  // if (!res.ok) {
-  //   throw data;
-  // }
-
   return null;
 };

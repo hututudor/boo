@@ -1,3 +1,4 @@
+import { URL_BASE } from '../config';
 import { decodeJWT } from '../utils/jwt';
 
 const TOKEN_KEY = 'token';
@@ -75,7 +76,7 @@ export const logout = () => {
   _currentUserId = null;
 
   localStorage.removeItem(TOKEN_KEY);
-  location.reload();
+  location.href = `${URL_BASE}/login`;
 };
 
 export const checkAuth = () => {
