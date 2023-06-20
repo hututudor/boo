@@ -43,6 +43,10 @@ class ViewController {
     TemplateManager::view('books_author');
   }
 
+  public function usersManager(): void {
+    TemplateManager::view('users_manager');
+  }
+
   public function reviews(): void {
     TemplateManager::view('reviews');
   }
