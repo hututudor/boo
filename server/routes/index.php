@@ -20,6 +20,10 @@ $router->delete('/api/books/:id', 'BooksController@delete');
 $router->get('/api/books/:id/readingStatus', 'BooksController@getReadingStatus');
 $router->put('/api/books/:id/readingStatus', 'BooksController@updateReadingStatus');
 
+$router->post('/api/profile/email', 'UserController@updateEmail');
+$router->post('/api/profile/name', 'UserController@updateName');
+$router->post('/api/profile/password', 'UserController@updatePassword');
+$router->get('/api/profile', 'UserController@getProfile');
 
 $router->post('/api/auth/login', 'AuthController@login');
 $router->post('/api/auth/register', 'AuthController@register');
