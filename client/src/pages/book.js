@@ -18,9 +18,8 @@ import {
   disableButton,
   enableButton,
   getBookCardNode,
-  showPageLoading,
-  hidePageLoading,
 } from '../components';
+import { URL_BASE } from '../config';
 import { bookStatus } from '../constants/books';
 
 const pageState = {
@@ -49,6 +48,7 @@ export const load = async () => {
   registerFormEvents();
   registerGoToLogin();
   registerStatusEvents();
+  registerLinkButtons(book);
 };
 
 const displayReviews = async () => {
@@ -260,4 +260,27 @@ const registerStatusEvents = () => {
 const handleStatusChange = status => async () => {
   await setBookStatus(pageState.id, status);
   await displayStatus();
+};
+
+const registerLinkButtons = ({ genre, author }) => {
+  const genreParam = new URLSearchParams({ query: genre });
+  const authorParam = new URLSearchParams({ query: author });
+
+  document
+    .getElementById('genre')
+    .addEventListener('click', () =>
+      goTo(`${URL_BASE}/books/genre?${genreParam}`),
+    );
+
+  document
+    .getElementById('author')
+    .addEventListener('click', () =>
+      goTo(`${URL_BASE}/books/author?${authorParam}`),
+    );
+
+  document
+    .getElementById('author-mobile')
+    .addEventListener('click', () =>
+      goTo(`${URL_BASE}/books/author?${authorParam}`),
+    );
 };

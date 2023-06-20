@@ -27,6 +27,18 @@ class ViewController {
     TemplateManager::view('books');
   }
 
+  public function search(): void {
+    TemplateManager::view('books_search');
+  }
+
+  public function genre(): void {
+    TemplateManager::view('books_genre');
+  }
+
+  public function author(): void {
+    TemplateManager::view('books_author');
+  }
+
   public function reviews(): void {
     TemplateManager::view('reviews');
   }

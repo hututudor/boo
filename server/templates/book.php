@@ -60,7 +60,7 @@
     <div class="book">
       <div class="book-title-mobile">
         <div class="text text__32 text__bold mt-6" id="title-mobile"></div>
-        <div class="book-clickable text text__24" onclick="goTo('./books_author.html')" id="author-mobile">
+        <div class="book-clickable text text__24" id="author-mobile">
         </div>
       </div>
       <div class="book-image">
@@ -78,7 +78,7 @@
       <div class="book-info">
         <div class="book-title-desktop">
           <div class="text text__32 text__bold" id="title"></div>
-          <div class="book-clickable text text__24" onclick="goTo('./books_author.html')" id="author">
+          <div class="book-clickable text text__24" id="author">
           </div>
         </div>
         <p class="text text__14 mt-8" id="description">
@@ -94,7 +94,7 @@
           </div>
           <div class="book-detail mb-1">
             <span class="text text__12 mr-1">Genre</span>
-            <span class="text text__12 text__bold book-clickable" onclick="goTo('./books_genre.html')" id="genre"></span>
+            <span class="text text__12 text__bold book-clickable" id="genre"></span>
           </div>
           <div class="book-detail mb-1">
             <span class="text text__12 mr-1">Publisher</span>
