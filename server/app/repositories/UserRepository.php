@@ -74,8 +74,8 @@ class UserRepository
     
         $db = DB::getInstance()->getConnection();
         
-        $checkStatement = $db->prepare("SELECT * FROM users WHERE email = ?");
-        $checkStatement->bind_param("s", $updatedEmail);
+        $checkStatement = $db->prepare("SELECT * FROM users WHERE email = ? AND id != ?");
+        $checkStatement->bind_param("si", $updatedEmail, $userId);
         $checkStatement->execute();
         $checkResult = $checkStatement->get_result();
     

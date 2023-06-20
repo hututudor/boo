@@ -87,11 +87,11 @@ class UserController{
         Response::success(['message' => 'Password updated successfully']);
     }
 
-    public function getProfile(Request $request): ?array {
+    public function getProfile(Request $request): void {
         $isSimpleAuthorized = AuthorizationUtils::isSimpleAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
         if (!$isSimpleAuthorized) {
             Response::unauthorized();
-            return null;
+            return;
         }
     
         $jwtToken = Headers::getHeaderValue($request->headers, 'Authorization');
@@ -99,18 +99,18 @@ class UserController{
     
         if (!$decodedToken || !isset($decodedToken->id)) {
             Response::unauthorized();
-            return null;
+            return;
         }
     
         $userId = $decodedToken->id;
         $user = UserRepository::getUserById($userId);
         if (!$user) {
-            return null;
+            return;
         }
-        print_r($user->email);
-        return [
+
+        Response::success([
             'name' => $user->fullName,
             'email' => $user->email
-        ];
+        ]);
     }
 }
