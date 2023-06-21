@@ -44,7 +44,7 @@ class Response {
   public static function setHeaders(array $headers): void
   {
 
-      $_headers = $headers;
+      self::$_headers = $headers;
       foreach ($headers as $header) {
           header($header);
       }
