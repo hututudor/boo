@@ -7,14 +7,9 @@ class RssController
 {
     public static function getFeed(Request $request): void
     {
-        $jwt = Headers::getHeaderValue($request->headers, 'Authorization');
+        $userId = $request->params['user_id'];
 
-        if (!AuthorizationUtils::isSimpleAuthorized($jwt)) {
-            Response::unauthorized();
-            return;
-        }
-
-        $xml = RssService::generateRssFeed($jwt);
+        $xml = RssService::generateRssFeed($userId);
 
         Response::setHeaders(['Content-Type: application/rss+xml; charset=utf-8']);
         Response::successRaw($xml);

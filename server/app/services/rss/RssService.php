@@ -7,9 +7,9 @@ require_once ROOT_DIR . '/app/repositories/BookRepository.php';
 class RssService
 {
     const DEFAULT_BOOK_PAGE = "https://boo.hututudor.ro/books";
-    public static function generateRssFeed($jwt) : string
+    public static function generateRssFeed(string $userId) : string
     {
-        $book_reviewIds = self::getLastSeenBook_ReviewIdsForUser($jwt);
+        $book_reviewIds = RssRepository::selectLastSeenBook_ReviewIds($userId);
 
         $reviews = [];
         foreach ($book_reviewIds as $book_reviewId)
@@ -18,7 +18,7 @@ class RssService
             $reviews = array_merge($reviews, $newReviews);
         }
 
-        $lastSeenBookId = self::getLastSeenBookIdForUser($jwt);
+        $lastSeenBookId = RssRepository::selectLastSeenBookId($userId);
 
         if($lastSeenBookId != -1)
         $books = BookRepository::getAllAboveFromId($lastSeenBookId);
@@ -28,19 +28,6 @@ class RssService
         if(count($reviews) == 0 && count($books) == 0)
             return self::createDefaultXml();
         return self::createXml($reviews, $books);
-    }
-    private static function getLastSeenBook_ReviewIdsForUser(string $jwt) : array
-    {
-        $decoded = JwtUtils::decode_jwt($jwt);
-        $userId = $decoded->id;
-        return RssRepository::selectLastSeenBook_ReviewIds($userId);
-    }
-
-    private static function getLastSeenBookIdForUser(string $jwt) : int
-    {
-        $decoded = JwtUtils::decode_jwt($jwt);
-        $userId = $decoded->id;
-        return RssRepository::selectLastSeenBookId($userId);
     }
 
     private static function createXml(array $reviews, array $books) : string
