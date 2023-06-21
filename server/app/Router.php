@@ -40,9 +40,11 @@ class Request {
 
 class Response {
 
+    private static array $_headers = [];
   public static function setHeaders(array $headers): void
   {
 
+      $_headers = $headers;
       foreach ($headers as $header) {
           header($header);
       }
@@ -50,7 +52,11 @@ class Response {
 
   private static function resetHeaders(): void
   {
-      header_remove();
+      foreach (self::$_headers as $header) {
+          header_remove($header);
+      }
+
+      self::$_headers = [];
   }
 
   public static function successRaw($data = null): void {
