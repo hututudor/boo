@@ -4,8 +4,7 @@ require_once ROOT_DIR . '/app/validation.php';
 require_once __DIR__ . '/../services/utils/JwtUtils.php';
 require_once __DIR__ . '/../repositories/ReviewsRepository.php';
 require_once __DIR__ . '/../services/utils/AuthorizationUtils.php';
-
-
+require_once ROOT_DIR . '/app/services/rss/RssUtils.php';
 
 class ReviewsController {
   public function add(Request $request) {
@@ -54,14 +53,36 @@ class ReviewsController {
   }
 
   public function getByBookId(Request $request): void {
+
+    if(!AuthorizationUtils::isSimpleAuthorized(Headers::getHeaderValue($request->headers, 'Authorization')))
+    {
+        Response::unauthorized();
+        return;
+    }
+
     $bookId = $request->params['book_id'];
     $reviews = ReviewsRepository::getByBookId($bookId);
+
+    $lastReviewId = -1;
 
     foreach ($reviews as &$review)
     {
       $user = UserRepository::getUserById($review->user_id);
       $review->user = $user;
+
+      if($review->id > $lastReviewId)
+      {
+        $lastReviewId = $review->id;
+      }
     }
+
+    //if lastReviewId is -1, log error
+    if($lastReviewId > 0)
+    {
+        $jwt = Headers::getHeaderValue($request->headers, 'Authorization');
+        RssUtils::updateLastReviewId($bookId, $jwt, $lastReviewId);
+    }
+
     Response::success($reviews);
   }
 

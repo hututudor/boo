@@ -5,7 +5,6 @@ drop table if exists user_books;
 
 create table books (
   id int not null auto_increment,
-  updated_at timestamp default current_timestamp on update current_timestamp,
   image varchar(256),
   title varchar(256) not null,
   author varchar(256) not null,
@@ -21,7 +20,6 @@ create table books (
 
 CREATE TABLE users (
 id INT AUTO_INCREMENT PRIMARY KEY,
-updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 full_name VARCHAR(255) NOT NULL,
 email VARCHAR(255) UNIQUE NOT NULL,
 password VARCHAR(255) NOT NULL,
@@ -31,7 +29,6 @@ is_admin BOOLEAN DEFAULT FALSE
 CREATE TABLE user_books
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     user_id INT NOT NULL,
     book_id INT NOT NULL,
     status ENUM ('want to read', 'reading', 'read', 'didn''t read') NOT NULL,
@@ -48,7 +45,6 @@ CREATE INDEX user_id ON user_books (user_id);
 
 CREATE TABLE reviews (
   id INT AUTO_INCREMENT PRIMARY KEY,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   book_id INT,
   user_id INT,
   content VARCHAR(1000) NOT NULL,
@@ -60,7 +56,6 @@ CREATE TABLE reviews (
 CREATE TABLE rss_books
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     user_id INT,
     last_seen_book_id INT,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
