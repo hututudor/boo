@@ -52,7 +52,6 @@ class QuestionsController{
         $question->title = $request->body['title'];
         $question->content = $request->body['content'];
         $question->date = date('d.m.Y');
-        $question->view_count = $request->body['view_count'];
     
         $inserted = QuestionsRepository::insert($question);
     
