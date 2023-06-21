@@ -2,6 +2,8 @@ drop table if exists books;
 drop table if exists users;
 drop table if exists user_books;
 drop table if exists reviews;
+drop table if exists user_books;
+drop table if exists rss_books;
 drop table if exists questions;
 drop table if exists replies;
 
@@ -28,19 +30,22 @@ password VARCHAR(255) NOT NULL,
 is_admin BOOLEAN DEFAULT FALSE
 );
 
-CREATE OR REPLACE TABLE user_books
+CREATE TABLE user_books
 (
-    id      INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     book_id INT NOT NULL,
-    status  ENUM ('want to read', 'reading', 'read', 'didn''t read') NOT NULL,
+    status ENUM ('want to read', 'reading', 'read', 'didn''t read') NOT NULL,
+    last_seen_review_id INT,
     CONSTRAINT user_books_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     CONSTRAINT user_books_ibfk_2 FOREIGN KEY (book_id) REFERENCES books (id) ON DELETE CASCADE,
+    CONSTRAINT user_books_ibfk_3 FOREIGN KEY (last_seen_review_id) REFERENCES reviews (id) ON DELETE CASCADE,
     CONSTRAINT unique_user_book_pair UNIQUE (user_id, book_id)
 );
 
 CREATE INDEX book_id ON user_books (book_id);
 CREATE INDEX user_id ON user_books (user_id);
+
 
 CREATE TABLE reviews (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -51,6 +56,27 @@ CREATE TABLE reviews (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
 );
+
+CREATE TABLE rss_books
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNIQUE,
+    last_seen_book_id INT,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    CONSTRAINT fk_book FOREIGN KEY (last_seen_book_id) REFERENCES books (id) ON DELETE CASCADE
+);
+
+CREATE TRIGGER user_added_trigger
+    AFTER INSERT ON users
+    FOR EACH ROW
+BEGIN
+    DECLARE last_book_id INT;
+
+    SELECT MAX(id) INTO last_book_id FROM books;
+
+    INSERT INTO rss_books (user_id, last_seen_book_id)
+    VALUES (NEW.id, last_book_id);
+END
 
 CREATE TABLE questions (
   id INT AUTO_INCREMENT PRIMARY KEY,

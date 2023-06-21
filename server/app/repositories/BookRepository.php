@@ -19,6 +19,25 @@ class BookRepository {
 
     return $books;
   }
+
+  public static function getAllAboveFromId(string $id) : array
+  {
+      $db = DB::getInstance()->getConnection();
+        $statement = $db->prepare("SELECT * FROM books WHERE id > ?");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+
+        if($statement->error) {
+            return [];
+        }
+
+        $books = [];
+        foreach ($statement->get_result() as $row) {
+            $books[] = self::toBook($row);
+        }
+
+        return $books;
+  }
   
   public static function getById(string $id): ?Book {
     $db = DB::getInstance()->getConnection();

@@ -5,6 +5,7 @@ require_once ROOT_DIR . '/app/services/books/ReadingStatusService.php';
 require_once ROOT_DIR . '/app/validation.php';
 require_once __DIR__ . '/../services/utils/JwtUtils.php';
 require_once __DIR__ . '/../services/utils/AuthorizationUtils.php';
+require_once __DIR__ . '/../services/rss/RssUtils.php';
 
 class BooksController {
   public function get(Request $request): void {
@@ -15,10 +16,25 @@ class BooksController {
       return;
     }
 
+    $jwt = Headers::getHeaderValue($request->headers, 'Authorization');
+    if(AuthorizationUtils::isSimpleAuthorized($jwt))
+    {
+        $decoded = JwtUtils::decode_jwt($jwt);
+        $userId = $decoded->id;
+        RssUtils::updateLastReviewIdWithLookup($book->id, $userId) ;
+    }
+
     Response::success($book);
   }
 
   public function list(Request $request): void {
+    $jwt = Headers::getHeaderValue($request->headers, 'Authorization');
+
+    if(AuthorizationUtils::isSimpleAuthorized($jwt))
+    {
+        RssUtils::updateLastBookId($jwt) ;
+    }
+
     Response::success(BookRepository::getAll());
   }
 

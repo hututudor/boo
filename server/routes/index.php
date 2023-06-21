@@ -2,6 +2,8 @@
 
 global $router;
 
+$router->get('/api/rss/:user_id', 'RssController@getFeed');
+
 $router->get('/api/books/:book_id/reviews', 'ReviewsController@getByBookId');
 $router->get('/api/reviews', 'ReviewsController@getByUserId');
 $router->post('/api/books/:book_id/reviews', 'ReviewsController@add');
