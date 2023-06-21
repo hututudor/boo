@@ -2,6 +2,7 @@ drop table if exists books;
 drop table if exists users;
 drop table if exists reviews;
 drop table if exists user_books;
+drop table if exists rss_books;
 
 create table books (
   id int not null auto_increment,
@@ -56,8 +57,20 @@ CREATE TABLE reviews (
 CREATE TABLE rss_books
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
+    user_id INT UNIQUE,
     last_seen_book_id INT,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     CONSTRAINT fk_book FOREIGN KEY (last_seen_book_id) REFERENCES books (id) ON DELETE CASCADE
 );
+
+CREATE TRIGGER user_added_trigger
+    AFTER INSERT ON users
+    FOR EACH ROW
+BEGIN
+    DECLARE last_book_id INT;
+
+    SELECT MAX(id) INTO last_book_id FROM books;
+
+    INSERT INTO rss_books (user_id, last_seen_book_id)
+    VALUES (NEW.id, last_book_id);
+END
