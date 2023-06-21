@@ -38,6 +38,25 @@ class ReviewsRepository {
     return self::toReview($row);
   }
 
+  public static function getAllAboveFromId(int $id, int $book_id): array
+  {
+    $db = DB::getInstance()->getConnection();
+    $statement = $db->prepare("SELECT * FROM reviews WHERE id > ? AND book_id = ?");
+    $statement->bind_param("ii", $id, $book_id);
+    $statement->execute();
+
+    if ($statement->error) {
+        return [];
+    }
+
+    $reviews = [];
+    foreach ($statement->get_result() as $row) {
+        $reviews[] = self::toReview($row);
+    }
+
+    return $reviews;
+  }
+
   public static function getByUserId($userId): array {
     $db = DB::getInstance()->getConnection();
     $statement = $db->prepare("SELECT * FROM reviews WHERE user_id = ?");

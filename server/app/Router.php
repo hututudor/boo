@@ -39,10 +39,26 @@ class Request {
 }
 
 class Response {
+
+  public static function setHeaders(array $headers): void
+  {
+
+      foreach ($headers as $header) {
+          header($header);
+      }
+  }
+
+  private static function resetHeaders(): void
+  {
+      header_remove();
+  }
+
   public static function success($data = null): void {
     if($data || is_array($data)) {
       echo json_encode($data, JSON_UNESCAPED_SLASHES);
     }
+
+    self::resetHeaders();
   }
 
   public static function notFound($data = null): void {
@@ -50,6 +66,8 @@ class Response {
     if($data) {
       echo json_encode($data);
     }
+
+    self::resetHeaders();
   }
 
   public static function unauthorized($data = null): void {
@@ -57,6 +75,8 @@ class Response {
     if($data) {
       echo json_encode($data);
     }
+
+    self::resetHeaders();
   }
 
   public static function badRequest($data = null): void {
@@ -64,6 +84,8 @@ class Response {
     if($data) {
       echo json_encode($data);
     }
+
+    self::resetHeaders();
   }
 
   public static function internalServerError($data = null): void {
@@ -71,6 +93,8 @@ class Response {
     if($data) {
       echo json_encode($data);
     }
+
+    self::resetHeaders();
   }
 
   public static function custom(string $httpStatus, $data = null): void {
@@ -78,6 +102,8 @@ class Response {
     if($data) {
       echo json_encode($data);
     }
+
+    self::resetHeaders();
   }
 }
 

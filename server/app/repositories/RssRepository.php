@@ -34,7 +34,7 @@ class RssRepository
         return $row['id'];
     }
 
-    public static function updateLastBookId($userId) : bool
+    public static function updateLastBookId(string $userId) : bool
     {
         $db = DB::getInstance()->getConnection();
         $statement = $db->prepare("UPDATE rss_books SET last_seen_book_id = (SELECT MAX(id) from books) WHERE id = ?");
@@ -42,6 +42,46 @@ class RssRepository
         $statement->execute();
 
         return !$statement->error;
+    }
+
+    public static function selectLastSeenBook_ReviewIds(string $userId): array
+    {
+        $db = DB::getInstance()->getConnection();
+        $statement = $db->prepare("SELECT last_seen_review_id, book_id FROM user_books WHERE user_id = ?");
+        $statement->bind_param("i", $userId);
+        $statement->execute();
+
+        $result = $statement->get_result();
+        $lastReviewIds = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $lastReviewIds[] = [
+                'book_id' => $row['book_id'],
+                'last_seen_review_id' => $row['last_seen_review_id']
+            ];
+        }
+
+        return $lastReviewIds;
+    }
+
+
+    public static function selectLastSeenBookId($userId)
+    {
+        $db = DB::getInstance()->getConnection();
+        $statement = $db->prepare("SELECT last_seen_book_id FROM rss_books WHERE id = ?");
+        $statement->bind_param("i", $userId);
+        $statement->execute();
+
+        if ($statement->error) {
+            return -1;
+        }
+
+        $row = $statement->get_result()->fetch_assoc();
+        if (!$row) {
+            return -1;
+        }
+
+        return $row['last_seen_book_id'];
     }
 
 }
