@@ -34,4 +34,14 @@ class RssRepository
         return $row['id'];
     }
 
+    public static function updateLastBookId($userId) : bool
+    {
+        $db = DB::getInstance()->getConnection();
+        $statement = $db->prepare("UPDATE rss_books SET last_seen_book_id = (SELECT MAX(id) from books) WHERE id = ?");
+        $statement->bind_param("i", $userId);
+        $statement->execute();
+
+        return !$statement->error;
+    }
+
 }

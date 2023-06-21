@@ -40,4 +40,12 @@ class RssUtils
 
         return RssRepository::selectLastReviewId($bookId, $userId);
     }
+
+    public static function updateLastBookId(string $jwt) : bool
+    {
+        $decodedToken = JwtUtils::decode_jwt($jwt);
+        $userId = $decodedToken->id;
+
+        return RssRepository::updateLastBookId($userId);
+    }
 }
