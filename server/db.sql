@@ -1,6 +1,9 @@
 drop table if exists books;
 drop table if exists users;
+drop table if exists user_books;
 drop table if exists reviews;
+drop table if exists questions;
+drop table if exists replies;
 
 create table books (
   id int not null auto_increment,
@@ -47,4 +50,24 @@ CREATE TABLE reviews (
   review_date varchar(256),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+);
+
+CREATE TABLE questions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  title VARCHAR(250),
+  content VARCHAR(1000),
+  date VARCHAR(250),
+  view_count INT,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE replies (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  question_id INT,
+  content VARCHAR(1000),
+  date VARCHAR(250),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 );
