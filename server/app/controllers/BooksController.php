@@ -16,6 +16,14 @@ class BooksController {
       return;
     }
 
+    $jwt = Headers::getHeaderValue($request->headers, 'Authorization');
+    if(AuthorizationUtils::isSimpleAuthorized($jwt))
+    {
+        $decoded = JwtUtils::decode_jwt($jwt);
+        $userId = $decoded->id;
+        RssUtils::updateLastReviewIdWithLookup($book->id, $userId) ;
+    }
+
     Response::success($book);
   }
 

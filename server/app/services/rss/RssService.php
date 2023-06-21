@@ -20,8 +20,13 @@ class RssService
 
         $lastSeenBookId = self::getLastSeenBookIdForUser($jwt);
 
+        if($lastSeenBookId != -1)
         $books = BookRepository::getAllAboveFromId($lastSeenBookId);
+        else
+            $books = [];
 
+        if(count($reviews) == 0 && count($books) == 0)
+            return self::createDefaultXml();
         return self::createXml($reviews, $books);
     }
     private static function getLastSeenBook_ReviewIdsForUser(string $jwt) : array
@@ -31,7 +36,7 @@ class RssService
         return RssRepository::selectLastSeenBook_ReviewIds($userId);
     }
 
-    private static function getLastSeenBookIdForUser(string $jwt) : string
+    private static function getLastSeenBookIdForUser(string $jwt) : int
     {
         $decoded = JwtUtils::decode_jwt($jwt);
         $userId = $decoded->id;
@@ -60,6 +65,17 @@ class RssService
             $item->addChild('link', self::DEFAULT_BOOK_PAGE. '/' . $review->book_id);
         }
 
+        return $xml->asXML();
+    }
+
+    private static function createDefaultXml() : string
+    {
+        $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>');
+        $channel = $xml->addChild('channel');
+        $channel->addChild('title', 'No new books or reviews');
+        $item = $channel->addChild('item');
+        $item->addChild('title', 'Visit the website!');
+        $item->addChild('link', self::DEFAULT_BOOK_PAGE);
         return $xml->asXML();
     }
 }

@@ -13,6 +13,11 @@ class RssUtils
      */
     public static function updateLastReviewId(string $bookId, string $jwt, string $lastReviewId) : bool
     {
+        if($lastReviewId == -1)
+        {
+            return false;
+        }
+
         $decodedToken = JwtUtils::decode_jwt($jwt);
         $userId = $decodedToken->id;
 
@@ -25,20 +30,14 @@ class RssUtils
      */
     public static function updateLastReviewIdWithLookup(string $bookId, string $userId) : bool
     {
-        $lastReviewId = self::getLastReviewId($bookId, $userId);
-//        if($lastReviewId == -1){
-//          log it
-//        }
+        $lastReviewId = RssRepository::selectLastReviewId($bookId);
+
+        if($lastReviewId == -1)
+        {
+            return false;
+        }
 
         return RssRepository::updateLastReviewId($bookId, $userId, $lastReviewId);
-    }
-
-    private static function getLastReviewId(string $bookId, string $jwt) : int
-    {
-        $decodedToken = JwtUtils::decode_jwt($jwt);
-        $userId = $decodedToken->id;
-
-        return RssRepository::selectLastReviewId($bookId, $userId);
     }
 
     public static function updateLastBookId(string $jwt) : bool

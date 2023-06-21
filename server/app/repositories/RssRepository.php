@@ -15,11 +15,11 @@ class RssRepository
         return !$statement->error;
     }
 
-    public static function selectLastReviewId(string $bookId, string $userId) : int
+    public static function selectLastReviewId(string $bookId) : int
     {
         $db = DB::getInstance()->getConnection();
-        $statement = $db->prepare("SELECT id FROM reviews WHERE book_id = ? AND user_id = ? ORDER BY id DESC LIMIT 1");
-        $statement->bind_param("ii", $bookId, $userId);
+        $statement = $db->prepare("SELECT id FROM reviews WHERE book_id = ? ORDER BY id DESC LIMIT 1");
+        $statement->bind_param("i", $bookId);
         $statement->execute();
 
         if ($statement->error) {
@@ -37,7 +37,7 @@ class RssRepository
     public static function updateLastBookId(string $userId) : bool
     {
         $db = DB::getInstance()->getConnection();
-        $statement = $db->prepare("UPDATE rss_books SET last_seen_book_id = (SELECT MAX(id) from books) WHERE id = ?");
+        $statement = $db->prepare("UPDATE rss_books SET last_seen_book_id = (SELECT MAX(id) from books) WHERE user_id = ?");
         $statement->bind_param("i", $userId);
         $statement->execute();
 
@@ -65,10 +65,10 @@ class RssRepository
     }
 
 
-    public static function selectLastSeenBookId($userId)
+    public static function selectLastSeenBookId($userId) : int
     {
         $db = DB::getInstance()->getConnection();
-        $statement = $db->prepare("SELECT last_seen_book_id FROM rss_books WHERE id = ?");
+        $statement = $db->prepare("SELECT last_seen_book_id FROM rss_books WHERE user_id = ?");
         $statement->bind_param("i", $userId);
         $statement->execute();
 

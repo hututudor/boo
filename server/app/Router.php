@@ -53,6 +53,14 @@ class Response {
       header_remove();
   }
 
+  public static function successRaw($data = null): void {
+    if($data || is_array($data)) {
+      echo $data;
+    }
+
+    self::resetHeaders();
+  }
+
   public static function success($data = null): void {
     if($data || is_array($data)) {
       echo json_encode($data, JSON_UNESCAPED_SLASHES);
