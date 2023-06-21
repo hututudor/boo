@@ -22,6 +22,14 @@ $router->delete('/api/books/:id', 'BooksController@delete');
 $router->get('/api/books/:id/readingStatus', 'BooksController@getReadingStatus');
 $router->put('/api/books/:id/readingStatus', 'BooksController@updateReadingStatus');
 
+$router->get('/api/question/:id', 'ReplyController@getAll');
+$router->post('/api/questions/:id', 'ReplyController@add');
+$router->delete('/api/question/:id', 'ReplyController@delete');
+
+$router->get('/api/questions', 'QuestionsController@getAll');
+$router->post('/api/questions', 'QuestionsController@add');
+$router->delete('/api/questions/:id', 'QuestionsController@delete');
+
 $router->put('/api/profile/email', 'UserController@updateEmail');
 $router->put('/api/profile/name', 'UserController@updateName');
 $router->put('/api/profile/password', 'UserController@updatePassword');
