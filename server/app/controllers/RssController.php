@@ -1,6 +1,7 @@
 <?php
 
 require_once ROOT_DIR . '/app/services/rss/RssService.php';
+require_once ROOT_DIR . '/app/services/utils/AuthorizationUtils.php';
 
 class RssController
 {

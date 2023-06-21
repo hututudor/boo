@@ -6,6 +6,7 @@ require_once ROOT_DIR . '/app/repositories/ReviewsRepository.php';
 require_once ROOT_DIR . '/app/repositories/BookRepository.php';
 class RssService
 {
+    const DEFAULT_BOOK_PAGE = "https://boo.hututudor.ro/books";
     public static function generateRssFeed($jwt) : string
     {
         $book_reviewIds = self::getLastSeenBook_ReviewIdsForUser($jwt);
@@ -45,17 +46,18 @@ class RssService
 
         foreach ($books as $book) {
             $item = $channel->addChild('item');
-            $item->addChild('title', $book['title']);
-            $item->addChild('description', $book->description);
+            $item->addChild('title', $book->title);
             $item->addChild('author', $book->author);
-            // Add more book details as needed
+            $item->addChild('link', self::DEFAULT_BOOK_PAGE. '/' . $book->id);
+            $item->addChild('description', $book->description);
         }
 
         foreach ($reviews as $review) {
             $item = $channel->addChild('item');
             $item->addChild('title', 'New Review');
             $item->addChild('date', $review->review_date);
-            $item->addChild('description', $review->content);
+            $item->addChild('content', $review->content);
+            $item->addChild('link', self::DEFAULT_BOOK_PAGE. '/' . $review->book_id);
         }
 
         return $xml->asXML();
