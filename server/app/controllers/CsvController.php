@@ -22,5 +22,7 @@ class CsvController
             'Content-Length: ' . filesize($csvFilePath)]);
 
         Response::successRaw(file_get_contents($csvFilePath));
+
+        CsvService::deleteTempFile($csvFilePath);
     }
 }

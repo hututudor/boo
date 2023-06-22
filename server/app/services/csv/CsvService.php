@@ -49,6 +49,11 @@ class CsvService
         return $csvFilePath;
     }
 
+    public static function deleteTempFile($filePath) : void
+    {
+        unlink($filePath);
+    }
+
     private static function addMyReviews($csvFile, $userId) : void
     {
         $myReviews = ReviewsRepository::getByUserId($userId);
