@@ -8,3 +8,5 @@ export * from './form';
 export * from './bookCard';
 export * from './modal';
 export * from './review';
+export * from './questionCard';
+export * from './replyCard';

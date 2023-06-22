@@ -1,6 +1,7 @@
 <?php
 
 require_once ROOT_DIR . '/app/repositories/QuestionsRepository.php';
+require_once ROOT_DIR . '/app/repositories/UserRepository.php';
 require_once __DIR__ . '/../services/utils/JwtUtils.php';
 require_once __DIR__ . '/../services/utils/AuthorizationUtils.php';
 require_once ROOT_DIR . '/app/models/Question.php';
@@ -11,6 +12,8 @@ class QuestionsController{
         $questions = QuestionsRepository::getAll();
 
         foreach ($questions as $question) {
+            $user = UserRepository::getUserById($question->user_id);
+            $question->user = ['fullName' => $user->fullName];
             $question->reply_count = QuestionsRepository::getReplyCount($question->id);
         }
 

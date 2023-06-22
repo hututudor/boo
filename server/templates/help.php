@@ -26,6 +26,17 @@
     </button>
   </nav>
 
+  <div class="modal modal__hidden" id="delete-modal">
+    <div class="modal-content">
+      <div class="text text__32 text__bold mb-2">Delete Question</div>
+      <div class="text text__16 mb-8">Are you sure? This operation cannot be reverted</div>
+      <div class="flex flex__justify-center">
+        <button class="button button__secondary mr-4" id="delete-modal-cancel">Cancel</button>
+        <button class="button button__primary button__red" id="delete-modal-delete">Delete</button>
+      </div>
+    </div>
+  </div>
+
   <aside class="side">
     <div class="side-logo">
       <img src="<?php path('assets/logo_white.svg') ?>" alt="logo" />
@@ -45,245 +56,19 @@
       <div class="text text__32 text__bold">Frequently asked questions</div>
       <div class="help-container">
         <div class="help-container-questions">
-          <div class="text text__24 text__bold mb-5">Questions</div>
           <div class="help-container-questions-list">
             <div class="question_card" onclick="goTo('./help_question.html')">
-              <div class="text text__14 text__bold">How to add a book ?</div>
+              <div class="text text__16 text__bold">How to add a book ?</div>
               <div class="question_card-specifications">
                 <div class="question_card-specifications-details">
                   <div class="question_card-specifications-element">
-                    <label class="text text__14">Topic: </label>
-                    <div id="topic" class="text text__14 text__bold text__center">
-                      My account
-                    </div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <div class="text text__14">Johnathan</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <div class="text text__14">12/12/2021</div>
+                    <div class="text text__14">Johnathan - 20.05.2002</div>
                   </div>
                 </div>
                 <div class="question_card-specifications-statistics">
                   <div class="question_card-specifications-element">
                     <i class="fa fa-eye" aria-hidden="true"></i>
-                    <div class="text text__14">42.5k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                    <div class="text text__14">9.3k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                    <div class="text text__14">8.2k</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="question_card" onclick="goTo('./help_question.html')">
-              <div class="text text__14 text__bold">How to add a book ?</div>
-              <div class="question_card-specifications">
-                <div class="question_card-specifications-details">
-                  <div class="question_card-specifications-element">
-                    <label class="text text__14">Topic: </label>
-                    <div id="topic" class="text text__14 text__bold text__center">
-                      My account
-                    </div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <div class="text text__14">Johnathan</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <div class="text text__14">12/12/2021</div>
-                  </div>
-                </div>
-                <div class="question_card-specifications-statistics">
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                    <div class="text text__14">42.5k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                    <div class="text text__14">9.3k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                    <div class="text text__14">8.2k</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="question_card" onclick="goTo('./help_question.html')">
-              <div class="text text__14 text__bold">How to add a book ?</div>
-              <div class="question_card-specifications">
-                <div class="question_card-specifications-details">
-                  <div class="question_card-specifications-element">
-                    <label class="text text__14">Topic: </label>
-                    <div id="topic" class="text text__14 text__bold text__center">
-                      My account
-                    </div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <div class="text text__14">Johnathan</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <div class="text text__14">12/12/2021</div>
-                  </div>
-                </div>
-                <div class="question_card-specifications-statistics">
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                    <div class="text text__14">42.5k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                    <div class="text text__14">9.3k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                    <div class="text text__14">8.2k</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="question_card" onclick="goTo('./help_question.html')">
-              <div class="text text__14 text__bold">How to add a book ?</div>
-              <div class="question_card-specifications">
-                <div class="question_card-specifications-details">
-                  <div class="question_card-specifications-element">
-                    <label class="text text__14">Topic: </label>
-                    <div id="topic" class="text text__14 text__bold text__center">
-                      My account
-                    </div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <div class="text text__14">Johnathan</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <div class="text text__14">12/12/2021</div>
-                  </div>
-                </div>
-                <div class="question_card-specifications-statistics">
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                    <div class="text text__14">42.5k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                    <div class="text text__14">9.3k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                    <div class="text text__14">8.2k</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="question_card" onclick="goTo('./help_question.html')">
-              <div class="text text__14 text__bold">How to add a book ?</div>
-              <div class="question_card-specifications">
-                <div class="question_card-specifications-details">
-                  <div class="question_card-specifications-element">
-                    <label class="text text__14">Topic: </label>
-                    <div id="topic" class="text text__14 text__bold text__center">
-                      My account
-                    </div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <div class="text text__14">Johnathan</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <div class="text text__14">12/12/2021</div>
-                  </div>
-                </div>
-                <div class="question_card-specifications-statistics">
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                    <div class="text text__14">42.5k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                    <div class="text text__14">9.3k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                    <div class="text text__14">8.2k</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="question_card" onclick="goTo('./help_question.html')">
-              <div class="text text__14 text__bold">How to add a book ?</div>
-              <div class="question_card-specifications">
-                <div class="question_card-specifications-details">
-                  <div class="question_card-specifications-element">
-                    <label class="text text__14">Topic: </label>
-                    <div id="topic" class="text text__14 text__bold text__center">
-                      My account
-                    </div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <div class="text text__14">Johnathan</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <div class="text text__14">12/12/2021</div>
-                  </div>
-                </div>
-                <div class="question_card-specifications-statistics">
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                    <div class="text text__14">42.5k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                    <div class="text text__14">9.3k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                    <div class="text text__14">8.2k</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="question_card" onclick="goTo('./help_question.html')">
-              <div class="text text__14 text__bold">How to add a book ?</div>
-              <div class="question_card-specifications">
-                <div class="question_card-specifications-details">
-                  <div class="question_card-specifications-element">
-                    <label class="text text__14">Topic: </label>
-                    <div id="topic" class="text text__14 text__bold text__center">
-                      My account
-                    </div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <div class="text text__14">Johnathan</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <div class="text text__14">12/12/2021</div>
-                  </div>
-                </div>
-                <div class="question_card-specifications-statistics">
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                    <div class="text text__14">42.5k</div>
-                  </div>
-                  <div class="question_card-specifications-element">
-                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                    <div class="text text__14">9.3k</div>
+                    <div class="text text__14">42</div>
                   </div>
                   <div class="question_card-specifications-element">
                     <i class="fa fa-comments" aria-hidden="true"></i>
@@ -294,14 +79,24 @@
             </div>
           </div>
         </div>
-        <div class="help-container-form">
+        <div class="help-container-form" id="response-form">
           <div class="text text__24 text__bold mb-5">Ask a question</div>
           <div class="form">
+            <div class="form-input">
+              <input
+                type="text"
+                id="title"
+                name="name"
+                placeholder="Title"
+              />
+              <span></span>
+            </div>
             <div class="form-textarea">
-              <textarea name="message" rows="10" placeholder="Message"></textarea>
+              <textarea name="message" rows="10" placeholder="Message" id="content"></textarea>
+              <span></span>
             </div>
             <div class="action">
-              <button class="button button__primary">Post</button>
+              <button class="button button__primary" id="post-button">Post</button>
             </div>
           </div>
         </div>
