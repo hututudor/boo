@@ -1,6 +1,7 @@
 <?php
 
 require_once ROOT_DIR . '/app/repositories/RepliesRepository.php';
+require_once ROOT_DIR . '/app/repositories/UserRepository.php';
 
 require_once ROOT_DIR . '/app/repositories/QuestionsRepository.php';
 require_once __DIR__ . '/../services/utils/JwtUtils.php';
@@ -22,6 +23,15 @@ Class ReplyController{
         QuestionsRepository::incrementViewCount($question->id);
         $replies = RepliesRepository::getRepliesByQuestionId($question->id);
         $question->replies = $replies;
+
+        foreach ($question->replies as &$reply) {
+          $user = UserRepository::getUserById($reply->user_id);
+          $reply->user = ['fullName' => $user->fullName];
+        }
+
+        $user = UserRepository::getUserById($question->user_id);
+        $question->user = ['fullName' => $user->fullName];
+
         Response::success($question);
     }
     

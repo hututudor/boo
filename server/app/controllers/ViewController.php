@@ -47,6 +47,10 @@ class ViewController {
     TemplateManager::view('users_manager');
   }
 
+  public function helpQuestion(Request $request): void {
+    TemplateManager::view('help_question', $request->params);
+  }
+
   public function reviews(): void {
     TemplateManager::view('reviews');
   }
