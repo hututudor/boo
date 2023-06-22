@@ -54,12 +54,6 @@ class ReviewsController {
 
   public function getByBookId(Request $request): void {
 
-    if(!AuthorizationUtils::isSimpleAuthorized(Headers::getHeaderValue($request->headers, 'Authorization')))
-    {
-        Response::unauthorized();
-        return;
-    }
-
     $bookId = $request->params['book_id'];
     $reviews = ReviewsRepository::getByBookId($bookId);
 
@@ -80,7 +74,9 @@ class ReviewsController {
     if($lastReviewId > 0)
     {
         $jwt = Headers::getHeaderValue($request->headers, 'Authorization');
-        RssUtils::updateLastReviewId($bookId, $jwt, $lastReviewId);
+
+        if(AuthorizationUtils::isSimpleAuthorized($jwt))
+            RssUtils::updateLastReviewId($bookId, $jwt, $lastReviewId);
     }
 
     Response::success($reviews);
