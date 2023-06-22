@@ -1,0 +1,18 @@
+"User Sheet"
+7,"Michael Johnson",michaeljohnson@example.com,password789,
+"All Books"
+1,"Book 1",image1.jpg,"Author 1","Description 1",200,1234567890,"Genre 1","Publisher 1",Paperback,2022-01-01,"This book is amazing!","Highly recommend it."
+2,"Book 2",image2.jpg,"Author 2","Description 2",300,0987654321,"Genre 2","Publisher 2",Hardcover,2021-05-10,"A captivating story.","Couldn't put it down!","This is a great book!","This is a great book!","nice photo"
+3,"Book 3",image3.jpg,"Author 3","Description 3",400,9876543210,"Genre 3","Publisher 3",Ebook,2020-11-15,"Interesting plot twists.","Well-written and thought-provoking."
+4,"Book 4",image4.jpg,"Author 4","Description 4",250,5432109876,"Genre 4","Publisher 4",Hardcover,2023-03-15
+5,"Book 5",image5.jpg,"Author 5","Description 5",350,6789054321,"Genre 5","Publisher 5",Paperback,2022-09-28
+6,"The Hobbit","https://images-na.ssl-images-amazon.com/images/I/51YOGj+5eNL._SX331_BO1,204,203,200_.jpg","J.R.R. Tolkien","The Hobbit, or There and Back Again is a childrens fantasy novel by English author J. R. R. Tolkien. It was published on 21 September 1937 to wide critical acclaim, being nominated for the Carnegie Medal and awarded a prize from the New York Herald Tribune for best juvenile fiction. The book remains popular and is recognized as a classic in childrens literature.",310,978-0-261-10235-4,Fantasy,"Allen & Unwin",Paperback,1907
+7,"Example Book",https://example.com/book.jpg,"John Doe","This is an example book.",300,978-1-234567-89-0,Fiction,"Example Publisher",Hardcover,18.06.2002
+8,"Example Book",https://example.com/book.jpg,"John Doe","This is an example book.",300,978-1-234567-89-0,Fiction,"Example Publisher",Hardcover,18.06.2002
+9,"Example Book",https://example.com/book.jpg,"John Doe","This is an example book.",300,978-1-234567-89-0,Fiction,"Example Publisher",Hardcover,18.06.2002
+"Read Books"
+2,"Book 2",image2.jpg,"Author 2","Description 2",300,0987654321,"Genre 2","Publisher 2",Hardcover,2021-05-10,"A captivating story.","Couldn't put it down!","This is a great book!","This is a great book!","nice photo"
+"Reading Books"
+"Want to Read Books"
+"My Reviews"
+2,"Book 2","Author 2","A captivating story."

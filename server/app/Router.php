@@ -50,16 +50,18 @@ class Response {
       }
   }
 
-  private static function resetHeaders(): void
-  {
-      foreach (self::$_headers as $header) {
-          header_remove($header);
-      }
+    private static function resetHeaders(): void
+    {
+        foreach (self::$_headers as $header) {
+            list($name, $value) = explode(':', $header, 2);
+            header_remove($name);
+        }
 
-      self::$_headers = [];
-  }
+        self::$_headers = [];
+    }
 
-  public static function successRaw($data = null): void {
+
+    public static function successRaw($data = null): void {
     if($data || is_array($data)) {
       echo $data;
     }

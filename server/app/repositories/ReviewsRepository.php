@@ -1,6 +1,6 @@
 <?php
 
-require_once ROOT_DIR . '/app/models/Reviews.php';
+require_once ROOT_DIR . '/app/models/Review.php';
 
 class ReviewsRepository {
   public static function getAll(): array {
