@@ -95,6 +95,30 @@
       </ul>
     </section>
     <section id="structure">
+      <h2>Architecture - C4 diagrams</h2>
+      <section id="section">
+        <h3>Context</h3>
+        <img src="./c4/context.png" alt="context" />
+      </section>
+      <section id="section">
+        <h3>Container</h3>
+        <img src="./c4/container.png" alt="context" />
+      </section>
+      <section id="section">
+        <h3>Component</h3>
+        <img src="./c4/component.png" alt="component" />
+      </section>
+    </section>
+    <section id="structure">
+      <h2>OpenAPI documentation</h2>
+      <p>
+        Can be found
+        <a href="https://app.swaggerhub.com/apis-docs/hututudor/boo/1.0"
+          >here</a
+        >
+      </p>
+    </section>
+    <section id="structure">
       <!-- review? -->
       <h2>Structure</h2>
       <p>Our Boo client has the following pages:</p>
@@ -457,6 +481,497 @@
     }
   }
 }</code></pre>
+      </section>
+
+      <section id="article">
+        <h3>The PHP Router class</h3>
+        <p>
+          It loads the routes from the `routes/index.php` file, which are
+          defined using a pattern matching behaviour (<b>:</b> denotes a param)
+        </p>
+        <pre><code>
+$router->get('/api/books/:id', 'BooksController@get');
+$router->post('/api/books', 'BooksController@add');
+$router->put('/api/books/:id', 'BooksController@update');
+
+          </code></pre>
+
+        <p>
+          The router class matches the current request route with all the
+          possible routes defined and then it constructs and calls the method
+          handler
+        </p>
+        <pre><code>
+class Route {
+  public RouteMethod $method;
+  public string $path;
+  public array $handler;
+}
+
+class Router {
+  private array $routes;
+
+  public function __construct() {
+    $this->routes = array();
+  }
+
+  public function get(string $path, string $handler): void {
+    $this->addRoute($path, $handler, RouteMethod::GET);
+  }
+
+  public function post(string $path, string $handler): void {
+    $this->addRoute($path, $handler, RouteMethod::POST);
+  }
+
+  public function put(string $path, string $handler): void {
+    $this->addRoute($path, $handler, RouteMethod::PUT);
+  }
+
+  public function delete(string $path, string $handler): void {
+    $this->addRoute($path, $handler, RouteMethod::DELETE);
+  }
+
+  private function addRoute(string $path, string $handler, RouteMethod $method): void {
+    $route = new Route;
+    $route->method = $method;
+    $route->path = $path;
+    $route->handler = explode('@', $handler);
+
+    $this->routes[] = $route;
+  }
+
+  public function handle(): void {
+    $method = $_SERVER["REQUEST_METHOD"];
+
+    $possibleRoutesByMethod = array_filter($this->routes, function($route) use($method) {
+      return $route->method->value == $method;
+    });
+
+    foreach ($possibleRoutesByMethod as $route) {
+      $routePath = $this->explodePath($route->path);
+      $currentPath = $this->explodePath('/' . $_GET["route"]);
+
+      if(count($routePath) != count($currentPath)) {
+        continue;
+      }
+
+      if(!$this->match($routePath, $currentPath)) {
+        continue;
+      }
+
+      $request = new Request;
+      $request->headers = getallheaders();
+      $request->params = $this->parseParams($routePath, $currentPath);
+      $request->query = $_GET;
+      $request->body = $this->parseBody();
+
+      // route matches, call the handler
+      require_once 'controllers/' . $route->handler[0] . '.php';
+      $callback = new $route->handler[0];
+      $callback->{$route->handler[1]}($request);
+
+      return;
+    }
+
+    Response::notFound();
+  }
+
+  private function explodePath($path): array {
+    return array_values(array_filter(explode('/', $path), function ($seg) { return !!$seg; }));
+  }
+
+  private function match(array $source, array $current): bool {
+    for($i = 0; $i < count($source); $i++) {
+      if(!(str_starts_with($source[$i], ":") && !!$current) && $source[$i] != $current[$i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private function parseParams(array $source, array $current): array {
+    $params = [];
+
+    for($i = 0; $i < count($source); $i++) {
+      if(!str_starts_with($source[$i], ":")) {
+        continue;
+      }
+
+      $params[explode(':', $source[$i])[1]] = $current[$i];
+    }
+
+    return $params;
+  }
+
+  private function parseBody() {
+    if(count($_POST)) {
+      return $_POST;
+    }
+
+    $body = json_decode(file_get_contents('php://input'), true);
+    if($body) {
+      return $body;
+    }
+
+    return [];
+  }
+}
+
+          </code></pre>
+      </section>
+
+      <section id="article">
+        <h3>
+          An extract from the BooksRepository: the queries are handled with
+          prepared statements in order to prevent SQL injection
+        </h3>
+        <pre><code>
+  public static function deleteById(string $id): void {
+    $db = DB::getInstance()->getConnection();
+    $statement = $db->prepare("DELETE FROM books WHERE id = ?");
+    $statement->bind_param("i", $id);
+    $statement->execute();
+  }
+</code></pre>
+      </section>
+
+      <section id="article">
+        <h3>
+          An extract from the BooksController: the delete operation is only for
+          the admins, so the authentication token is verified
+        </h3>
+        <pre><code>
+public function delete(Request $request): void {
+    $is_admin_authorized = AuthorizationUtils::isAdminAuthorized(Headers::getHeaderValue($request->headers, 'Authorization'));
+    if (!$is_admin_authorized) {
+      Response::unauthorized();
+      return;
+    }
+
+    BookRepository::deleteById($request->params['id']);
+
+    Response::success();
+  }
+</code></pre>
+      </section>
+      <section id="article">
+        <h3>The Book model</h3>
+        <pre><code>
+class Book {
+  public ?int $id;
+  public string $title;
+  public string $image;
+  public string $author;
+  public string $description;
+  public int $pages;
+  public string $isbn;
+  public string $genre;
+  public string $publisher;
+  public string $format;
+  public string $publication_date;
+
+  public function __construct($id = null, $title = '', $image = '', $author = '', $description = '', $pages = 0, $isbn = '', $genre = '', $publisher = '', $format = '', $publication_date = '') {
+    $this->id = $id;
+    $this->title = $title;
+    $this->image = $image;
+    $this->author = $author;
+    $this->description = $description;
+    $this->pages = $pages;
+    $this->isbn = $isbn;
+    $this->genre = $genre;
+    $this->publisher = $publisher;
+    $this->format = $format;
+    $this->publication_date = $publication_date;
+  }
+}</code></pre>
+      </section>
+      <section id="article">
+        <h3>The storage service</h3>
+        <p>
+          This is a separate service from the main API and serves as an S3
+          alternative. You can upload a file to it and it will return a
+          persistent link.
+        </p>
+        <p>It is used for the book creation by the client</p>
+        <pre><code>
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS");
+header("Access-Control-Max-Age: 3600");
+header("Access-Control-Allow-Headers: *");
+
+define("ROOT_DIR", dirname(__FILE__));
+define("PUBLIC_ASSETS_URL", "http://localhost:8090/www");
+
+function uuid()
+{
+  return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(openssl_random_pseudo_bytes(16)), 4));
+} 
+
+if (!isset($_FILES['file'])) {
+  header("HTTP/1.0 400 Bad Request");
+  return;
+}
+
+$source = $_FILES['file']['tmp_name'];
+$source_name = $_FILES['file']['name'];
+
+$name = uuid();
+
+$extension = pathinfo($source_name, PATHINFO_EXTENSION);
+if ($extension) {
+  $name = $name . '.' . $extension;
+}
+$target = ROOT_DIR . '/assets/' . $name;
+
+move_uploaded_file($source, $target);
+
+$file = PUBLIC_ASSETS_URL . '/assets/' . $name;
+echo json_encode(['file' => $file], JSON_UNESCAPED_SLASHES);
+</code></pre>
+      </section>
+
+      <section id="article">
+        <h3>The client page loader</h3>
+        <p>
+          It uses a meta-tag in the html in order to get the specific page to
+          initialize
+        </p>
+        <pre><code>
+export const load = async () => {
+  const pageName = getPageName();
+
+  if (!pageName) {
+    console.error('** PAGE UNKNOWN! Please add meta tag **');
+    return;
+  }
+
+  const pageConfig = pagesConfig[pageName];
+
+  if (!pageConfig) {
+    console.error(`** PAGE CONFIG UNKNOWN! Page: ${pageName} **`);
+    return;
+  }
+
+  // load current page
+  showPageLoading();
+  await pageConfig.load();
+  hidePageLoading();
+};
+
+export const getPageName = () =>
+  document.querySelector('meta[name="page-name"]')?.getAttribute('content');
+</code></pre>
+      </section>
+
+      <section id="article">
+        <h3>An extract from the book list page logic</h3>
+        <p>
+          It loads in the sidebar, and the requests the books in order to
+          display them
+        </p>
+        <pre><code>
+export const load = async () => {
+  renderSidebar();
+
+  const books = await listBooks();
+
+  const booksNode = document.getElementsByClassName('books')[0];
+  books.forEach(book => booksNode.appendChild(getBookCardNode(book)));
+};
+          </code></pre>
+      </section>
+
+      <section id="article">
+        <h3>An extract from the client API request code</h3>
+        <p>It uses fetch to request the list of books from the server</p>
+        <pre><code>
+export const listBooks = async () => {
+  const res = await fetch(`${API_BASE}/books`);
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw data;
+  }
+
+  return data;
+};</code></pre>
+      </section>
+
+      <section id="article">
+        <h3>The client sidebar rendering code</h3>
+        <p>
+          It displays the appropriate links depending on the user state (not
+          logged in, logged in, admin)
+        </p>
+        <pre><code>
+const sidebarConfig = [
+  {
+    name: 'Home',
+    icon: 'fa-home',
+    isActive: () => getPageName() === 'home',
+    onClick: () => goTo(URL_BASE + '/home'),
+    isHidden: () => !isAuth(),
+  },
+  {
+    name: 'Books',
+    icon: 'fa-book',
+    isActive: () => getPageName() === 'books',
+    onClick: () => goTo(URL_BASE + '/'),
+  },
+  {
+    name: 'Reviews',
+    icon: 'fa-comment',
+    isActive: () => getPageName() === 'reviews',
+    onClick: () => goTo(URL_BASE + '/reviews'),
+    isHidden: () => !isAuth(),
+  },
+  {
+    name: 'Books Manager',
+    icon: 'fa-table',
+    isActive: () => getPageName() === 'books_manager',
+    onClick: () => goTo(URL_BASE + '/manager'),
+    isHidden: () => !isAdmin(),
+  },
+  {
+    name: 'Users Manager',
+    icon: 'fa-users',
+    isActive: () => getPageName() === 'users_manager',
+    onClick: () => goTo(URL_BASE + '/manager/users'),
+    isHidden: () => !isAdmin(),
+  },
+  {
+    name: 'About',
+    icon: 'fa-info-circle',
+    isActive: () => getPageName() === 'about',
+    onClick: () => goTo(URL_BASE + '/about'),
+  },
+  {
+    name: 'Help',
+    icon: 'fa-question-circle',
+    isActive: () => getPageName() === 'help',
+    onClick: () => goTo(URL_BASE + '/help'),
+  },
+];
+
+const nonAuthSidebarConfig = [
+  {
+    name: 'Login',
+    icon: 'fa-user',
+    isActive: () => false,
+    onClick: () => goTo(URL_BASE + '/login'),
+  },
+  {
+    name: 'Register',
+    icon: 'fa-user-plus',
+    isActive: () => false,
+    onClick: () => goTo(URL_BASE + '/register'),
+  },
+];
+
+const authSidebarConfig = [
+  {
+    name: 'Profile',
+    icon: 'fa-user-circle',
+    isActive: () => false,
+    onClick: () => goTo(URL_BASE + '/profile'),
+  },
+  {
+    name: 'Logout',
+    icon: 'fa-sign-out',
+    isActive: () => false,
+    onClick: logout,
+  },
+];
+
+export const renderSidebar = () => {
+  const sidebar = document.getElementsByClassName('side-links')?.[0];
+
+  if (!sidebar) {
+    return;
+  }
+
+  sidebarConfig
+    .filter(item => !item?.isHidden || !item.isHidden())
+    .forEach(item => sidebar.appendChild(getSidebarItem(item)));
+  sidebar.appendChild(getSidebarDivider());
+
+  if (isAuth()) {
+    authSidebarConfig.forEach(item =>
+      sidebar.appendChild(getSidebarItem(item)),
+    );
+  } else {
+    nonAuthSidebarConfig.forEach(item =>
+      sidebar.appendChild(getSidebarItem(item)),
+    );
+  }
+
+  registerSidebarEvents();
+};
+</code></pre>
+      </section>
+
+      <section id="article">
+        <h3>The reviews page loader</h3>
+        <p>It add the delete modal that is defined in the HTML</p>
+        <pre><code>
+  &lt;div class=&quot;modal modal__hidden&quot; id=&quot;delete-modal&quot;&gt;
+    &lt;div class=&quot;modal-content&quot;&gt;
+      &lt;div class=&quot;text text__32 text__bold mb-2&quot;&gt;Delete Review&lt;/div&gt;
+      &lt;div class=&quot;text text__16 mb-8&quot;&gt;Are you sure? This operation cannot be reverted&lt;/div&gt;
+      &lt;div class=&quot;flex flex__justify-center&quot;&gt;
+        &lt;button class=&quot;button button__secondary mr-4&quot; id=&quot;delete-modal-cancel&quot;&gt;Cancel&lt;/button&gt;
+        &lt;button class=&quot;button button__primary button__red&quot; id=&quot;delete-modal-delete&quot;&gt;Delete&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;</code></pre>
+
+        <p>And uses it to display a confirmation message</p>
+        <pre><code>
+export const load = async () => {
+  renderSidebar();
+  registerModalEvents();
+
+  await displayReviews();
+};
+
+const displayReviews = async () => {
+  const reviews = await getMyReviews();
+
+  const reviewsNode = document.getElementsByClassName('reviews')[0];
+  reviewsNode.innerHTML = '';
+  reviews.forEach(review =>
+    reviewsNode.appendChild(
+      getReviewNode(review, showDeleteReview(review.id), false),
+    ),
+  );
+};
+
+const registerModalEvents = () => {
+  document
+    .getElementById('delete-modal-cancel')
+    .addEventListener('click', hideDeleteReview);
+  document
+    .getElementById('delete-modal-delete')
+    .addEventListener('click', handleDeleteReview);
+};
+
+const showDeleteReview = reviewId => () => {
+  pageState.reviewId = reviewId;
+  showModal('delete-modal');
+};
+
+const hideDeleteReview = () => {
+  hideModal('delete-modal');
+};
+
+const handleDeleteReview = async () => {
+  await deleteReview(pageState.reviewId);
+  await displayReviews();
+  hideDeleteReview();
+};
+</code></pre>
       </section>
     </section>
 

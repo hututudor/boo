@@ -85,6 +85,12 @@ export const checkAuth = () => {
   }
 };
 
+export const checkAdmin = () => {
+  if (!isAuth()) {
+    _redirectToHome();
+  }
+};
+
 export const checkNoAuth = () => {
   if (isAuth()) {
     _redirectToHome();
@@ -106,7 +112,7 @@ export const handleAuth = token => {
 
 const _redirectToLogin = () => {
   localStorage.removeItem(TOKEN_KEY);
-  goTo('./login');
+  goTo(`${URL_BASE}/login`);
 };
 
-const _redirectToHome = () => goTo('./');
+const _redirectToHome = () => goTo(URL_BASE);

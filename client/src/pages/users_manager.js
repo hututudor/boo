@@ -1,6 +1,6 @@
 import { deleteBook } from '../api';
 import { deleteUser, demoteUser, listUsers, promoteUser } from '../api/users';
-import { checkAuth, getCurrentUserId } from '../app/auth';
+import { checkAdmin, checkAuth, getCurrentUserId } from '../app/auth';
 import { hideModal, renderSidebar, showModal } from '../components';
 
 const pageState = {
@@ -9,7 +9,7 @@ const pageState = {
 
 export const load = async () => {
   renderSidebar();
-  checkAuth();
+  checkAdmin();
 
   registerModalEvents();
   await displayUsers();

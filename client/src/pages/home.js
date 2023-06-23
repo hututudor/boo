@@ -1,8 +1,10 @@
 import { getAnalytics, getHomeBooks } from '../api/analytics';
+import { checkAuth } from '../app/auth';
 import { getBookCardNode, renderSidebar } from '../components';
 
 export const load = async () => {
   renderSidebar();
+  checkAuth();
 
   await displayAnalytics();
   await displayBooks();

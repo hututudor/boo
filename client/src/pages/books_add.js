@@ -1,5 +1,5 @@
 import { addBook, uploadImage } from '../api';
-import { checkAuth } from '../app/auth';
+import { checkAdmin } from '../app/auth';
 import {
   disableButton,
   enableButton,
@@ -23,7 +23,7 @@ const pageState = {
 
 export const load = () => {
   renderSidebar();
-  checkAuth();
+  checkAdmin();
 
   loadFormFiles();
 

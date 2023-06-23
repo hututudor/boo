@@ -4,6 +4,7 @@ import {
   updateUserName,
   updateUserPassword,
 } from '../api/users';
+import { checkAuth } from '../app/auth';
 import {
   disableButton,
   enableButton,
@@ -21,6 +22,7 @@ const pageState = {
 
 export const load = async () => {
   renderSidebar();
+  checkAuth();
 
   await displayProfile();
   registerFormEvents();

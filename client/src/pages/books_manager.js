@@ -1,5 +1,5 @@
 import { deleteBook, listBooks } from '../api';
-import { checkAuth } from '../app/auth';
+import { checkAdmin, checkAuth } from '../app/auth';
 import { hideModal, renderSidebar, showModal } from '../components';
 
 const pageState = {
@@ -8,7 +8,7 @@ const pageState = {
 
 export const load = async () => {
   renderSidebar();
-  checkAuth();
+  checkAdmin();
 
   registerModalEvents();
   await displayBooks();
