@@ -1,0 +1,834 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: BOO
+  description: Open API Spec
+host: localhost:8000
+basePath: /www/server
+schemes:
+  - http
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+paths:
+  /api/books:
+    get:
+      tags:
+        - Books
+      summary: GET /api/books
+      description: GET /api/books
+      operationId: GET/api/books
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+    post:
+      tags:
+        - Books
+      summary: POST /api/books
+      description: POST /api/books
+      operationId: POST/api/books
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters:
+        - name: __requested_body__
+          in: body
+          description: request body
+          x-ms-summary: request body
+          schema:
+            type: object
+            properties:
+              pages:
+                type: string
+                description: pages
+                x-ms-summary: pages
+              title:
+                type: string
+                description: title
+                x-ms-summary: title
+              author:
+                type: string
+                description: author
+                x-ms-summary: author
+              image:
+                type: string
+                description: image
+                x-ms-summary: image
+              description:
+                type: string
+                description: description
+                x-ms-summary: description
+              isbn:
+                type: string
+                description: isbn
+                x-ms-summary: isbn
+              genre:
+                type: string
+                description: genre
+                x-ms-summary: genre
+              publisher:
+                type: string
+                description: publisher
+                x-ms-summary: publisher
+              format:
+                type: string
+                description: format
+                x-ms-summary: format
+              publication_date:
+                type: string
+                description: publication_date
+                x-ms-summary: publication_date
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/books/10:
+    get:
+      tags:
+        - Books
+      summary: GET /api/books/10
+      description: GET /api/books/10
+      operationId: GET/api/books/10
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/books/4:
+    put:
+      tags:
+        - Books
+      summary: PUT /www/server/api/books/4
+      description: PUT /www/server/api/books/4
+      operationId: PUT/www/server/api/books/4
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters:
+        - name: __requested_body__
+          in: body
+          description: request body
+          x-ms-summary: request body
+          schema:
+            type: object
+            properties:
+              pages:
+                type: string
+                description: pages
+                x-ms-summary: pages
+              title:
+                type: string
+                description: title
+                x-ms-summary: title
+              author:
+                type: string
+                description: author
+                x-ms-summary: author
+              image:
+                type: string
+                description: image
+                x-ms-summary: image
+              description:
+                type: string
+                description: description
+                x-ms-summary: description
+              isbn:
+                type: string
+                description: isbn
+                x-ms-summary: isbn
+              genre:
+                type: string
+                description: genre
+                x-ms-summary: genre
+              publisher:
+                type: string
+                description: publisher
+                x-ms-summary: publisher
+              format:
+                type: string
+                description: format
+                x-ms-summary: format
+              publication_date:
+                type: string
+                description: publication_date
+                x-ms-summary: publication_date
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/books/10/reviews:
+    get:
+      tags:
+        - Reviews
+      summary: GET /api/books/10/reviews
+      description: GET /api/books/10/reviews
+      operationId: GET/api/books/10/reviews
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+    post:
+      tags:
+        - Reviews
+      summary: POST /api/books/10/reviews
+      description: POST /api/books/10/reviews
+      operationId: POST/api/books/10/reviews
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters:
+        - name: __requested_body__
+          in: body
+          description: request body
+          x-ms-summary: request body
+          schema:
+            type: object
+            properties:
+              content:
+                type: string
+                description: content
+                x-ms-summary: content
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/reviews:
+    get:
+      tags:
+        - Reviews
+      summary: GET /api/reviews
+      description: GET /api/reviews
+      operationId: GET/api/reviews
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+
+  /api/reviews/3:
+    delete:
+      tags:
+        - Reviews
+      summary: DELETE /api/reviews/3
+      description: DELETE /api/reviews/3
+      operationId: DELETE/api/reviews/3
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/books/10/recommendations:
+    get:
+      tags:
+        - Books
+      summary: GET /api/books/10/recommendations
+      description: GET /api/books/10/recommendations
+      operationId: GET/api/books/10/recommendations
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/books/4/readingStatus:
+    get:
+      tags:
+        - Reading Status
+      summary: GET /api/books/4/readingStatus
+      description: GET /api/books/4/readingStatus
+      operationId: GET/api/books/4/readingStatus
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: Ok
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+    put:
+      tags:
+        - Reading Status
+      summary: PUT /api/books/4/readingStatus
+      description: PUT /api/books/4/readingStatus
+      operationId: PUT/api/books/4/readingStatus
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters:
+        - name: __requested_body__
+          in: body
+          description: request body
+          x-ms-summary: request body
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: status
+                x-ms-summary: status
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+
+  /api/books/search:
+    get:
+      tags:
+        - Search Bar
+      summary: GET /api/books/search
+      description: GET /api/books/search
+      operationId: GET/api/books/search
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/books/category:
+    get:
+      tags:
+        - Search Bar
+      summary: GET /api/books/category
+      description: GET /api/books/category
+      operationId: GET/api/books/category
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/books/author:
+    get:
+      tags:
+        - Search Bar
+      summary: GET /api/books/author
+      description: GET /api/books/author
+      operationId: GET/api/books/author
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/question/10:
+    get:
+      tags:
+        - Replies
+      summary: GET /api/question/10
+      description: GET /api/question/10
+      operationId: GET/api/question/10
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/questions/10:
+    post:
+      tags:
+        - Replies
+      summary: POST /api/questions/10
+      description: POST /api/questions/10
+      operationId: POST/api/questions/10
+      consumes:
+        - application/json
+      parameters:
+        - name: __requested_body__
+          in: body
+          description: request body
+          x-ms-summary: request body
+          schema:
+            type: object
+            properties:
+              content:
+                type: string
+                description: content
+                x-ms-summary: content
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/question/34:
+    delete:
+      tags:
+        - Replies
+      summary: DELETE /api/question/34
+      description: DELETE /api/question/34
+      operationId: DELETE/api/question/34
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/questions:
+    get:
+      tags:
+        - Questions
+      summary: GET /api/questions
+      description: GET /api/questions
+      operationId: GET/api/questions
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+    post:
+      tags:
+        - Questions
+      summary: POST /api/questions
+      description: POST /api/questions
+      operationId: POST/api/questions
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters:
+        - name: __requested_body__
+          in: body
+          description: request body
+          x-ms-summary: request body
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                description: title
+                x-ms-summary: title
+              content:
+                type: string
+                description: content
+                x-ms-summary: content
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/questions/8:
+    delete:
+      tags:
+        - Questions
+      summary: DELETE /api/questions/8
+      description: DELETE /api/questions/8
+      operationId: DELETE/api/questions/8
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/profile:
+    get:
+      tags:
+        - Profile
+      summary: GET /api/profile
+      description: GET /api/profile
+      operationId: GET/api/profile
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/profile/email:
+    put:
+      tags:
+        - Profile
+      summary: PUT /api/profile/email
+      description: PUT /api/profile/email
+      operationId: PUT/api/profile/email
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters:
+        - name: __requested_body__
+          in: body
+          description: request body
+          x-ms-summary: request body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: email
+                x-ms-summary: email
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/profile/name:
+    put:
+      tags:
+        - Profile
+      summary: PUT /api/profile/name
+      description: PUT /api/profile/name
+      operationId: PUT/api/profile/name
+      consumes:
+        - application/json
+      parameters:
+        - name: __requested_body__
+          in: body
+          description: request body
+          x-ms-summary: request body
+          schema:
+            type: object
+            properties:
+              full_name:
+                type: string
+                description: full_name
+                x-ms-summary: full_name
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/profile/password:
+    put:
+      tags:
+        - Profile
+      summary: PUT /api/profile/password
+      description: PUT /api/profile/password
+      operationId: PUT/api/profile/password
+      consumes:
+        - application/json
+      parameters:
+        - name: __requested_body__
+          in: body
+          description: request body
+          x-ms-summary: request body
+          schema:
+            type: object
+            properties:
+              password:
+                type: string
+                description: password
+                x-ms-summary: password
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/auth/login:
+    post:
+      tags:
+        - Auth
+      summary: POST /api/auth/login
+      description: POST /api/auth/login
+      operationId: POST/api/auth/login
+      consumes:
+        - application/json
+      parameters:
+        - name: __requested_body__
+          in: body
+          description: request body
+          x-ms-summary: request body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: email
+                x-ms-summary: email
+              password:
+                type: string
+                description: password
+                x-ms-summary: password
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: Ok
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/auth/register:
+    post:
+      tags:
+        - Auth
+      summary: POST /api/auth/register
+      description: POST /api/auth/register
+      operationId: POST/api/auth/register
+      consumes:
+        - application/json
+      parameters:
+        - name: __requested_body__
+          in: body
+          description: request body
+          x-ms-summary: request body
+          schema:
+            type: object
+            properties:
+              fullName:
+                type: string
+                description: fullName
+                x-ms-summary: fullName
+              email:
+                type: string
+                description: email
+                x-ms-summary: email
+              password:
+                type: string
+                description: password
+                x-ms-summary: password
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: Ok
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/home/analytics:
+    get:
+      tags:
+        - Home Menu
+      summary: GET /api/home/analytics
+      description: GET /api/home/analytics
+      operationId: GET/api/home/analytics
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/home/books:
+    get:
+      tags:
+        - Home Menu
+      summary: GET /api/home/books
+      description: GET /api/home/books
+      operationId: GET/api/home/books
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/users:
+    get:
+      tags:
+        - Admin
+      summary: GET /api/users
+      description: GET /api/users
+      operationId: GET/api/users
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/users/3/promote:
+    put:
+      tags:
+        - Admin
+      summary: PUT /api/users/3/promote
+      description: PUT /api/users/3/promote
+      operationId: PUT/api/users/3/promote
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/users/4/demote:
+    put:
+      tags:
+        - Admin
+      summary: PUT /api/users/4/demote
+      description: PUT /api/users/4/demote
+      operationId: PUT/api/users/4/demote
+      security:
+        - BearerAuth: []
+      consumes:
+        - application/json
+      parameters: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+  /api/users/4/delete:
+    delete:
+      tags:
+        - Admin
+      summary: DELETE /api/users/4/delete
+      description: DELETE /api/users/4/delete
+      operationId: DELETE/api/users/4/delete
+      consumes:
+        - application/json
+      parameters: []
+      security:
+        - BearerAuth: []
+      produces:
+        - text/html; charset=UTF-8
+      responses:
+        '200':
+          description: OK
+          schema: {}
+      deprecated: false
+      x-ms-visibility: important
+definitions: {}
