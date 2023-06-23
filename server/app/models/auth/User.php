@@ -15,4 +15,15 @@ class User
         $this->password = $password;
         $this->isAdmin = $isAdmin;
     }
+
+    public function getFieldsAsArray() : array
+    {
+        return array(
+            'id' => $this->id,
+            'fullName' => $this->fullName,
+            'email' => $this->email,
+            'password' => $this->password,
+            'isAdmin' => $this->isAdmin
+        );
+    }
 }

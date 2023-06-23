@@ -76,7 +76,7 @@ BEGIN
 
     INSERT INTO rss_books (user_id, last_seen_book_id)
     VALUES (NEW.id, last_book_id);
-END
+END;
 
 CREATE TABLE questions (
   id INT AUTO_INCREMENT PRIMARY KEY,

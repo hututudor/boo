@@ -1,5 +1,5 @@
 <?php
-require_once ROOT_DIR . '/app/models/Reviews.php';
+require_once ROOT_DIR . '/app/models/Review.php';
 require_once ROOT_DIR . '/app/validation.php';
 require_once __DIR__ . '/../services/utils/JwtUtils.php';
 require_once __DIR__ . '/../repositories/ReviewsRepository.php';

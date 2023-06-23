@@ -2,8 +2,6 @@
 
 require_once ROOT_DIR . '/app/repositories/RssRepository.php';
 require_once ROOT_DIR . '/app/services/utils/JwtUtils.php';
-require_once ROOT_DIR . '/app/services/response/IServiceResponse.php';
-require_once ROOT_DIR . '/app/services/response/OK.php';
 
 class RssUtils
 {

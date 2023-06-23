@@ -26,4 +26,21 @@ class Book {
     $this->format = $format;
     $this->publication_date = $publication_date;
   }
+
+  public function getFieldsAsArray()
+  {
+    return array(
+      'id' => $this->id,
+      'title' => $this->title,
+      'image' => $this->image,
+      'author' => $this->author,
+      'description' => $this->description,
+      'pages' => $this->pages,
+      'isbn' => $this->isbn,
+      'genre' => $this->genre,
+      'publisher' => $this->publisher,
+      'format' => $this->format,
+      'publication_date' => $this->publication_date
+    );
+  }
 }
