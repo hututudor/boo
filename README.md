@@ -1,6 +1,8 @@
 # Boo
 
-Live version: https://boo.tudorhutu.ro
+## Presentation video
+
+https://drive.google.com/file/d/1eJBw0cgCiLcngbw56r-epITt-rymLiH-/view?usp=sharing
 
 ## Installation
 

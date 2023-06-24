@@ -45,11 +45,11 @@
     <div class="home">
       <div class="text text__32 text__bold mb-4">Your habits in numbers</div>
       <div class="home-analytics">
-        <button class="button button__icon-large mr-4">
+        <button class="button button__icon-large mr-4" id="rss-button">
           <i class="fa fa-rss"></i>
         </button>
-        <button class="button button__primary mr-4">Download CSV</button>
-        <button class="button button__primary">Download DocBook</button>
+        <button class="button button__primary" id="csv-button">Download CSV</button>
+        <button class="button button__primary ml-4" id="docbook-button">Download DocBook</button>
       </div>
     </div>
     <div class="stats mb-8">

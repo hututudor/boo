@@ -11,7 +11,7 @@ class RssController
 
         $xml = RssService::generateRssFeed($userId);
 
-        Response::setHeaders(['Content-Type: application/rss+xml; charset=utf-8']);
+        Response::setHeaders(['Content-Type: application/xml; charset=utf-8']);
         Response::successRaw($xml);
     }
 }

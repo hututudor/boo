@@ -34,7 +34,6 @@ class Book {
       'title' => $this->title,
       'author' => $this->author,
       'genre' => $this->genre,
-      'description' => $this->description,
       'pages' => $this->pages,
       'isbn' => $this->isbn,
       'publisher' => $this->publisher,

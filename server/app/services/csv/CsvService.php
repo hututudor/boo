@@ -56,7 +56,7 @@ class CsvService
 
         $user = UserRepository::getUserById($userId);
         $userData = $user->getFieldsAsArray();
-        $output .= implode(',', $userData) . PHP_EOL;
+        $output .= str_replace('\n', ' ', implode(',', $userData)) . PHP_EOL;
 
         return $output;
     }
@@ -65,13 +65,11 @@ class CsvService
     {
         $output = 'All Books Sheet' . PHP_EOL;
 
-        $columns = array('Id', 'Title', 'Author', 'Genre', 'Description', 'Pages', 'ISBN', 'Publisher', 'Format', 'Publication Date');
-        $output .= implode(',', $columns) . PHP_EOL;
+        $columns = array('Id', 'Title', 'Author', 'Genre', 'Pages', 'ISBN', 'Publisher', 'Format', 'Publication Date');
+        $output .= str_replace('\n', ' ', implode(',', $columns)) . PHP_EOL;
 
         $books = BookRepository::getAll();
-        self::setTheOutputForBooksWithReviews($books, $output);
-
-        return $output;
+        return self::setTheOutputForBooksWithReviews($books, $output);
     }
 
     private static function generateBooksSortedByStatusSheet(string $userId, string $status) : string
@@ -81,17 +79,15 @@ class CsvService
 
         $output = $headerStatus. ' Books Sheet' . PHP_EOL;
 
-        $columns = array('Id', 'Title', 'Author', 'Genre', 'Description', 'Pages', 'ISBN', 'Publisher', 'Format', 'Publication Date');
-        $output .= implode(',', $columns) . PHP_EOL;
+        $columns = array('Id', 'Title', 'Author', 'Genre', 'Pages', 'ISBN', 'Publisher', 'Format', 'Publication Date');
+        $output .= str_replace('\n', ' ', implode(',', $columns)) . PHP_EOL;
 
         $books = BookRepository::getBooksByStatus($userId, $status);
 
-        self::setTheOutputForBooksWithReviews($books, $output);
-
-        return $output;
+        return self::setTheOutputForBooksWithReviews($books, $output);
     }
 
-    private static function setTheOutputForBooksWithReviews(array $books, string $output) : void
+    private static function setTheOutputForBooksWithReviews(array $books, string $output) : string
     {
         foreach ($books as $book) {
             $bookData = $book->getFieldsAsArray();
@@ -103,8 +99,10 @@ class CsvService
                 $review_order_number++;
             }
 
-            $output .= implode(',', $bookData) . PHP_EOL;
+            $output .= str_replace('\n', ' ', implode(',', $bookData)) . PHP_EOL;
         }
+
+        return $output;
     }
 
     public static function generateUserReviewsSheet(string $userId) : string
@@ -119,7 +117,7 @@ class CsvService
         foreach ($reviews as $review) {
             $book = BookRepository::getById($review->book_id);
             $rowData  = array($review->id, $review->book_id, $book->title, $book->author, $review->content, $review->review_date);
-            $output .= implode(',', $rowData) . PHP_EOL;
+            $output .= str_replace('\n', ' ', implode(',', $rowData)) . PHP_EOL;
         }
 
         return $output;

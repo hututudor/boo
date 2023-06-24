@@ -1,11 +1,18 @@
 import { getAnalytics, getHomeBooks } from '../api/analytics';
-import { checkAuth } from '../app/auth';
+import {
+  checkAuth,
+  getAuthToken,
+  getCurrentUserId,
+  isAdmin,
+} from '../app/auth';
 import { getBookCardNode, renderSidebar } from '../components';
+import { URL_BASE } from '../config';
 
 export const load = async () => {
   renderSidebar();
   checkAuth();
 
+  registerExportButtons();
   await displayAnalytics();
   await displayBooks();
 };
@@ -35,4 +42,48 @@ const displayAnalytics = async () => {
   document.getElementById('analytics-read').innerHTML = read;
   document.getElementById('analytics-want-to-read').innerHTML = toRead;
   document.getElementById('analytics-reviews').innerHTML = reviews;
+};
+
+const registerExportButtons = () => {
+  if (!isAdmin()) {
+    document.getElementById('docbook-button').style.display = 'none';
+  }
+
+  document.getElementById('rss-button').addEventListener('click', () => {
+    window.open(`${URL_BASE}/api/rss/${getCurrentUserId()}`, '_blank');
+  });
+
+  document.getElementById('csv-button').addEventListener('click', () => {
+    fetch(`${URL_BASE}/api/csv`, {
+      headers: {
+        Authorization: getAuthToken(),
+      },
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        var _url = window.URL.createObjectURL(blob);
+        window.open(_url, '_blank').focus();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+
+  document.getElementById('docbook-button').addEventListener('click', () => {
+    fetch(`${URL_BASE}/api/docbook`, {
+      headers: {
+        Authorization: getAuthToken(),
+      },
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        console.log(blob);
+        var _url = window.URL.createObjectURL(blob);
+        console.log(_url);
+        window.open(_url, '_blank').focus();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
 };

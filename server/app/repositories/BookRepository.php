@@ -120,7 +120,7 @@ public static function update(Book $book): bool {
       return null;
     }
 
-    return $row['status'];
+    return $row['STATUS'];
   }
 
   public static function updateReadingStatus(string $bookId, string $userId, string $status): bool {
@@ -173,8 +173,8 @@ public static function update(Book $book): bool {
   public static function searchBooks($query) {
     $db = DB::getInstance()->getConnection();
     $searchTerm = '%' . $query . '%';
-    $statement = $db->prepare("SELECT * FROM books WHERE lower(title) LIKE lower(?) OR lower(description) LIKE lower(?) OR lower(author) LIKE lower(?)");
-    $statement->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
+    $statement = $db->prepare("SELECT * FROM books WHERE lower(title) LIKE lower(?) OR lower(author) LIKE lower(?)");
+    $statement->bind_param("ss", $searchTerm, $searchTerm);
     $statement->execute();
   
     if ($statement->error) {

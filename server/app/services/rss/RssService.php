@@ -14,7 +14,7 @@ class RssService
         $reviews = [];
         foreach ($book_reviewIds as $book_reviewId)
         {
-            $newReviews = ReviewsRepository::getAllAboveFromId($book_reviewId['last_seen_review_id'], $book_reviewId['book_id']);
+            $newReviews = ReviewsRepository::getAllAboveFromId($book_reviewId['last_seen_review_id'] || 0, $book_reviewId['book_id']);
             $reviews = array_merge($reviews, $newReviews);
         }
 
