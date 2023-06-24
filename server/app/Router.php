@@ -65,8 +65,6 @@ class Response {
     if($data || is_array($data)) {
       echo $data;
     }
-
-    self::resetHeaders();
   }
 
   public static function success($data = null): void {

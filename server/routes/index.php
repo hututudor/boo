@@ -2,6 +2,8 @@
 
 global $router;
 
+$router->get('/api/docbook', 'DocBookController@getDocBookDocument');
+
 $router->get('/api/csv', 'CsvController@getCsv');
 
 $router->get('/api/rss/:user_id', 'RssController@getFeed');

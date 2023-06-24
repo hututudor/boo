@@ -1,0 +1,24 @@
+These are the methods used to access the database. Every file makes use of the DB.php found in server/app. There lies the connection string to database. The methods are used to access the database and return the results to the files that called them.
+There are a lot of methods used to access the database, and they are grouped on the same category as the controllers and services.
+Only the services should be allowed to call these methods.
+
+
+The repositories found in the actual version of the server are:
+- AdminRepository - used to access the database for admin related queries
+- BookRepository - used to access the database for book related queries, such as getting all books, getting a book by id, searching for a book, getting all the books from above an id
+- QuestionRepository - used to access the database for question related queries, such as getting all questions, getting a question by id
+- RepliesRepository - used to access the database for replies related queries such as getting the replies for a question by providing the question id
+- ReviewsRepository - used to access the database for reviews related queries, such as getting all reviews, getting a review by id, getting all the reviews for a book by providing the book id or to provide all the reviews coming from one user by providing the user id
+- RssRepository - used to access the database for rss related queries, such as getting the last seen ids for books and reviews for a specific user by providing the user id
+- userRepository - used to perform the crud operations over the user model
+
+
+When starting to define a repository it is always better to think of the inserting/retrieving models and to define them in app/models.
+The actual models are the following:
+- /auth: LoginModel, RegisterModel, UserModel
+- BookModel
+- QuestionModel
+- ReplyModel
+- ReviewModel
+
+They either describe an actual model from the database or group the data coming from front-end such as LoginModel/RegisterModel

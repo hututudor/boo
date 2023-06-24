@@ -1,0 +1,18 @@
+The services layer contains the business logic of the application. It is responsible for calling the repository layers if necessary and extract the data from database.
+
+
+The available services are:
+- AuthService: responsible for authentication and authorization
+- BooksService: responsible for managing the books, the search and to access necessary tables updated by rss feeder
+- csvService: responsible for creating the csv files and to temporary store them
+- docBookService: responsible for creating the docx files and to store the txt files that contains the docs
+- responseService: responsible for creating the response objects that usually are returned to controllers
+- rssService: responsible for reading the rss feeds and to store the data in the database
+
+
+The utils services are used in all services:
+- rssUtils: responsible for updating the necessary tables after each method of interest from bookService is called:
+    - getAllBooks
+    - updateReadingStatus
+- the authorizationUtils used to check if the user is authorized to perform the action
+- the jwt utils used to create the jwt token and to extract the user from the token
