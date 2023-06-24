@@ -1,0 +1,51 @@
+The architecture of this application lies on 3 layers:
+- Controllers
+- Services
+- Repositories
+
+
+The environment of this application is provided by Xampp.The server is Apache and the database is MySQL/MariaDB.
+Currently in use is the 10.4.24-MariaDB version and PHP 8.1.0 version.
+The database is structured on 5 tables:
+- users
+- books
+- reviews
+- questions
+- replies
+
+
+These tables are used to provide the basic CRUD operations for the application.
+Two more tables are used to provide the functionalities for setting a status for a book and the rss feed:
+- user_books
+- rss_feed
+
+
+The application makes the routing by providing only one page: index.php.
+To this page are sent all the requests and the routing is made by the server.
+
+To provide the route for the request the application needs a get parameter to index.php called "route" with the value starting with a slash. The '/number' is extracted, and it is recommended to be used as an id.
+The route is split by the slashes and the numbers found are extracted.
+After providing a route, the first '?' is considered to be the started of the get parameters of that route.
+
+For example:
+http://localhost/boo/server/public/index.php?route=/api/books/2/readingStatus
+
+This is a valid URL of the application.
+- The DEFAULT_ROUTE where lies the server is http://localhost/boo/server
+- the page that responds to each call is at http://localhost/boo/server/public/index.php
+- the route is /api/books/2/readingStatus
+- the id of the book is 2
+
+    If desired to put some get parameters use
+    http://localhost/boo/server/public/index.php?route=/api/books/2/readingStatus?param1=value1&param2=value2
+        - the parameters are added after the second '?' of the URL
+        - the parameters are separated by '&'
+        - the parameters are:
+            - param1 with value value1
+            - param2 with value value2
+
+In order to create a new endpoint, the following steps are required:
+- create a new controller in the Controllers folder
+- create a new service in the Services folder
+- create a new repository in the Repositories folder if necessary
+- add the new route in the routes/index.php file

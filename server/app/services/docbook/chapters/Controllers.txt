@@ -1,0 +1,19 @@
+The first components of the server after the Router are the controllers. They group the methods responding to some specific endpoints.
+Each method from a controller should map an endpoint and should respond to the Request. The Request is a class that contains all the information about the request, such as the headers, the body, the query parameters, etc. The Request is passed to the method as a parameter. The method should return a Response. The Response is a class that contains all the information about the response, such as the headers, the body, the status code, etc. The Response is returned by the method.
+If necessary the methods should check if the user is logged in by checking the bearer coming with the request. If the user is not logged in, the method should return a 401 status code. If the user is logged in, the method should continue with the execution by calling the service layer.
+Any response can be decorated with any header.
+
+
+The available controllers are:
+- AuthController : authentication controller
+- UserController : user controller (CRUD)
+- AdminController : admin controller (CRUD)
+- BookController : the controller used to perform the CRUD operations on the books and to update the necessary data for the rss feeder. Moreover, it is used to respond to the search bar.
+- CsvController : the controller used to extract the data for each user from the database and to create a CSV file with the data
+- DocBookController : the controller used to extract the documentation for the BOO API
+- HomeController : the controller that groups the methods used to get the home page
+- QuestionsController : the controller that groups the methods used to get the questions
+- ReplyController : the controller that groups the methods used to get the replies
+- ReviewsController : review controller (CRUD)
+- RssController : the controller used to get the RSS feed specific to a user
+- ViewController : the controller that generates the pages that contains the data integrated with php

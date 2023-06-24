@@ -1,0 +1,14 @@
+This is the documentation of the API for the "BOO" application.
+The aim of this application is to provide a way to organize the books you have read, are reading or want to read. Moreover, it allows you to share your opinion about the books you have read with other users and to see what they think about the books you are interested in.
+
+
+The main features of the application are:
+- **MainPage**: it is a summary of the books that you have read, are reading or want to read. It also shows the number of books from each category and the number of reviews you have written.
+- **BookPage**: for each book exists a book page that shows the book's details and the reviews written by the users. Here, you can also write your own review and mark the book as read, reading or to read.
+- **Search**: it allows you to search for a book by title, author or description.
+- **HelpPage**: it allows you to ask the staff any question about the application or to request a new feature.
+- **User_ReviewPage**: it shows the reviews written by a specific user.
+- **RssFeeder**: it shows the latest news about books added and the reviews left at the books marked as 'read', 'reading' or 'want to read' by the users.
+- **AdminPage**: it allows the administrator to manage the users and the books of the application.
+- **Csv**: it allows the user to extract the data of the application in csv format where he has access.
+- **DocBook**: it allows the administrator to extract the data of the application in docbook format.
