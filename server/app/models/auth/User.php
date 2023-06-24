@@ -22,7 +22,6 @@ class User
             'id' => $this->id,
             'fullName' => $this->fullName,
             'email' => $this->email,
-            'password' => $this->password,
             'isAdmin' => $this->isAdmin
         );
     }

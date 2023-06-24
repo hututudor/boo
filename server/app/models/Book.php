@@ -27,17 +27,16 @@ class Book {
     $this->publication_date = $publication_date;
   }
 
-  public function getFieldsAsArray()
+  public function getFieldsAsArray() : array
   {
     return array(
       'id' => $this->id,
       'title' => $this->title,
-      'image' => $this->image,
       'author' => $this->author,
+      'genre' => $this->genre,
       'description' => $this->description,
       'pages' => $this->pages,
       'isbn' => $this->isbn,
-      'genre' => $this->genre,
       'publisher' => $this->publisher,
       'format' => $this->format,
       'publication_date' => $this->publication_date
