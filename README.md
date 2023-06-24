@@ -2,7 +2,11 @@
 
 ## Presentation video
 
-https://drive.google.com/file/d/1eJBw0cgCiLcngbw56r-epITt-rymLiH-/view?usp=sharing
+https://drive.google.com/file/d/1eJBw0cgCiLcngbw56r-epITt-rymLiH-/view?usp=sharing# Boo
+
+## OpenAPI docs
+
+https://app.swaggerhub.com/apis-docs/hututudor/boo/1.0
 
 ## Installation
 
