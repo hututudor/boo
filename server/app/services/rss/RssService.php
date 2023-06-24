@@ -6,7 +6,7 @@ require_once ROOT_DIR . '/app/repositories/ReviewsRepository.php';
 require_once ROOT_DIR . '/app/repositories/BookRepository.php';
 class RssService
 {
-    const DEFAULT_BOOK_PAGE = "https://boo.hututudor.ro/books";
+    const DEFAULT_BOOK_PAGE = PUBLIC_URL . "/books";
     public static function generateRssFeed(string $userId) : string
     {
         $book_reviewIds = RssRepository::selectLastSeenBook_ReviewIds($userId);
