@@ -29,22 +29,15 @@ class CsvService
 
         $csvFilePath = self::DEFAULT_CSV_TEMP_LOCATION . '/' . $userId . '.csv';
 
-        $csvFile = fopen($csvFilePath, 'w');
-        if (!$csvFile) {
-            return null;
-        }
+        $userSheet = self::generateUserSheet($userId);
+        $allBooksSheet = self::generateAllBooksSheet($userId);
+        $readingBooksSheet = self::generateBooksSortedByStatusSheet($userId, 'reading');
+        $wantToReadBooksSheet = self::generateBooksSortedByStatusSheet($userId, 'want to read');
+        $readBooksSheet = self::generateBooksSortedByStatusSheet($userId, 'read');
+        $userReviewsSheet = self::generateUserReviewsSheet($userId);
+        $output = $userSheet . PHP_EOL . $allBooksSheet . PHP_EOL . $readingBooksSheet . PHP_EOL . $wantToReadBooksSheet . PHP_EOL . $readBooksSheet . PHP_EOL . $userReviewsSheet . PHP_EOL;
 
-        $user = UserRepository::getUserById($userId);
-        self::writeCSVHeader($csvFile, "User Sheet");
-        self::writeCSVData($csvFile, [$user->getFieldsAsArray()]);
-
-        self::addBooksWithReviews($csvFile, $userId, "all");
-        self::addBooksWithReviews($csvFile, $userId, "read");
-        self::addBooksWithReviews($csvFile, $userId, "reading");
-        self::addBooksWithReviews($csvFile, $userId, "want to read");
-        self::addMyReviews($csvFile, $userId);
-
-        fclose($csvFile);
+        file_put_contents($csvFilePath, $output);
 
         return $csvFilePath;
     }
@@ -54,78 +47,82 @@ class CsvService
         unlink($filePath);
     }
 
-    private static function addMyReviews($csvFile, $userId) : void
+    private static function generateUserSheet($userId) : string
     {
-        $myReviews = ReviewsRepository::getByUserId($userId);
-        self::writeCSVHeader($csvFile, "My Reviews");
+        $output = 'User Sheet' . PHP_EOL;
 
-        foreach ($myReviews as $review) {
-            $book = BookRepository::getById($review->book_id);
+        $columns = array('Id', 'Full Name', 'Email', 'Is Admin');
+        $output .= implode(',', $columns) . PHP_EOL;
 
-            // Prepare the review data
-            $rowData = [
-                'id' => $book->id,
-                'title' => $book->title,
-                'author' => $book->author,
-                'content' => $review->content
-            ];
+        $user = UserRepository::getUserById($userId);
+        $userData = $user->getFieldsAsArray();
+        $output .= implode(',', $userData) . PHP_EOL;
 
-            self::writeCSVData($csvFile, [$rowData]); // Convert $rowData into an array
-
-        }
+        return $output;
     }
 
-    private static function addBooksWithReviews($csvFile, $userId, $sheet_type = "all") : void
+    private static function generateAllBooksSheet($userId) : string
     {
-        $books = [];
-        $sheetName = "";
+        $output = 'All Books Sheet' . PHP_EOL;
 
-        switch ($sheet_type) {
-            case "read":
-                $books = BookRepository::getBooksByStatus($userId, "read");
-                $sheetName = "Read Books";
-                break;
-            case "reading":
-                $books = BookRepository::getBooksByStatus($userId, "reading");
-                $sheetName = "Reading Books";
-                break;
-            case "want to read":
-                $books = BookRepository::getBooksByStatus($userId, "want to read");
-                $sheetName = "Want to Read Books";
-                break;
-            default:
-                $books = BookRepository::getAll();
-                $sheetName = "All Books";
-                break;
-        }
+        $columns = array('Id', 'Title', 'Author', 'Genre', 'Description', 'Pages', 'ISBN', 'Publisher', 'Format', 'Publication Date');
+        $output .= implode(',', $columns) . PHP_EOL;
 
-        self::writeCSVHeader($csvFile, $sheetName);
+        $books = BookRepository::getAll();
+        self::setTheOutputForBooksWithReviews($books, $output);
 
+        return $output;
+    }
+
+    private static function generateBooksSortedByStatusSheet(string $userId, string $status) : string
+    {
+        //make first letter uppercase
+        $headerStatus = ucfirst($status);
+
+        $output = $headerStatus. ' Books Sheet' . PHP_EOL;
+
+        $columns = array('Id', 'Title', 'Author', 'Genre', 'Description', 'Pages', 'ISBN', 'Publisher', 'Format', 'Publication Date');
+        $output .= implode(',', $columns) . PHP_EOL;
+
+        $books = BookRepository::getBooksByStatus($userId, $status);
+
+        self::setTheOutputForBooksWithReviews($books, $output);
+
+        return $output;
+    }
+
+    private static function setTheOutputForBooksWithReviews(array $books, string $output) : void
+    {
         foreach ($books as $book) {
+            $bookData = $book->getFieldsAsArray();
             $reviews = ReviewsRepository::getByBookId($book->id);
-            self::writeBooksWithReviewsData($csvFile, $book, $reviews);
-        }
-    }
 
-    private static function writeCSVHeader($file, $sheetName) : void
-    {
-        fputcsv($file, [$sheetName], ',', '"');
-    }
-
-    private static function writeCSVData($file, $data) : void
-    {
-        if (!empty($data)) {
-            foreach ($data as $row) {
-                fputcsv($file, $row, ',', '"');
+            $review_order_number = 1;
+            foreach ($reviews as $review) {
+                $bookData['review_' . $review_order_number] = $review->content;
+                $review_order_number++;
             }
+
+            $output .= implode(',', $bookData) . PHP_EOL;
         }
     }
 
-    private static function writeBooksWithReviewsData($file, Book $book, array $reviews) : void
+    public static function generateUserReviewsSheet(string $userId) : string
     {
-        $rowData = array_values($book->getFieldsAsArray());
-        $reviewContent = array_column($reviews, 'content');
-        $rowData = array_merge($rowData, $reviewContent);
-        fputcsv($file, $rowData, ',', '"');
+        $output = 'User Reviews Sheet' . PHP_EOL;
+
+        $columns = array('Id', 'Book Id', 'Book title', 'Book author', 'Content', 'Review Date');
+        $output .= implode(',', $columns) . PHP_EOL;
+
+        $reviews = ReviewsRepository::getByUserId($userId);
+
+        foreach ($reviews as $review) {
+            $book = BookRepository::getById($review->book_id);
+            $rowData  = array($review->id, $review->book_id, $book->title, $book->author, $review->content, $review->review_date);
+            $output .= implode(',', $rowData) . PHP_EOL;
+        }
+
+        return $output;
     }
+
 }
