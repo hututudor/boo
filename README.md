@@ -2,7 +2,7 @@
 
 ## Presentation video
 
-https://drive.google.com/file/d/1eJBw0cgCiLcngbw56r-epITt-rymLiH-/view?usp=sharing# Boo
+https://drive.google.com/file/d/1eJBw0cgCiLcngbw56r-epITt-rymLiH-/view?usp=sharing#
 
 ## OpenAPI docs
 
