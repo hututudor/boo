@@ -1,9 +1,5 @@
 # Boo
 
-## Presentation video
-
-https://drive.google.com/file/d/1eJBw0cgCiLcngbw56r-epITt-rymLiH-/view?usp=sharing#
-
 ## OpenAPI docs
 
 https://app.swaggerhub.com/apis-docs/hututudor/boo/1.0
